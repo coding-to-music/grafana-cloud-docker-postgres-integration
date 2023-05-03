@@ -254,3 +254,70 @@ SELECT COUNT(*) FROM ev_locations;
  70405
 ```
 
+## Install the Grafana agent
+
+### Check prerequisites
+
+Replace `GCLOUD_RW_API_KEY` with your own API key.
+
+Run this command to install and run Grafana Agent as a grafana-agent.service systemd service
+
+```
+ARCH="amd64" GCLOUD_HOSTED_METRICS_URL="https://prometheus-prod-10-prod-us-central-0.grafana.net/api/prom/push" GCLOUD_HOSTED_METRICS_ID="479670" GCLOUD_SCRAPE_INTERVAL="60s" GCLOUD_HOSTED_LOGS_URL="https://logs-prod3.grafana.net/loki/api/v1/push" GCLOUD_HOSTED_LOGS_ID="238805" GCLOUD_RW_API_KEY="GCLOUD_RW_API_KEY" /bin/sh -c "$(curl -fsSL https://storage.googleapis.com/cloud-onboarding/agent/scripts/grafanacloud-install.sh)"
+```
+
+Output:
+
+```
+--- Verifying package checksum
+grafana-agent-0.33.1-1.amd64.deb: OK
+[sudo] password: 
+Selecting previously unselected package grafana-agent.
+(Reading database ... 212640 files and directories currently installed.)
+Preparing to unpack .../grafana-agent-0.33.1-1.amd64.deb ...
+Unpacking grafana-agent (0.33.1-1) ...
+Setting up grafana-agent (0.33.1-1) ...
+--- Retrieving config and placing in /etc/grafana-agent.yaml
+--- Enabling and starting grafana-agent.service
+Created symlink /etc/systemd/system/multi-user.target.wants/grafana-agent.service → /lib/systemd/system/grafana-agent.service.
+
+Grafana Agent is now running! To check the status of your Agent, run:
+   sudo systemctl status grafana-agent.service
+```
+
+Awesome! The agent is good to go.
+
+You are now running the agent on your machine. We automatically installed the `Agent integration`
+so you can access agent metadata, dashboards, and alerts, which will help you check on the health of your agent. If you do not want this integration, you may uninstall this integration without any impact to the agent.
+
+### Check prerequisites specific to the PostgreSQL integration
+
+The PostgreSQL user is required to gather metrics. While you can use `root` user for testing, we strongly advice that you configure a separate user for the Grafana Agent, and give it only the strictly mandatory security privileges necessary for monitoring your node, as per the official documentation.
+
+## Configure integration
+
+Run each of these configuration snippets in the appropriate place in your config file. This example configuration provides a good model for what your configuration should look like for the first integration that you install.
+
+Follow instructions specific to the PostgreSQL integration
+
+For help finding your agent configuration file, refer to this documentation.  https://grafana.com/docs/agent/latest/set-up/install-agent-linux/#operation-guide
+
+## Integration
+
+Below `integrations`, insert the following lines and change the URLs according to your environment:
+
+```
+  postgres_exporter:
+    enabled: true
+    data_source_names:
+      - postgresql://root@localhost:5432
+```
+
+Enable the integration by adding the provided snippets to your Grafana Agent configuration file.
+
+Make sure to change the `data_source_names` to the addresses of the Postgres servers you want to monitor in the agent config.
+
+For a full description of configuration options see how to configure the `postgres_exporter_config` block in the agent documentation.
+
+https://grafana.com/docs/agent/latest/configuration/integrations/postgres-exporter-config/
+
