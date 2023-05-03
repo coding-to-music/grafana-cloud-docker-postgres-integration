@@ -290,6 +290,42 @@ Awesome! The agent is good to go.
 You are now running the agent on your machine. We automatically installed the `Agent integration`
 so you can access agent metadata, dashboards, and alerts, which will help you check on the health of your agent. If you do not want this integration, you may uninstall this integration without any impact to the agent.
 
+### Verify that the repository is properly configured using yum-config-manager:
+
+```
+yum-config-manager grafana
+```
+
+### Install Grafana Agent:
+
+```
+sudo yum install grafana-agent
+```
+
+### Operation guide
+
+The Grafana Agent will be configured a systemd service after using the installation methods explained in the previous sections.
+
+### Start the Agent
+
+To run the service you just need to type:
+
+```
+sudo systemctl start grafana-agent
+```
+
+You can check the status of the running agent typing:
+
+```
+sudo systemctl status grafana-agent
+```
+
+Alternately, you can configure the Grafana Agent to restart at boot:
+
+```
+sudo systemctl enable grafana-agent.service
+```
+
 ### Check prerequisites specific to the PostgreSQL integration
 
 The PostgreSQL user is required to gather metrics. While you can use `root` user for testing, we strongly advice that you configure a separate user for the Grafana Agent, and give it only the strictly mandatory security privileges necessary for monitoring your node, as per the official documentation.
@@ -321,3 +357,26 @@ For a full description of configuration options see how to configure the `postgr
 
 https://grafana.com/docs/agent/latest/configuration/integrations/postgres-exporter-config/
 
+### Editing the Agent’s config file
+
+By default, the config file is located in `/etc/grafana-agent.yaml` . After editing the file with the desired config, you need to restart the agent running:
+
+```
+sudo systemctl restart grafana-agent
+```
+
+### Check the logs of running Agent
+
+You can check the logs of running agent typing:
+
+```
+sudo journalctl -u grafana-agent
+```
+
+Output
+
+```
+Sep 02 14:33:28 grafana systemd[1]: Started Monitoring system and forwarder.
+Sep 02 14:33:28 grafana grafana-agent[1633180]: ts=2022-09-02T12:33:28Z level=info caller=traces/traces.go:143 msg="Traces Logger I>
+Sep 02 14:37:45 grafana systemd[1]: Stopping Monitoring system and forwarder...
+```
