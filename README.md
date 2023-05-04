@@ -42,7 +42,6 @@ git push -u origin main
 
 ```
 yarn install
-yarn build
 yarn start
 yarn simulation
 yarn loaddata
