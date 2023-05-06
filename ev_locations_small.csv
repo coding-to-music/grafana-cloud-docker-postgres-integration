@@ -1,10 +1,1 @@
 CNG,Spire - Montgomery Operations Center,2951 Chestnut St,Montgomery,AL,36107,,E,Private,,32.367916,-86.267021,STANDALONE_STATION
-CNG,PS Energy - Atlanta,340 Whitehall St,Atlanta,GA,30303,,E,Public - Card key at all times,24 hours daily,33.745843,-84.398837,STANDALONE_STATION
-CNG,Metropolitan Atlanta Rapid Transit Authority,2424 Piedmont Rd NE,Atlanta,GA,30324,,E,Private - Government only,,33.821911,-84.367461,FLEET_GARAGE
-CNG,United Parcel Service,270 Marvin Miller Dr,Atlanta,GA,30336,,E,Private,,33.760256,-84.543822,STANDALONE_STATION
-CNG,Arkansas Oklahoma Gas Corp,2100 S Waldron Rd,Fort Smith,AR,72903,,E,Public - Credit card at all times,24 hours daily,35.362213,-94.375338,UTILITY
-CNG,Clean Energy - Logan International Airport,1000 Cottage St Ext,East Boston,MA,02128,,E,Public - Credit card at all times,24 hours daily; call 866-809-4869 for Clean Energy card,42.37470554648246,-71.02654860574343,AIRPORT
-CNG,Clean Energy - Everett - National Grid,16 Rover St,Everett,MA,02149,,E,Public - Credit card at all times,24 hours daily; call 866-809-4869 for Clean Energy card,42.393167,-71.064352,STANDALONE_STATION
-CNG,Clean Energy - Greenpoint - National Grid,287 Maspeth Ave,Brooklyn,NY,11211,,E,Public - Credit card at all times,24 hours daily; call 866-809-4869 for Clean Energy card,40.718037,-73.932309,UTILITY
-CNG,Canarsie - National Grid,8424 Ditmas Ave,Brooklyn,NY,11236,,E,Public - Credit card at all times,24 hours daily; call 866-809-4869 for Clean Energy card; Also accepts OGS,40.64554,-73.918344,UTILITY
-CNG,Con Edison - W 29th St Service Center,281 11th Ave,New York,NY,10001,,E,Public - Card key at all times,24 hours daily; call 718-204-4100 to arrange for card key,40.752903,-74.005831,UTILITY

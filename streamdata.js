@@ -25,6 +25,12 @@ let csvStream = fastcsv
       port: process.env.POSTGRES_PORT,
     });
 
+    const schemaQuery = `
+    SELECT column_name, data_type 
+    FROM information_schema.columns 
+    WHERE table_name = 'ev_locations';
+  `;
+
     const dropRecreateQuery = `
       BEGIN;
       DROP TABLE IF EXISTS ev_locations;
@@ -49,8 +55,28 @@ let csvStream = fastcsv
     `;
 
     const copyQuery =
-      "INSERT INTO ev_locations (Fuel_Type_Code, Station_Name, Street_Address, City, State, ZIP, Plus4, Status_Code, Groups_With_Access_Code, Access_Days_Time, Latitude, Longitude, Facility_Type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)";
+      "INSERT INTO ev_locations (fuel_type_code, Station_Name, Street_Address, City, State, ZIP, Plus4, Status_Code, Groups_With_Access_Code, Access_Days_Time, Latitude, Longitude, Facility_Type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)";      
 
+    // const copyQuery =
+    //   "INSERT INTO ev_locations (Fuel_Type_Code, Station_Name, Street_Address, City, State, ZIP, Plus4, Status_Code, Groups_With_Access_Code, Access_Days_Time, Latitude, Longitude, Facility_Type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)";
+
+    pool.query(schemaQuery, (err, res) => {
+      if (err) {
+        console.log(err.stack);
+        return;
+      }
+      
+      // Check if res.rows is defined and is an array
+      if (Array.isArray(res.rows)) {
+        // Iterate over each row in res.rows
+        res.rows.forEach(row => {
+          console.log(row.column_name + " " + row.data_type);
+        });
+      } else {
+        console.log("No rows found.");
+      }
+    });
+            
     // pool.query(dropRecreateQuery, (err, res) => {
     //   if (err) {
     //     console.log(err.stack);
