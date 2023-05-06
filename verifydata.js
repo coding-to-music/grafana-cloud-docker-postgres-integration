@@ -1,55 +1,35 @@
-const fs = require("fs");
 const { Pool } = require("pg");
-const fastcsv = require("fast-csv");
 require('dotenv').config();
 
-let stream = fs.createReadStream("ev_locations.csv");
-let lineCount = 0;
-let csvStream = fastcsv
-  .parse()
-  .on("data", function(data) {
-    lineCount++;
-  })
-  .on("end", function() {
-    console.log(`Total number of rows in CSV file: ${lineCount}`);
+const pool = new Pool({
+  user: process.env.POSTGRES_USER,
+  host: process.env.POSTGRES_HOST,
+  database: process.env.POSTGRES_DB,
+  password: process.env.POSTGRES_PW,
+  port: process.env.POSTGRES_PORT,
+});
 
-    // create a new connection to the database
-    const pool = new Pool({
-      user: process.env.POSTGRES_USER,
-      host: process.env.POSTGRES_HOST,
-      database: process.env.POSTGRES_DB,
-      password: process.env.POSTGRES_PW,
-      port: process.env.POSTGRES_PORT,
-    });
+(async () => {
+  try {
+    const { rows: rowCount } = await pool.query('SELECT COUNT(*) FROM ev_locations');
+    console.log(`Row count: ${rowCount[0].count}`);
 
-    pool.connect((err, client, done) => {
-      if (err) throw err;
+    const { rows: schema } = await pool.query(`
+      SELECT column_name, data_type, character_maximum_length
+      FROM information_schema.columns
+      WHERE table_name = 'ev_locations'
+      ORDER BY ordinal_position;
+    `);
 
-      try {
-        client.query("SELECT COUNT(*) FROM ev_locations", (err, res) => {
-          if (err) {
-            console.log(err.stack);
-          } else {
-            console.log(`Total rows in table: ${res.rows[0].count}`);
-          }
-        });
+    const schemaString = schema.map(column => {
+      const dataType = column.data_type === 'character varying' ? `${column.data_type}(${column.character_maximum_length})` : column.data_type;
+      return `${column.column_name} ${dataType}`;
+    }).join(",\n        ");
 
-        client.query("SELECT column_name, data_type FROM information_schema.columns WHERE table_name = 'ev_locations'", (err, res) => {
-          if (err) {
-            console.log(err.stack);
-          } else {
-            console.log("Table schema:");
-            res.rows.forEach(row => {
-              console.log(`${row.column_name} - ${row.data_type}`);
-            });
-          }
-
-          done();
-        });
-      } finally {
-        pool.end();
-      }
-    });
-  });
-
-stream.pipe(csvStream);
+    console.log(`Schema:\nCREATE TABLE ev_locations (\n        ${schemaString},\n        CONSTRAINT "ev_locations_pkey" PRIMARY KEY ("id")\n      );`);
+  } catch (error) {
+    console.error('Error:', error);
+  } finally {
+    await pool.end();
+  }
+})();
