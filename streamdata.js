@@ -29,6 +29,7 @@ let csvStream = fastcsv
       BEGIN;
       DROP TABLE IF EXISTS ev_locations;
       CREATE TABLE ev_locations (
+        id SERIAL PRIMARY KEY,
         Fuel_Type_Code VARCHAR(100),
         Station_Name VARCHAR(255),
         Street_Address VARCHAR(255),
