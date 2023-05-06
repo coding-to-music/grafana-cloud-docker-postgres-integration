@@ -51,14 +51,14 @@ let csvStream = fastcsv
     const copyQuery =
       "INSERT INTO ev_locations (Fuel_Type_Code, Station_Name, Street_Address, City, State, ZIP, Plus4, Status_Code, Groups_With_Access_Code, Access_Days_Time, Latitude, Longitude, Facility_Type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)";
 
-    pool.query(dropRecreateQuery, (err, res) => {
-      if (err) {
-        console.log(err.stack);
-        return;
-      } else {
-        console.log("Table 'ev_locations' dropped and recreated successfully");
-      }
-    });
+    // pool.query(dropRecreateQuery, (err, res) => {
+    //   if (err) {
+    //     console.log(err.stack);
+    //     return;
+    //   } else {
+    //     console.log("Table 'ev_locations' dropped and recreated successfully");
+    //   }
+    // });
 
     let count = 0;
     let errorCount = 0;
