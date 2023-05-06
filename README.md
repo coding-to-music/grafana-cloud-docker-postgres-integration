@@ -164,10 +164,61 @@ wc -l ev_locations.csv
 sudo apt install postgresql-client
 ```
 
-## connect via postgresql-client 
+## Install using Debian or Ubuntu's default repositories
 
+Both Ubuntu and Debian provide versions of PostgreSQL server as packages within their default repositories. The PostgreSQL version may be older than those found on the PostgreSQL website, but this is the simplest way to install on these distributions.
+
+To install PostgreSQL server, update your computer's local package cache with the latest set of packages. Afterwards, install the postgresql package:
+
+```java
+sudo apt update
+sudo apt install postgresql
 ```
+
+By default, PostgreSQL is configured to use peer authentication, which allows users to log in if their operating system user name matches a PostgreSQL internal name.
+
+The installation process created an operating system user called postgres to match the postgres database administrative account. To log into PostgreSQL with the psql client, use sudo to run the command as the postgres user:
+
+```java
+sudo -u postgres psql
+
+or
+
 psql -h localhost -p 5432 -U postgres
+```
+
+Once you are connected to your database, run the following command to list all tables in the current schema:
+
+```java
+\dt
+```
+
+This should display a list of all tables in the current schema, including the tables you have created.
+
+If you want to see more information about a specific table, you can use the \d command followed by the name of the table. For example, if you want to see the details of the ev_locations table, you can run:
+
+```java
+\d ev_locations
+```
+
+This should display information about the columns, constraints, and indexes defined on the ev_locations table.
+
+You can check the current database and schema in psql by running the following command:
+
+```java
+SELECT current_database(), current_schema();
+```
+
+To list the different databases in PostgreSQL, you can use the following command in the psql command-line interface:
+
+```java
+\list
+```
+
+When you are finished, you can exit the psql session by typing:
+
+```java
+\quit
 ```
 
 Try a command, always end with a semicolin;
@@ -182,6 +233,8 @@ verify
 
 ```
 SELECT COUNT(*) FROM mytable;
+
+SELECT COUNT(*) FROM ev_locations;
 ```
 
 Full example of connecting and executing commands

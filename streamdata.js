@@ -29,7 +29,7 @@ let csvStream = fastcsv
       BEGIN;
       DROP TABLE IF EXISTS ev_locations;
       CREATE TABLE ev_locations (
-        id SERIAL PRIMARY KEY,
+        "id" SERIAL NOT NULL,
         Fuel_Type_Code VARCHAR(100),
         Station_Name VARCHAR(255),
         Street_Address VARCHAR(255),
@@ -42,7 +42,8 @@ let csvStream = fastcsv
         Access_Days_Time VARCHAR(255),
         Latitude DECIMAL(20, 10),
         Longitude DECIMAL(20, 10),
-        Facility_Type VARCHAR(100)
+        Facility_Type VARCHAR(100),
+        CONSTRAINT "ev_locations_pkey" PRIMARY KEY ("id")
       );
       COMMIT;
     `;
