@@ -9,6 +9,8 @@ From / By
 
 Data comes from https://github.com/coding-to-music/ev-charging-stations-kaggle
 
+Load data via https://github.com/coding-to-music/streets-prisma-postgresql-seed
+
 https://volkovlabs.io/blog/how-to-create-your-first-grafana-dashboard-bd0f68d631bd/
 
 https://www.youtube.com/watch?v=HNCKbGfAU0Q&ab_channel=VolkovLabs
