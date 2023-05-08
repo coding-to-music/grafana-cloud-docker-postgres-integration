@@ -21,7 +21,6 @@ pgAdmin and simulation comes from https://github.com/coding-to-music/postgresql-
 ## Environment variables:
 
 ```java
-
 ```
 
 ## user interfaces:
