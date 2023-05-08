@@ -433,3 +433,11 @@ Sep 02 14:33:28 grafana systemd[1]: Started Monitoring system and forwarder.
 Sep 02 14:33:28 grafana grafana-agent[1633180]: ts=2022-09-02T12:33:28Z level=info caller=traces/traces.go:143 msg="Traces Logger I>
 Sep 02 14:37:45 grafana systemd[1]: Stopping Monitoring system and forwarder...
 ```
+
+## Grafana Histogram using table Street
+
+```
+SELECT width, COUNT(*) as count
+FROM street
+GROUP BY width
+```
