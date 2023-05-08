@@ -440,4 +440,5 @@ Sep 02 14:37:45 grafana systemd[1]: Stopping Monitoring system and forwarder...
 SELECT width, COUNT(*) as count
 FROM street
 GROUP BY width
+ORDER BY width
 ```
