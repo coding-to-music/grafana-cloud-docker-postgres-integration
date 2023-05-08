@@ -442,3 +442,35 @@ FROM street
 GROUP BY width
 ORDER BY width
 ```
+
+## Use Prisma to view the data
+
+Install Prisma CLI by running 
+
+```java
+npm install -g prisma
+```
+
+## View data with Prisma studio
+
+Prisma Studio is a visual editor for the data in your database. You can run it with two ways:
+
+Run `npx prisma studio` in your terminal.
+
+```java
+npx prisma studio
+```
+
+
+## Streets visualizations
+
+| Content | Visualization Type | Comment |
+| -------- | -------- | -------- |
+| # of streets  | Data 2a  | Data 3a  |
+| # of accepted streets  | Data 2b  | Data 3b  |
+| Data 1c  | Data 2c  | Data 3c  |
+| Data 1d  | Data 2d  | Data 3d  |
+| Data 1e  | Data 2e  | Data 3e  |
+| Data 1f  | Data 2f  | Data 3f  |
+| Data 1g  | Data 2g  | Data 3g  |
+| Data 1h  | Data 2h  | Data 3h  |
