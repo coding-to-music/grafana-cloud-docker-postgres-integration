@@ -443,7 +443,60 @@ GROUP BY width
 ORDER BY width
 ```
 
-## Use Prisma to view the data
+# ◭ Prisma is a modern DB toolkit to query, migrate and model your database (https://prisma.io)
+
+```java
+npx prisma
+```
+
+Output
+
+```java
+◭  Prisma is a modern DB toolkit to query, migrate and model your database (https://prisma.io)
+
+Usage
+
+  $ prisma [command]
+
+Commands
+
+            init   Set up Prisma for your app
+        generate   Generate artifacts (e.g. Prisma Client)
+              db   Manage your database schema and lifecycle
+         migrate   Migrate your database
+          studio   Browse your data with Prisma Studio
+          format   Format your schema
+
+Flags
+
+     --preview-feature   Run Preview Prisma commands
+
+Examples
+
+  Set up a new Prisma project
+  $ prisma init
+
+  Generate artifacts (e.g. Prisma Client)
+  $ prisma generate
+
+  Browse your data
+  $ prisma studio
+
+  Create migrations from your Prisma schema, apply them to the database, generate artifacts (e.g. Prisma Client)
+  $ prisma migrate dev
+
+  Pull the schema from an existing database, updating the Prisma schema
+  $ prisma db pull
+
+  Push the Prisma schema state to the database
+  $ prisma db push
+```
+
+## Have prisma read the table in the database and generate it's own model
+
+To have Prisma read an existing table in the database and generate its own model, you can use the Prisma CLI's introspect command. This command inspects your database schema and generates a Prisma schema based on it.
+
+Here are the steps you can follow:
 
 Install Prisma CLI by running 
 
@@ -451,14 +504,95 @@ Install Prisma CLI by running
 npm install -g prisma
 ```
 
-## Introspect the database schema
+Create a new Prisma schema file if you haven't already. You can do this by running prisma init in your project directory and selecting a database provider (in your case, Postgres).
+
+In your terminal, run prisma introspect followed by the connection URL to your database, for example:
+
+```java
+prisma introspect postgres://username:password@host:port/database
+```
+
+This will introspect your Postgres database and generate a Prisma schema file based on the existing tables and columns.
+
+After running the prisma introspect command, you should see a new schema.prisma file in your project directory. This file will contain the models and fields that Prisma has generated based on the existing database schema.
+Note that Prisma's generated schema may not perfectly match your existing database schema, so you may need to make adjustments to it. For example, you may need to add or remove fields, or specify custom mappings for specific fields. Once you have made the necessary changes, you can run prisma generate to generate the Prisma client based on your updated schema.
 
 ```java
 npx prisma db pull
 ```
 
+```java
+Prisma schema loaded from prisma/schema.prisma
+Environment variables loaded from .env
+Datasource "db": PostgreSQL database "prisma-postgresql-seeding-example", schema "public" at "localhost:5432"
 
-## View data with Prisma studio
+✖ Introspecting based on datasource defined in prisma/schema.prisma
+
+Error: P1012 Introspection failed as your current Prisma schema file is invalid
+
+Please fix your current schema manually, use prisma validate to confirm it is valid and then run this command again.
+Or run this command with the --force flag to ignore your current schema and overwrite it. All local modifications will be lost.
+```
+
+Fix via force
+
+```java
+npx prisma db pull --force
+```
+
+Output
+
+```java
+Prisma schema loaded from prisma/schema.prisma
+Environment variables loaded from .env
+Datasource "db": PostgreSQL database "prisma-postgresql-seeding-example", schema "public" at "localhost:5432"
+
+✔ Introspected 3 models and wrote them into prisma/schema.prisma in 239ms
+
+Run prisma generate to generate Prisma Client.
+```
+
+```java
+npx prisma generate
+```
+
+Output
+
+````java
+Environment variables loaded from .env
+Prisma schema loaded from prisma/schema.prisma
+
+✔ Generated Prisma Client (3.14.0 | library) to ./node_modules/@prisma/client in 278ms
+You can now start using Prisma Client in your code. Reference: https://pris.ly/d/client
+
+```java
+import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient()
+````
+
+```java
+npx prisma migrate dev --name init
+```
+
+Output
+
+```java
+Environment variables loaded from .env
+Prisma schema loaded from prisma/schema.prisma
+Datasource "db": PostgreSQL database "prisma-postgresql-seeding-example", schema "public" at "localhost:5432"
+
+Applying migration `20220519084519_init`
+
+The following migration(s) have been created and applied from new schema changes:
+
+migrations/
+  └─ 20220519084519_init/
+    └─ migration.sql
+
+Your database is now in sync with your schema.
+
+✔ Generated Prisma Client (3.14.0 | library) to ./node_modules/@prisma/client in 220ms
+```
 
 Prisma Studio is a visual editor for the data in your database. You can run it with two ways:
 
@@ -468,6 +602,99 @@ Run `npx prisma studio` in your terminal.
 npx prisma studio
 ```
 
+## Install Postgresql on Debian and Ubuntu
+
+You can either choose to use the version of PostgreSQL available in your distribution's default repositories or use repositories provided by the PostgreSQL project. Packages in the default repository are tested to work with all other software provided for your distribution, but may be older. Packages from the PostgreSQL project will be more up-to-date but may require extra configuration.
+
+[Install using Debian or Ubuntu's default repositories](https://www.prisma.io/dataguide/postgresql/setting-up-a-local-postgresql-database#install-using-debian-or-ubuntus-default-repositories)
+
+[Install using the PostgreSQL project's Debian and Ubuntu repositories](https://www.prisma.io/dataguide/postgresql/setting-up-a-local-postgresql-database#install-using-the-postgresql-projects-debian-and-ubuntu-repositories)
+
+## Install using Debian or Ubuntu's default repositories
+
+Both Ubuntu and Debian provide versions of PostgreSQL server as packages within their default repositories. The PostgreSQL version may be older than those found on the PostgreSQL website, but this is the simplest way to install on these distributions.
+
+To install PostgreSQL server, update your computer's local package cache with the latest set of packages. Afterwards, install the postgresql package:
+
+```java
+sudo apt update
+sudo apt install postgresql
+```
+
+By default, PostgreSQL is configured to use peer authentication, which allows users to log in if their operating system user name matches a PostgreSQL internal name.
+
+The installation process created an operating system user called postgres to match the postgres database administrative account. To log into PostgreSQL with the psql client, use sudo to run the command as the postgres user:
+
+```java
+sudo -u postgres psql
+
+or
+
+psql -h localhost -p 5432 -U postgres
+```
+
+Once you are connected to your database, run the following command to list all tables in the current schema:
+
+```java
+\dt
+```
+
+This should display a list of all tables in the current schema, including the tables you have created.
+
+If you want to see more information about a specific table, you can use the \d command followed by the name of the table. For example, if you want to see the details of the ev_locations table, you can run:
+
+```java
+\d ev_locations
+```
+
+To determine the name of the database and schema that you are currently connected to in psql, you can use the \conninfo command.
+
+Simply open psql and run the following command:
+
+```java
+\conninfo
+```
+
+This should display information about the columns, constraints, and indexes defined on the ev_locations table.
+
+```java
+You are connected to database "mydatabase" as user "myuser" via socket in "/var/run/postgresql" at port "5432".
+```
+
+You can check the current database and schema in psql by running the following command:
+
+```java
+SELECT current_database(), current_schema();
+```
+
+To list the different databases in PostgreSQL, you can use the following command in the psql command-line interface:
+
+```java
+\list
+```
+
+If you've inserted rows into your database outside of Prisma, then Prisma's knowledge of the number of rows in the affected table(s) may be out of date. To update Prisma's knowledge of the row count, you can use the prisma.db.$queryRaw() method to execute a SQL query that retrieves the row count for the table.
+
+Here's an example of how to update Prisma's knowledge of the row count for the ev_locations table:
+
+```java
+const rowCount = await prisma.db.$queryRaw(
+  'SELECT COUNT(*) FROM ev_locations'
+);
+prisma.ev_locations.count = rowCount[0].count;
+```
+
+In this example, the prisma.db.$queryRaw() method is used to execute a SQL query that returns the row count for the ev_locations table. The result is an array with a single object that has a count property. This property contains the row count for the table.
+
+The count property is then assigned to the count property of the ev_locations Prisma client, which updates Prisma's knowledge of the row count for the table.
+
+You can use similar code to update the row count for any other tables that you've modified outside of Prisma.
+
+When you are finished, you can exit the psql session by typing:
+
+```java
+\quit
+```
 
 ## Streets visualizations
 
