@@ -30,6 +30,7 @@
     "simulation": "node ./simulation.js",
     "loaddata": "node ./streamdata.js",
     "verifydata": "node ./verifydata.js",
+    "seed": "prisma db push && node prisma/seed/index.js",
     "watch": "grafana-toolkit plugin:dev --watch"
   },
   "version": "2.8.0",
