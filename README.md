@@ -696,15 +696,41 @@ When you are finished, you can exit the psql session by typing:
 \quit
 ```
 
+## Street schema
+
+```
+CREATE TABLE "street" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT,
+    "from" TEXT,
+    "to" TEXT,
+    "width" TEXT,
+    "length" TEXT,
+    "date" TEXT,
+    "noncity" TEXT,
+    "unnacceptedlength" TEXT,
+    "area" INTEGER DEFAULT 0,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "street_pkey" PRIMARY KEY ("id")
+);
+```
+
 ## Streets visualizations
 
-| Content | Visualization Type | Comment |
-| -------- | -------- | -------- |
-| # of streets  | Data 2a  | Data 3a  |
-| # of accepted streets  | Data 2b  | Data 3b  |
-| Data 1c  | Data 2c  | Data 3c  |
-| Data 1d  | Data 2d  | Data 3d  |
-| Data 1e  | Data 2e  | Data 3e  |
+| Content                           | Visualization Type | Comment |
+| --------                          | -------- | -------- |
+| # of streets                      | SingleStat  | Data 3a  |
+| # of accepted streets             | SingleStat  | Data 3b  |
+| # of unaccepted streets           | SingleStat  | Data 3b  |
+| Length of accepted streets        | SingleStat  | Data 3c  |
+| Length of unaccepted streets      | SingleStat  | Data 3c  |
+| area of accepted streets          | SingleStat  | Data 3d  |
+| area of unaccepted streets        | SingleStat  | Data 3d  |
+| Year Accepted                     | Histogram by decade  | Data 3e  |
+| Accepted Length by Year Accepted  | Histogram by decade  | Data 3e  |
+| Accepted Length by Year Accepted  | Treemap  | Data 3e  |
 | Data 1f  | Data 2f  | Data 3f  |
 | Data 1g  | Data 2g  | Data 3g  |
 | Data 1h  | Data 2h  | Data 3h  |
