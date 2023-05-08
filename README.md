@@ -451,6 +451,13 @@ Install Prisma CLI by running
 npm install -g prisma
 ```
 
+## Introspect the database schema
+
+```java
+npx prisma db pull
+```
+
+
 ## View data with Prisma studio
 
 Prisma Studio is a visual editor for the data in your database. You can run it with two ways:
