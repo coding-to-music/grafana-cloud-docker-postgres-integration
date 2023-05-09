@@ -782,17 +782,40 @@ accepted_length_sum_miles
 SELECT SUM(CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER)) AS accepted_length_sum
 FROM street
 WHERE CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0
-AND CAST(regexp_replace(width, '\D', '', 'g') AS INTEGER) > 50;
+AND CAST(regexp_replace(width, '\D', '', 'g') AS INTEGER) >= 50;
 
 accepted_length_sum_feet
 121883 feet
+253251 feet
 
 ## length converted to miles
 SELECT ROUND(SUM(CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS accepted_length_sum_miles
 FROM street
 WHERE CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0
-AND CAST(regexp_replace(width, '\D', '', 'g') AS INTEGER) > 50;
+AND CAST(regexp_replace(width, '\D', '', 'g') AS INTEGER) >= 50;
 
 accepted_length_sum_miles
-23.08 miles
+47.96 miles
+```
+
+## Length of accepted streets with width greater than 60 feet
+
+```java
+## sum of length for non-null lengths
+SELECT SUM(CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER)) AS accepted_length_sum
+FROM street
+WHERE CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0
+AND CAST(regexp_replace(width, '\D', '', 'g') AS INTEGER) >= 60;
+
+accepted_length_sum_feet
+121173 feet
+
+## length converted to miles
+SELECT ROUND(SUM(CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS accepted_length_sum_miles
+FROM street
+WHERE CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0
+AND CAST(regexp_replace(width, '\D', '', 'g') AS INTEGER) >= 60;
+
+accepted_length_sum_miles
+22.95 miles
 ```
