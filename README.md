@@ -734,3 +734,11 @@ CREATE TABLE "street" (
 | Data 1f  | Data 2f  | Data 3f  |
 | Data 1g  | Data 2g  | Data 3g  |
 | Data 1h  | Data 2h  | Data 3h  |
+
+Length is populated with the accepted length - if Length is null then the street is unaccepted
+Dock st is 197 feet accepted plus 226 feet unaccepted
+The rows that are most relevant have non-null length - basically ignore all rows with null length
+
+1128 rows
+select count(*) from street;
+select count(*) from street where length is null;
