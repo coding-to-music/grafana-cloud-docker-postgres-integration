@@ -719,18 +719,18 @@ CREATE TABLE "street" (
 
 ## Streets visualizations
 
-| Content                           | Example Value | Visualization Type    | Query    |
-| --------                          | --------      | --------              | -------- |
-| # of streets                      | 1280          | SingleStat            | select count(*) from street;  |
-| # of accepted streets             |  820          | SingleStat            | select count(*) from street where length is not null; |
-| # of unaccepted streets           |  308          | SingleStat            | select count(*) from street where length is null; |
-| Length of accepted streets        |               | SingleStat            | Data 3c  |
-| Length of unaccepted streets      |               | SingleStat            | Data 3c  |
-| area of accepted streets          |               | SingleStat            | Data 3d  |
-| area of unaccepted streets        |               | SingleStat            | Data 3d  |
-| Year Accepted                     |               | Histogram by decade   | Data 3e  |
-| Accepted Length by Year Accepted  |               | Histogram by decade   | Data 3e  |
-| Accepted Length by Year Accepted  |               | Treemap               | Data 3e  |
+| Content                           | Example Value   | Visualization Type    | Query    |
+| --------                          | --------        | --------              | -------- |
+| # of streets                      | 1280            | SingleStat            | select count(*) from street;  |
+| # of accepted streets             |  820            | SingleStat            | select count(*) from street where length is not null; |
+| # of unaccepted streets           |  308            | SingleStat            | select count(*) from street where length is null; |
+| Length of accepted streets        | 114.16 miles    | SingleStat            | Data 3c  |
+| Length of unaccepted streets      | Can't Calculate | SingleStat            | Data 3c  |
+| area of accepted streets          |                 | SingleStat            | Data 3d  |
+| area of unaccepted streets        |                 | SingleStat            | Data 3d  |
+| Year Accepted                     |                 | Histogram by decade   | Data 3e  |
+| Accepted Length by Year Accepted  |                 | Histogram by decade   | Data 3e  |
+| Accepted Length by Year Accepted  |                 | Treemap               | Data 3e  |
 | Data 1f  |               | Data 2f  | Data 3f  |
 | Data 1g  |               | Data 2g  | Data 3g  |
 | Data 1h  |               | Data 2h  | Data 3h  |
@@ -775,6 +775,48 @@ accepted_length_sum_miles
 114.16 miles
 ```
 
+## Length of unaccepted streets
+
+```java
+## sum of length for non-null lengths
+SELECT SUM(CAST(regexp_replace(unnacceptedlength, '\D', '', 'g') AS INTEGER)) AS unaccepted_length_sum
+FROM street
+WHERE CAST(regexp_replace(unnacceptedlength, '\D', '', 'g') AS INTEGER) > 0;
+
+accepted_length_sum_feet
+84460 feet
+
+## length converted to miles
+SELECT ROUND(SUM(CAST(regexp_replace(unnacceptedlength, '\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS unaccepted_length_sum_miles
+FROM street
+WHERE CAST(regexp_replace(unnacceptedlength, '\D', '', 'g') AS INTEGER) > 0;
+
+accepted_length_sum_miles
+16.00 miles
+```
+
+## Length of unaccepted streets with width greater than 50 feet
+
+```java
+## sum of length for non-null lengths
+SELECT SUM(CAST(regexp_replace(unnacceptedlength, '\D', '', 'g') AS INTEGER)) AS unaccepted_length_sum
+FROM street
+WHERE CAST(regexp_replace(unnacceptedlength, '\D', '', 'g') AS INTEGER) > 0
+AND CAST(regexp_replace(width, '\D', '', 'g') AS INTEGER) >= 50;
+
+unaccepted_length_sum_feet
+23887 feet
+
+## length converted to miles
+SELECT ROUND(SUM(CAST(regexp_replace(street.unnacceptedlength, '\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS unaccepted_length_sum_miles
+FROM street
+WHERE CAST(regexp_replace(street.unnacceptedlength, '\D', '', 'g') AS INTEGER) > 0
+AND CAST(regexp_replace(width, '\D', '', 'g') AS INTEGER) >= 50;
+
+unaccepted_length_sum_miles
+4.52 miles
+```
+
 ## Length of accepted streets with width greater than 50 feet
 
 ```java
@@ -785,7 +827,6 @@ WHERE CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0
 AND CAST(regexp_replace(width, '\D', '', 'g') AS INTEGER) >= 50;
 
 accepted_length_sum_feet
-121883 feet
 253251 feet
 
 ## length converted to miles
