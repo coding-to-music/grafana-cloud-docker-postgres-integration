@@ -751,6 +751,7 @@ select count(*) from street where length is not null;
 820
 
 select count(*) from street where length is null;
+308
 
 SELECT COUNT(*) FROM street WHERE CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0;
 ```
