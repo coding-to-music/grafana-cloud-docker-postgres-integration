@@ -861,3 +861,52 @@ AND CAST(regexp_replace(width, '\D', '', 'g') AS INTEGER) >= 60;
 accepted_length_sum_miles
 22.95 miles
 ```
+
+## Change docker-compose to be docker-stack
+
+```
+docker stack deploy -c docker-stack.yml my-stack-name
+
+
+docker stack deploy -c docker-stack.yml postgres-stack
+```
+
+## To stop and remove a Docker Stack and its volumes, follow these steps:
+
+Open a terminal window and navigate to the directory where your docker-stack.yml file is located.
+
+Use the following command to remove the stack:
+
+```java
+docker stack rm my-stack-name
+
+docker stack rm postgres-stack
+```
+
+Wait for the stack to be removed. You can use the following command to check if the stack is still running:
+
+```java
+docker stack ls
+```
+
+Once the stack has been removed, use the following command to remove its volumes:
+
+```java
+docker volume rm $(docker volume ls -q -f "label=com.docker.stack.namespace=my-stack-name")
+
+docker volume rm $(docker volume ls -q -f "label=com.docker.stack.namespace=postgres-stack")
+```
+
+This command will remove all volumes associated with the stack. Replace my-stack-name with the name of your stack.
+
+You can use the following command to verify that the volumes have been removed:
+
+```java
+docker volume ls -f "label=com.docker.stack.namespace=my-stack-name"
+
+docker volume ls -f "label=com.docker.stack.namespace=postgres-stack"
+```
+
+This command should not return any volumes.
+
+
