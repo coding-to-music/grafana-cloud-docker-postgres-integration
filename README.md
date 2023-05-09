@@ -719,26 +719,80 @@ CREATE TABLE "street" (
 
 ## Streets visualizations
 
-| Content                           | Visualization Type | Comment |
-| --------                          | -------- | -------- |
-| # of streets                      | SingleStat  | Data 3a  |
-| # of accepted streets             | SingleStat  | Data 3b  |
-| # of unaccepted streets           | SingleStat  | Data 3b  |
-| Length of accepted streets        | SingleStat  | Data 3c  |
-| Length of unaccepted streets      | SingleStat  | Data 3c  |
-| area of accepted streets          | SingleStat  | Data 3d  |
-| area of unaccepted streets        | SingleStat  | Data 3d  |
-| Year Accepted                     | Histogram by decade  | Data 3e  |
-| Accepted Length by Year Accepted  | Histogram by decade  | Data 3e  |
-| Accepted Length by Year Accepted  | Treemap  | Data 3e  |
-| Data 1f  | Data 2f  | Data 3f  |
-| Data 1g  | Data 2g  | Data 3g  |
-| Data 1h  | Data 2h  | Data 3h  |
+| Content                           | Example Value | Visualization Type    | Query    |
+| --------                          | --------      | --------              | -------- |
+| # of streets                      | 1280          | SingleStat            | select count(*) from street;  |
+| # of accepted streets             |  820          | SingleStat            | select count(*) from street where length is not null; |
+| # of unaccepted streets           |  308          | SingleStat            | select count(*) from street where length is null; |
+| Length of accepted streets        |               | SingleStat            | Data 3c  |
+| Length of unaccepted streets      |               | SingleStat            | Data 3c  |
+| area of accepted streets          |               | SingleStat            | Data 3d  |
+| area of unaccepted streets        |               | SingleStat            | Data 3d  |
+| Year Accepted                     |               | Histogram by decade   | Data 3e  |
+| Accepted Length by Year Accepted  |               | Histogram by decade   | Data 3e  |
+| Accepted Length by Year Accepted  |               | Treemap               | Data 3e  |
+| Data 1f  |               | Data 2f  | Data 3f  |
+| Data 1g  |               | Data 2g  | Data 3g  |
+| Data 1h  |               | Data 2h  | Data 3h  |
 
 Length is populated with the accepted length - if Length is null then the street is unaccepted
-Dock st is 197 feet accepted plus 226 feet unaccepted
+Dock st is length 197 feet accepted plus 226 feet unaccepted
 The rows that are most relevant have non-null length - basically ignore all rows with null length
 
+## Counts of streets, accepted and unaccepted
+
+```java
 1128 rows
+
 select count(*) from street;
+1128
+
+select count(*) from street where length is not null;
+820
+
 select count(*) from street where length is null;
+
+SELECT COUNT(*) FROM street WHERE CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0;
+```
+
+## Length of accepted streets
+
+```java
+## sum of length for non-null lengths
+SELECT SUM(CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER)) AS accepted_length_sum
+FROM street
+WHERE CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0;
+
+accepted_length_sum_feet
+602761 feet
+
+## length converted to miles
+SELECT ROUND(SUM(CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS accepted_length_sum_miles
+FROM street
+WHERE CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0;
+
+accepted_length_sum_miles
+114.16 miles
+```
+
+## Length of accepted streets with width greater than 50 feet
+
+```java
+## sum of length for non-null lengths
+SELECT SUM(CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER)) AS accepted_length_sum
+FROM street
+WHERE CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0
+AND CAST(regexp_replace(width, '\D', '', 'g') AS INTEGER) > 50;
+
+accepted_length_sum_feet
+121883 feet
+
+## length converted to miles
+SELECT ROUND(SUM(CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS accepted_length_sum_miles
+FROM street
+WHERE CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0
+AND CAST(regexp_replace(width, '\D', '', 'g') AS INTEGER) > 50;
+
+accepted_length_sum_miles
+23.08 miles
+```
