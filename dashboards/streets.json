@@ -1,0 +1,924 @@
+{
+    "annotations": {
+        "list": [
+            {
+                "builtIn": 1,
+                "datasource": {
+                    "type": "grafana",
+                    "uid": "-- Grafana --"
+                },
+                "enable": true,
+                "hide": true,
+                "iconColor": "rgba(0, 211, 255, 1)",
+                "name": "Annotations & Alerts",
+                "type": "dashboard"
+            }
+        ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 45,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 0,
+                "y": 0
+            },
+            "id": 2,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                    },
+                    "editorMode": "builder",
+                    "format": "table",
+                    "rawSql": "SELECT COUNT(id) FROM street LIMIT 50 ",
+                    "refId": "A",
+                    "sql": {
+                        "columns": [
+                            {
+                                "name": "COUNT",
+                                "parameters": [
+                                    {
+                                        "name": "id",
+                                        "type": "functionParameter"
+                                    }
+                                ],
+                                "type": "function"
+                            }
+                        ],
+                        "groupBy": [
+                            {
+                                "property": {
+                                    "type": "string"
+                                },
+                                "type": "groupBy"
+                            }
+                        ],
+                        "limit": 50
+                    },
+                    "table": "street"
+                }
+            ],
+            "title": "Total Number of Streets",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 3,
+                "y": 0
+            },
+            "id": 3,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                    },
+                    "editorMode": "builder",
+                    "format": "table",
+                    "rawSql": "SELECT COUNT(id) FROM street WHERE length IS NOT NULL LIMIT 50 ",
+                    "refId": "A",
+                    "sql": {
+                        "columns": [
+                            {
+                                "name": "COUNT",
+                                "parameters": [
+                                    {
+                                        "name": "id",
+                                        "type": "functionParameter"
+                                    }
+                                ],
+                                "type": "function"
+                            }
+                        ],
+                        "groupBy": [
+                            {
+                                "property": {
+                                    "type": "string"
+                                },
+                                "type": "groupBy"
+                            }
+                        ],
+                        "limit": 50,
+                        "whereJsonTree": {
+                            "children1": [
+                                {
+                                    "id": "b999b889-0123-4456-b89a-b18802b25c5e",
+                                    "properties": {
+                                        "field": "length",
+                                        "operator": "is_not_null",
+                                        "value": [],
+                                        "valueSrc": [],
+                                        "valueType": []
+                                    },
+                                    "type": "rule"
+                                }
+                            ],
+                            "id": "9b88bb8a-89ab-4cde-b012-318802b12165",
+                            "type": "group"
+                        },
+                        "whereString": "length IS NOT NULL"
+                    },
+                    "table": "street"
+                }
+            ],
+            "title": "# Accepted Streets",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 6,
+                "y": 0
+            },
+            "id": 4,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                    },
+                    "editorMode": "builder",
+                    "format": "table",
+                    "rawSql": "SELECT COUNT(id) FROM street WHERE length IS NULL LIMIT 50 ",
+                    "refId": "A",
+                    "sql": {
+                        "columns": [
+                            {
+                                "name": "COUNT",
+                                "parameters": [
+                                    {
+                                        "name": "id",
+                                        "type": "functionParameter"
+                                    }
+                                ],
+                                "type": "function"
+                            }
+                        ],
+                        "groupBy": [
+                            {
+                                "property": {
+                                    "type": "string"
+                                },
+                                "type": "groupBy"
+                            }
+                        ],
+                        "limit": 50,
+                        "whereJsonTree": {
+                            "children1": [
+                                {
+                                    "id": "9ab99ba8-cdef-4012-b456-718802b3ead1",
+                                    "properties": {
+                                        "field": "length",
+                                        "operator": "is_null",
+                                        "value": [],
+                                        "valueSrc": [],
+                                        "valueType": []
+                                    },
+                                    "type": "rule"
+                                }
+                            ],
+                            "id": "9b88bb8a-89ab-4cde-b012-318802b12165",
+                            "type": "group"
+                        },
+                        "whereString": "length IS NULL"
+                    },
+                    "table": "street"
+                }
+            ],
+            "title": "# UnAccepted Streets",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "lengthft"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 9,
+                "y": 0
+            },
+            "id": 5,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                    },
+                    "editorMode": "builder",
+                    "format": "table",
+                    "rawSql": "SELECT COUNT(id) FROM street LIMIT 50 ",
+                    "refId": "A",
+                    "sql": {
+                        "columns": [
+                            {
+                                "name": "COUNT",
+                                "parameters": [
+                                    {
+                                        "name": "id",
+                                        "type": "functionParameter"
+                                    }
+                                ],
+                                "type": "function"
+                            }
+                        ],
+                        "groupBy": [
+                            {
+                                "property": {
+                                    "type": "string"
+                                },
+                                "type": "groupBy"
+                            }
+                        ],
+                        "limit": 50
+                    },
+                    "table": "street"
+                }
+            ],
+            "title": "Accepted Streets",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "lengthft"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 12,
+                "y": 0
+            },
+            "id": 6,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                    },
+                    "editorMode": "builder",
+                    "format": "table",
+                    "rawSql": "SELECT COUNT(id) FROM street LIMIT 50 ",
+                    "refId": "A",
+                    "sql": {
+                        "columns": [
+                            {
+                                "name": "COUNT",
+                                "parameters": [
+                                    {
+                                        "name": "id",
+                                        "type": "functionParameter"
+                                    }
+                                ],
+                                "type": "function"
+                            }
+                        ],
+                        "groupBy": [
+                            {
+                                "property": {
+                                    "type": "string"
+                                },
+                                "type": "groupBy"
+                            }
+                        ],
+                        "limit": 50
+                    },
+                    "table": "street"
+                }
+            ],
+            "title": "UnAccepted Streets",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 15,
+                "y": 0
+            },
+            "id": 9,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                    },
+                    "editorMode": "builder",
+                    "format": "table",
+                    "rawSql": "SELECT COUNT(id) FROM street LIMIT 50 ",
+                    "refId": "A",
+                    "sql": {
+                        "columns": [
+                            {
+                                "name": "COUNT",
+                                "parameters": [
+                                    {
+                                        "name": "id",
+                                        "type": "functionParameter"
+                                    }
+                                ],
+                                "type": "function"
+                            }
+                        ],
+                        "groupBy": [
+                            {
+                                "property": {
+                                    "type": "string"
+                                },
+                                "type": "groupBy"
+                            }
+                        ],
+                        "limit": 50
+                    },
+                    "table": "street"
+                }
+            ],
+            "title": "Feet of Accepted Streets",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "custom": {
+                        "fillOpacity": 80,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "lineWidth": 1
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 7,
+                "w": 5,
+                "x": 0,
+                "y": 5
+            },
+            "id": 1,
+            "options": {
+                "bucketOffset": 0,
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom",
+                    "showLegend": true
+                }
+            },
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                    },
+                    "editorMode": "builder",
+                    "format": "table",
+                    "rawSql": "SELECT COUNT(width) FROM street GROUP BY width LIMIT 50 ",
+                    "refId": "A",
+                    "sql": {
+                        "columns": [
+                            {
+                                "name": "COUNT",
+                                "parameters": [
+                                    {
+                                        "name": "width",
+                                        "type": "functionParameter"
+                                    }
+                                ],
+                                "type": "function"
+                            }
+                        ],
+                        "groupBy": [
+                            {
+                                "property": {
+                                    "name": "width",
+                                    "type": "string"
+                                },
+                                "type": "groupBy"
+                            }
+                        ],
+                        "limit": 50
+                    },
+                    "table": "street"
+                },
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                    },
+                    "editorMode": "builder",
+                    "format": "table",
+                    "hide": false,
+                    "rawSql": "SELECT COUNT(width) FROM street LIMIT 50 ",
+                    "refId": "B",
+                    "sql": {
+                        "columns": [
+                            {
+                                "name": "COUNT",
+                                "parameters": [
+                                    {
+                                        "name": "width",
+                                        "type": "functionParameter"
+                                    }
+                                ],
+                                "type": "function"
+                            }
+                        ],
+                        "groupBy": [
+                            {
+                                "property": {
+                                    "type": "string"
+                                },
+                                "type": "groupBy"
+                            }
+                        ],
+                        "limit": 50
+                    },
+                    "table": "street"
+                }
+            ],
+            "title": "Street Width",
+            "type": "histogram"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "lengthmi"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 9,
+                "y": 5
+            },
+            "id": 7,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                    },
+                    "editorMode": "builder",
+                    "format": "table",
+                    "rawSql": "SELECT COUNT(id) FROM street LIMIT 50 ",
+                    "refId": "A",
+                    "sql": {
+                        "columns": [
+                            {
+                                "name": "COUNT",
+                                "parameters": [
+                                    {
+                                        "name": "id",
+                                        "type": "functionParameter"
+                                    }
+                                ],
+                                "type": "function"
+                            }
+                        ],
+                        "groupBy": [
+                            {
+                                "property": {
+                                    "type": "string"
+                                },
+                                "type": "groupBy"
+                            }
+                        ],
+                        "limit": 50
+                    },
+                    "table": "street"
+                }
+            ],
+            "title": "Accepted Streets",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "lengthmi"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 12,
+                "y": 5
+            },
+            "id": 8,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                    },
+                    "editorMode": "builder",
+                    "format": "table",
+                    "rawSql": "SELECT COUNT(id) FROM street LIMIT 50 ",
+                    "refId": "A",
+                    "sql": {
+                        "columns": [
+                            {
+                                "name": "COUNT",
+                                "parameters": [
+                                    {
+                                        "name": "id",
+                                        "type": "functionParameter"
+                                    }
+                                ],
+                                "type": "function"
+                            }
+                        ],
+                        "groupBy": [
+                            {
+                                "property": {
+                                    "type": "string"
+                                },
+                                "type": "groupBy"
+                            }
+                        ],
+                        "limit": 50
+                    },
+                    "table": "street"
+                }
+            ],
+            "title": "UnAccepted Streets",
+            "type": "stat"
+        }
+    ],
+    "refresh": "",
+    "schemaVersion": 38,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+        "list": []
+    },
+    "time": {
+        "from": "now-6h",
+        "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "Streets",
+    "uid": "fa976c15-b850-499b-986b-2541e0d6ddec",
+    "version": 5,
+    "weekStart": ""
+}
