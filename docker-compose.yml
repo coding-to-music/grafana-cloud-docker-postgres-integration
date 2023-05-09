@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.9'
 
 services:
   postgres:
@@ -16,8 +16,6 @@ services:
       - 5432:5432
     volumes:
       - pgdata:/var/lib/postgresql/data
-    cpuset: "0,1"
-    mem_limit: 2g
 
 volumes:
   pgdata:
@@ -30,6 +28,8 @@ volumes:
     #       cpus: '2'
     #       memory: 2g
 
+    # cpuset: "0,1"
+    # mem_limit: 2g
 
 # version: '3.4'
 

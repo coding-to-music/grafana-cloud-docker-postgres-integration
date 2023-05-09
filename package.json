@@ -21,7 +21,7 @@
   "license": "Apache-2.0",
   "name": "grafana-cloud-docker-postgres-integration",
   "scripts": {
-    "start": "docker-compose pull && docker-compose up",
+    "start": "docker-compose pull && docker compose up",
     "stop": "docker-compose down",
     "test": "grafana-toolkit plugin:test",
     "upgrade": "yarn upgrade --latest",
