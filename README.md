@@ -720,7 +720,7 @@ CREATE TABLE "street" (
     "length" TEXT,
     "date" TEXT,
     "noncity" TEXT,
-    "unnacceptedlength" TEXT,
+    "unacceptedlength" TEXT,
     "area" INTEGER DEFAULT 0,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -782,13 +782,21 @@ SELECT SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) AS accepted_
 accepted_length_sum_feet
 602761 feet
 
-## length converted to miles
+## length converted to miles - integer
 SELECT ROUND(SUM(CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS accepted_length_sum_miles
 FROM street
 WHERE CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0;
 
-# streets4
+# one decimal place
+SELECT ROUND(SUM(CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER)) / 5280.0, 1) AS accepted_length_sum_miles
+FROM street
+WHERE CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0;
+
+# streets4 - int
 SELECT ROUND(SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS accepted_length_sum_miles FROM street WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0;
+
+# streets4 - one decimal place
+SELECT ROUND(SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) / 5280.0, 1) AS accepted_length_sum_miles FROM street WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0;
 
 accepted_length_sum_miles
 114.16 miles
@@ -798,23 +806,31 @@ accepted_length_sum_miles
 
 ```java
 ## sum of length for non-null lengths
-SELECT SUM(CAST(regexp_replace(unnacceptedlength, '\D', '', 'g') AS INTEGER)) AS unaccepted_length_sum
+SELECT SUM(CAST(regexp_replace(unacceptedlength, '\D', '', 'g') AS INTEGER)) AS unaccepted_length_sum
 FROM street
-WHERE CAST(regexp_replace(unnacceptedlength, '\D', '', 'g') AS INTEGER) > 0;
+WHERE CAST(regexp_replace(unacceptedlength, '\D', '', 'g') AS INTEGER) > 0;
 
 # streets2
-SELECT SUM(CAST(regexp_replace(unnacceptedlength, '\\D', '', 'g') AS INTEGER)) AS unaccepted_length_sum FROM street WHERE CAST(regexp_replace(unnacceptedlength, '\\D', '', 'g') AS INTEGER) > 0;
+SELECT SUM(CAST(regexp_replace(unacceptedlength, '\\D', '', 'g') AS INTEGER)) AS unaccepted_length_sum FROM street WHERE CAST(regexp_replace(unacceptedlength, '\\D', '', 'g') AS INTEGER) > 0;
 
 accepted_length_sum_feet
 84460 feet
 
 ## length converted to miles
-SELECT ROUND(SUM(CAST(regexp_replace(unnacceptedlength, '\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS unaccepted_length_sum_miles
+SELECT ROUND(SUM(CAST(regexp_replace(unacceptedlength, '\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS unaccepted_length_sum_miles
 FROM street
-WHERE CAST(regexp_replace(unnacceptedlength, '\D', '', 'g') AS INTEGER) > 0;
+WHERE CAST(regexp_replace(unacceptedlength, '\D', '', 'g') AS INTEGER) > 0;
 
-# streets5
-SELECT ROUND(SUM(CAST(regexp_replace(unnacceptedlength, '\\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS unaccepted_length_sum_miles FROM street WHERE CAST(regexp_replace(unnacceptedlength, '\\D', '', 'g') AS INTEGER) > 0;
+# one decimal place
+SELECT ROUND(SUM(CAST(regexp_replace(unacceptedlength, '\D', '', 'g') AS INTEGER)) / 5280.0, 1) AS unaccepted_length_sum_miles
+FROM street
+WHERE CAST(regexp_replace(unacceptedlength, '\D', '', 'g') AS INTEGER) > 0;
+
+# streets5 - int
+SELECT ROUND(SUM(CAST(regexp_replace(unacceptedlength, '\\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS unaccepted_length_sum_miles FROM street WHERE CAST(regexp_replace(unacceptedlength, '\\D', '', 'g') AS INTEGER) > 0;
+
+# streets5 - one decimal place
+SELECT ROUND(SUM(CAST(regexp_replace(unacceptedlength, '\\D', '', 'g') AS INTEGER)) / 5280.0, 1) AS unaccepted_length_sum_miles FROM street WHERE CAST(regexp_replace(unacceptedlength, '\\D', '', 'g') AS INTEGER) > 0
 
 accepted_length_sum_miles
 16.00 miles
@@ -824,18 +840,18 @@ accepted_length_sum_miles
 
 ```java
 ## sum of length for non-null lengths
-SELECT SUM(CAST(regexp_replace(unnacceptedlength, '\D', '', 'g') AS INTEGER)) AS unaccepted_length_sum
+SELECT SUM(CAST(regexp_replace(unacceptedlength, '\D', '', 'g') AS INTEGER)) AS unaccepted_length_sum
 FROM street
-WHERE CAST(regexp_replace(unnacceptedlength, '\D', '', 'g') AS INTEGER) > 0
+WHERE CAST(regexp_replace(unacceptedlength, '\D', '', 'g') AS INTEGER) > 0
 AND CAST(regexp_replace(width, '\D', '', 'g') AS INTEGER) >= 50;
 
 unaccepted_length_sum_feet
 23887 feet
 
 ## length converted to miles
-SELECT ROUND(SUM(CAST(regexp_replace(street.unnacceptedlength, '\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS unaccepted_length_sum_miles
+SELECT ROUND(SUM(CAST(regexp_replace(street.unacceptedlength, '\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS unaccepted_length_sum_miles
 FROM street
-WHERE CAST(regexp_replace(street.unnacceptedlength, '\D', '', 'g') AS INTEGER) > 0
+WHERE CAST(regexp_replace(street.unacceptedlength, '\D', '', 'g') AS INTEGER) > 0
 AND CAST(regexp_replace(width, '\D', '', 'g') AS INTEGER) >= 50;
 
 unaccepted_length_sum_miles
