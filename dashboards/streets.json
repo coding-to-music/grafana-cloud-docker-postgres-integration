@@ -412,7 +412,7 @@
                     "table": "street"
                 }
             ],
-            "title": "Accepted Streets",
+            "title": "Accepted Streets1",
             "type": "stat"
         },
         {
@@ -502,7 +502,7 @@
                     "table": "street"
                 }
             ],
-            "title": "UnAccepted Streets",
+            "title": "UnAccepted Streets2",
             "type": "stat"
         },
         {
@@ -591,7 +591,7 @@
                     "table": "street"
                 }
             ],
-            "title": "Feet of Accepted Streets",
+            "title": "Streets3",
             "type": "stat"
         },
         {
@@ -810,7 +810,7 @@
                     "table": "street"
                 }
             ],
-            "title": "Accepted Streets",
+            "title": "Accepted Streets4",
             "type": "stat"
         },
         {
@@ -900,7 +900,7 @@
                     "table": "street"
                 }
             ],
-            "title": "UnAccepted Streets",
+            "title": "UnAccepted Streets5",
             "type": "stat"
         }
     ],
@@ -919,6 +919,6 @@
     "timezone": "",
     "title": "Streets",
     "uid": "fa976c15-b850-499b-986b-2541e0d6ddec",
-    "version": 9,
+    "version": 10,
     "weekStart": ""
 }
