@@ -776,9 +776,8 @@ SELECT SUM(CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER)) AS accepted_l
 FROM street
 WHERE CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0;
 
-SELECT SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) AS accepted_length_sum
-FROM street
-WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0;
+# streets1
+SELECT SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) AS accepted_length_sum FROM street WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0;
 
 accepted_length_sum_feet
 602761 feet
@@ -787,6 +786,9 @@ accepted_length_sum_feet
 SELECT ROUND(SUM(CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS accepted_length_sum_miles
 FROM street
 WHERE CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0;
+
+# streets4
+SELECT ROUND(SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS accepted_length_sum_miles FROM street WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0;
 
 accepted_length_sum_miles
 114.16 miles
@@ -800,6 +802,9 @@ SELECT SUM(CAST(regexp_replace(unnacceptedlength, '\D', '', 'g') AS INTEGER)) AS
 FROM street
 WHERE CAST(regexp_replace(unnacceptedlength, '\D', '', 'g') AS INTEGER) > 0;
 
+# streets2
+SELECT SUM(CAST(regexp_replace(unnacceptedlength, '\\D', '', 'g') AS INTEGER)) AS unaccepted_length_sum FROM street WHERE CAST(regexp_replace(unnacceptedlength, '\\D', '', 'g') AS INTEGER) > 0;
+
 accepted_length_sum_feet
 84460 feet
 
@@ -807,6 +812,9 @@ accepted_length_sum_feet
 SELECT ROUND(SUM(CAST(regexp_replace(unnacceptedlength, '\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS unaccepted_length_sum_miles
 FROM street
 WHERE CAST(regexp_replace(unnacceptedlength, '\D', '', 'g') AS INTEGER) > 0;
+
+# streets5
+SELECT ROUND(SUM(CAST(regexp_replace(unnacceptedlength, '\\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS unaccepted_length_sum_miles FROM street WHERE CAST(regexp_replace(unnacceptedlength, '\\D', '', 'g') AS INTEGER) > 0;
 
 accepted_length_sum_miles
 16.00 miles
