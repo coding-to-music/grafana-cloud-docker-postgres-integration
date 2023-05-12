@@ -2,10 +2,9 @@
 
 # 🚀 Using a grafana agent collect data from docker postgres and send to Grafana Cloud 🚀
 
-
 https://github.com/coding-to-music/grafana-cloud-docker-postgres-integration
 
-From / By 
+From / By
 
 Data comes from https://github.com/coding-to-music/ev-charging-stations-kaggle
 
@@ -17,10 +16,10 @@ https://www.youtube.com/watch?v=HNCKbGfAU0Q&ab_channel=VolkovLabs
 
 pgAdmin and simulation comes from https://github.com/coding-to-music/postgresql-pgadmin-docker-compose
 
-
 ## Environment variables:
 
 ```java
+
 ```
 
 ## user interfaces:
@@ -39,7 +38,7 @@ git remote add origin git@github.com:coding-to-music/grafana-cloud-docker-postgr
 git push -u origin main
 ```
 
-## Running 
+## Running
 
 ```
 yarn install
@@ -57,13 +56,16 @@ docker ps
 Output
 
 ```
+
 ```
 
 ## PostgreSQL and pgAdmin
+
 This example provides a base setup for using [PostgreSQL](https://www.postgresql.org/) and [pgAdmin](https://www.pgadmin.org/).
 More details on how to customize the installation and the compose file can be found [here (PostgreSQL)](https://hub.docker.com/_/postgres) and [here (pgAdmin)](https://www.pgadmin.org/docs/pgadmin4/latest/container_deployment.html).
 
 Project structure:
+
 ```
 .
 ├── .env
@@ -72,7 +74,8 @@ Project structure:
 ```
 
 [_compose.yaml_](compose.yaml)
-``` yaml
+
+```yaml
 services:
   postgres:
     image: postgres:latest
@@ -84,7 +87,9 @@ services:
 ## Configuration
 
 ### .env
+
 Before deploying this setup, you need to configure the following values in the [.env](.env) file.
+
 - POSTGRES_USER
 - POSTGRES_PW
 - POSTGRES_DB (can be default value)
@@ -92,28 +97,33 @@ Before deploying this setup, you need to configure the following values in the [
 - PGADMIN_PW
 
 ## Deploy with docker compose
-When deploying this setup, the pgAdmin web interface will be available at port 5050 (e.g. http://localhost:5050).  
 
-``` shell
+When deploying this setup, the pgAdmin web interface will be available at port 5050 (e.g. http://localhost:5050).
+
+```shell
 $ docker compose up
 Starting postgres ... done
 Starting pgadmin ... done
 ```
 
 ## Add postgres database to pgAdmin
-After logging in with your credentials of the .env file, you can add your database to pgAdmin. 
+
+After logging in with your credentials of the .env file, you can add your database to pgAdmin.
+
 1. Right-click "Servers" in the top-left corner and select "Create" -> "Server..."
 2. Name your connection
 3. Change to the "Connection" tab and add the connection details:
+
 - Hostname: "postgres" (this would normally be your IP address of the postgres database - however, docker can resolve this container ip by its name)
 - Port: "5432"
 - Maintenance Database: $POSTGRES_DB (see .env)
 - Username: $POSTGRES_USER (see .env)
 - Password: $POSTGRES_PW (see .env)
-  
+
 ## Expected result
 
 Check containers are running:
+
 ```
 $ docker ps
 CONTAINER ID   IMAGE                           COMMAND                  CREATED             STATUS                 PORTS                                                                                  NAMES
@@ -122,7 +132,8 @@ d3cde3b455ee   dpage/pgadmin4:latest           "/entrypoint.sh"         9 minute
 ```
 
 Stop the containers with
-``` shell
+
+```shell
 $ docker compose down
 # To delete all data run:
 $ docker compose down -v
@@ -134,7 +145,7 @@ $ docker compose down -v
 head -n 1 ev_locations.csv
 ```
 
-## Count the columns in the header row 
+## Count the columns in the header row
 
 Counting the number of columns in the header row:
 
@@ -223,6 +234,7 @@ When you are finished, you can exit the psql session by typing:
 ```
 
 Try a command, always end with a semicolin;
+
 ```
 CREATE TABLE IF NOT EXISTS mytable (
   id SERIAL PRIMARY KEY,
@@ -242,7 +254,7 @@ Full example of connecting and executing commands
 
 ```
 psql -h localhost -p 5432 -U postgres
-Password for user postgres: 
+Password for user postgres:
 ```
 
 Output
@@ -259,7 +271,7 @@ postgres(#   datetime TIMESTAMP NOT NULL
 postgres(# );
 CREATE TABLE
 postgres=# SELECT COUNT(*) FROM mytable;
- count 
+ count
 -------
      0
 (1 row)
@@ -302,7 +314,7 @@ Number of rows after: 3
 ```
 SELECT COUNT(*) FROM ev_locations;
 
- count 
+ count
 -------
  70405
 ```
@@ -324,7 +336,7 @@ Output:
 ```
 --- Verifying package checksum
 grafana-agent-0.33.1-1.amd64.deb: OK
-[sudo] password: 
+[sudo] password:
 Selecting previously unselected package grafana-agent.
 (Reading database ... 212640 files and directories currently installed.)
 Preparing to unpack .../grafana-agent-0.33.1-1.amd64.deb ...
@@ -389,7 +401,7 @@ Run each of these configuration snippets in the appropriate place in your config
 
 Follow instructions specific to the PostgreSQL integration
 
-For help finding your agent configuration file, refer to this documentation.  https://grafana.com/docs/agent/latest/set-up/install-agent-linux/#operation-guide
+For help finding your agent configuration file, refer to this documentation. https://grafana.com/docs/agent/latest/set-up/install-agent-linux/#operation-guide
 
 ## Integration
 
@@ -498,7 +510,7 @@ To have Prisma read an existing table in the database and generate its own model
 
 Here are the steps you can follow:
 
-Install Prisma CLI by running 
+Install Prisma CLI by running
 
 ```java
 npm install -g prisma
@@ -719,21 +731,21 @@ CREATE TABLE "street" (
 
 ## Streets visualizations
 
-| Content                           | Example Value   | Visualization Type    | Query    |
-| --------                          | --------        | --------              | -------- |
-| # of streets                      | 1280            | SingleStat            | select count(*) from street;  |
-| # of accepted streets             |  820            | SingleStat            | select count(*) from street where length is not null; |
-| # of unaccepted streets           |  308            | SingleStat            | select count(*) from street where length is null; |
-| Length of accepted streets        | 114.16 miles    | SingleStat            | Data 3c  |
-| Length of unaccepted streets      | Can't Calculate | SingleStat            | Data 3c  |
-| area of accepted streets          |                 | SingleStat            | Data 3d  |
-| area of unaccepted streets        |                 | SingleStat            | Data 3d  |
-| Year Accepted                     |                 | Histogram by decade   | Data 3e  |
-| Accepted Length by Year Accepted  |                 | Histogram by decade   | Data 3e  |
-| Accepted Length by Year Accepted  |                 | Treemap               | Data 3e  |
-| Data 1f  |               | Data 2f  | Data 3f  |
-| Data 1g  |               | Data 2g  | Data 3g  |
-| Data 1h  |               | Data 2h  | Data 3h  |
+| Content                          | Example Value   | Visualization Type  | Query                                                  |
+| -------------------------------- | --------------- | ------------------- | ------------------------------------------------------ |
+| # of streets                     | 1280            | SingleStat          | select count(\*) from street;                          |
+| # of accepted streets            | 820             | SingleStat          | select count(\*) from street where length is not null; |
+| # of unaccepted streets          | 308             | SingleStat          | select count(\*) from street where length is null;     |
+| Length of accepted streets       | 114.16 miles    | SingleStat          | Data 3c                                                |
+| Length of unaccepted streets     | Can't Calculate | SingleStat          | Data 3c                                                |
+| area of accepted streets         |                 | SingleStat          | Data 3d                                                |
+| area of unaccepted streets       |                 | SingleStat          | Data 3d                                                |
+| Year Accepted                    |                 | Histogram by decade | Data 3e                                                |
+| Accepted Length by Year Accepted |                 | Histogram by decade | Data 3e                                                |
+| Accepted Length by Year Accepted |                 | Treemap             | Data 3e                                                |
+| Data 1f                          |                 | Data 2f             | Data 3f                                                |
+| Data 1g                          |                 | Data 2g             | Data 3g                                                |
+| Data 1h                          |                 | Data 2h             | Data 3h                                                |
 
 Length is populated with the accepted length - if Length is null then the street is unaccepted
 Dock st is length 197 feet accepted plus 226 feet unaccepted
@@ -763,6 +775,10 @@ SELECT COUNT(*) FROM street WHERE CAST(regexp_replace(length, '\D', '', 'g') AS 
 SELECT SUM(CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER)) AS accepted_length_sum
 FROM street
 WHERE CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0;
+
+SELECT SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) AS accepted_length_sum
+FROM street
+WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0;
 
 accepted_length_sum_feet
 602761 feet
@@ -908,5 +924,3 @@ docker volume ls -f "label=com.docker.stack.namespace=postgres-stack"
 ```
 
 This command should not return any volumes.
-
-
