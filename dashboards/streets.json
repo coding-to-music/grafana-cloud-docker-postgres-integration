@@ -25,7 +25,7 @@
         {
             "datasource": {
                 "type": "postgres",
-                "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
             },
             "description": "",
             "fieldConfig": {
@@ -71,12 +71,12 @@
                 },
                 "textMode": "auto"
             },
-            "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
             "targets": [
                 {
                     "datasource": {
                         "type": "postgres",
-                        "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "editorMode": "builder",
                     "format": "table",
@@ -108,13 +108,13 @@
                     "table": "street"
                 }
             ],
-            "title": "Total Number of Streets",
+            "title": "# Streets",
             "type": "stat"
         },
         {
             "datasource": {
                 "type": "postgres",
-                "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
             },
             "description": "",
             "fieldConfig": {
@@ -160,12 +160,12 @@
                 },
                 "textMode": "auto"
             },
-            "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
             "targets": [
                 {
                     "datasource": {
                         "type": "postgres",
-                        "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "editorMode": "builder",
                     "format": "table",
@@ -221,7 +221,7 @@
         {
             "datasource": {
                 "type": "postgres",
-                "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
             },
             "description": "",
             "fieldConfig": {
@@ -267,12 +267,12 @@
                 },
                 "textMode": "auto"
             },
-            "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
             "targets": [
                 {
                     "datasource": {
                         "type": "postgres",
-                        "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "editorMode": "builder",
                     "format": "table",
@@ -328,7 +328,7 @@
         {
             "datasource": {
                 "type": "postgres",
-                "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
             },
             "description": "",
             "fieldConfig": {
@@ -375,12 +375,12 @@
                 },
                 "textMode": "auto"
             },
-            "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
             "targets": [
                 {
                     "datasource": {
                         "type": "postgres",
-                        "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "editorMode": "builder",
                     "format": "table",
@@ -418,7 +418,7 @@
         {
             "datasource": {
                 "type": "postgres",
-                "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
             },
             "description": "",
             "fieldConfig": {
@@ -465,12 +465,12 @@
                 },
                 "textMode": "auto"
             },
-            "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
             "targets": [
                 {
                     "datasource": {
                         "type": "postgres",
-                        "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "editorMode": "builder",
                     "format": "table",
@@ -508,7 +508,7 @@
         {
             "datasource": {
                 "type": "postgres",
-                "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
             },
             "description": "",
             "fieldConfig": {
@@ -554,12 +554,12 @@
                 },
                 "textMode": "auto"
             },
-            "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
             "targets": [
                 {
                     "datasource": {
                         "type": "postgres",
-                        "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "editorMode": "builder",
                     "format": "table",
@@ -597,7 +597,7 @@
         {
             "datasource": {
                 "type": "postgres",
-                "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
             },
             "description": "",
             "fieldConfig": {
@@ -652,7 +652,7 @@
                 {
                     "datasource": {
                         "type": "postgres",
-                        "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "editorMode": "builder",
                     "format": "table",
@@ -687,7 +687,7 @@
                 {
                     "datasource": {
                         "type": "postgres",
-                        "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "editorMode": "builder",
                     "format": "table",
@@ -726,7 +726,7 @@
         {
             "datasource": {
                 "type": "postgres",
-                "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
             },
             "description": "",
             "fieldConfig": {
@@ -773,12 +773,12 @@
                 },
                 "textMode": "auto"
             },
-            "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
             "targets": [
                 {
                     "datasource": {
                         "type": "postgres",
-                        "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "editorMode": "builder",
                     "format": "table",
@@ -816,7 +816,7 @@
         {
             "datasource": {
                 "type": "postgres",
-                "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
             },
             "description": "",
             "fieldConfig": {
@@ -863,12 +863,12 @@
                 },
                 "textMode": "auto"
             },
-            "pluginVersion": "9.5.2-cloud.1.f9fd074b",
+            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
             "targets": [
                 {
                     "datasource": {
                         "type": "postgres",
-                        "uid": "b8f99c79-f98e-4b5a-8b3f-56c2e54aad70"
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "editorMode": "builder",
                     "format": "table",
@@ -919,6 +919,6 @@
     "timezone": "",
     "title": "Streets",
     "uid": "fa976c15-b850-499b-986b-2541e0d6ddec",
-    "version": 5,
+    "version": 9,
     "weekStart": ""
 }
