@@ -731,21 +731,21 @@ CREATE TABLE "street" (
 
 ## Streets visualizations
 
-| Content                          | Example Value   | Visualization Type  | Query                                                  |
-| -------------------------------- | --------------- | ------------------- | ------------------------------------------------------ |
-| # of streets                     | 1280            | SingleStat          | select count(\*) from street;                          |
-| # of accepted streets            | 820             | SingleStat          | select count(\*) from street where length is not null; |
-| # of unaccepted streets          | 308             | SingleStat          | select count(\*) from street where length is null;     |
-| Length of accepted streets       | 114.16 miles    | SingleStat          | Data 3c                                                |
-| Length of unaccepted streets     | Can't Calculate | SingleStat          | Data 3c                                                |
-| area of accepted streets         |                 | SingleStat          | Data 3d                                                |
-| area of unaccepted streets       |                 | SingleStat          | Data 3d                                                |
-| Year Accepted                    |                 | Histogram by decade | Data 3e                                                |
-| Accepted Length by Year Accepted |                 | Histogram by decade | Data 3e                                                |
-| Accepted Length by Year Accepted |                 | Treemap             | Data 3e                                                |
-| Data 1f                          |                 | Data 2f             | Data 3f                                                |
-| Data 1g                          |                 | Data 2g             | Data 3g                                                |
-| Data 1h                          |                 | Data 2h             | Data 3h                                                |
+| Content                          | Example Value | Visualization Type  | Query                                                  |
+| -------------------------------- | ------------- | ------------------- | ------------------------------------------------------ |
+| # of streets                     | 1128          | SingleStat          | select count(\*) from street;                          |
+| # of accepted streets            | 820           | SingleStat          | select count(\*) from street where length is not null; |
+| # of unaccepted streets          | 308           | SingleStat          | select count(\*) from street where length is null;     |
+| Length of accepted streets       | 114.16 miles  | SingleStat          | Data 3c                                                |
+| Length of unaccepted streets     | 16 miles      | SingleStat          | Data 3c                                                |
+| area of accepted streets         |               | SingleStat          | Data 3d                                                |
+| area of unaccepted streets       |               | SingleStat          | Data 3d                                                |
+| Year Accepted                    |               | Histogram by decade | Data 3e                                                |
+| Accepted Length by Year Accepted |               | Histogram by decade | Data 3e                                                |
+| Accepted Length by Year Accepted |               | Treemap             | Data 3e                                                |
+| Length by Width                  |               | Treemap             | Data 3f                                                |
+| Data 1g                          |               | Data 2g             | Data 3g                                                |
+| Data 1h                          |               | Data 2h             | Data 3h                                                |
 
 Length is populated with the accepted length - if Length is null then the street is unaccepted
 Dock st is length 197 feet accepted plus 226 feet unaccepted
