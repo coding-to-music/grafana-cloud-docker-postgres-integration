@@ -18,7 +18,7 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 45,
+    "id": 52,
     "links": [],
     "liveNow": false,
     "panels": [
@@ -79,7 +79,8 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT COUNT(id) FROM street LIMIT 50 "
+                    "rawSql": "SELECT COUNT(id) FROM street LIMIT 50 ",
+                    "refId": "A"
                 }
             ],
             "title": "# Streets",
@@ -142,7 +143,8 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT COUNT(id) FROM street WHERE length IS NOT NULL LIMIT 50 "
+                    "rawSql": "SELECT COUNT(id) FROM street WHERE length IS NOT NULL LIMIT 50 ",
+                    "refId": "A"
                 }
             ],
             "title": "# Accepted Streets",
@@ -290,6 +292,71 @@
                 "x": 9,
                 "y": 0
             },
+            "id": 6,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "format": "table",
+                    "rawSql": "SELECT SUM(CAST(regexp_replace(unacceptedlength, '\\D', '', 'g') AS INTEGER)) AS unaccepted_length_sum FROM street WHERE CAST(regexp_replace(unacceptedlength, '\\D', '', 'g') AS INTEGER) > 0 ",
+                    "refId": "A"
+                }
+            ],
+            "title": "UnAccepted Streets2",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "lengthft"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 12,
+                "y": 0
+            },
             "id": 5,
             "options": {
                 "colorMode": "value",
@@ -353,10 +420,10 @@
             "gridPos": {
                 "h": 5,
                 "w": 3,
-                "x": 12,
+                "x": 15,
                 "y": 0
             },
-            "id": 6,
+            "id": 12,
             "options": {
                 "colorMode": "value",
                 "graphMode": "area",
@@ -378,11 +445,145 @@
                         "type": "postgres",
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
+                    "editorMode": "builder",
                     "format": "table",
-                    "rawSql": "SELECT SUM(CAST(regexp_replace(unacceptedlength, '\\D', '', 'g') AS INTEGER)) AS unaccepted_length_sum FROM street WHERE CAST(regexp_replace(unacceptedlength, '\\D', '', 'g') AS INTEGER) > 0 "
+                    "rawSql": "SELECT SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) AS accepted_length_sum FROM street WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0 ",
+                    "refId": "A"
                 }
             ],
-            "title": "UnAccepted Streets2",
+            "title": "Width > 40 Streets6",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "lengthft"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 18,
+                "y": 0
+            },
+            "id": 13,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "editorMode": "builder",
+                    "format": "table",
+                    "rawSql": "SELECT SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) AS accepted_length_sum FROM street WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0 ",
+                    "refId": "A"
+                }
+            ],
+            "title": "Width > 50 Streets7",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "lengthft"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 21,
+                "y": 0
+            },
+            "id": 14,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "editorMode": "builder",
+                    "format": "table",
+                    "rawSql": "SELECT SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) AS accepted_length_sum FROM street WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0 ",
+                    "refId": "A"
+                }
+            ],
+            "title": "Width > 60 Streets8",
             "type": "stat"
         },
         {
@@ -424,8 +625,8 @@
                 "overrides": []
             },
             "gridPos": {
-                "h": 7,
-                "w": 5,
+                "h": 9,
+                "w": 6,
                 "x": 0,
                 "y": 5
             },
@@ -481,7 +682,8 @@
                     },
                     "format": "table",
                     "hide": false,
-                    "rawSql": "SELECT COUNT(width) FROM street LIMIT 50 "
+                    "rawSql": "SELECT COUNT(width) FROM street LIMIT 50 ",
+                    "refId": "B"
                 }
             ],
             "title": "Street Width",
@@ -522,7 +724,7 @@
                 "x": 9,
                 "y": 5
             },
-            "id": 7,
+            "id": 8,
             "options": {
                 "colorMode": "value",
                 "graphMode": "area",
@@ -545,10 +747,11 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT ROUND(SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) / 5280.0, 1) AS accepted_length_sum_miles FROM street WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0 "
+                    "rawSql": "SELECT ROUND(SUM(CAST(regexp_replace(unacceptedlength, '\\D', '', 'g') AS INTEGER)) / 5280.0, 1) AS unaccepted_length_sum_miles FROM street WHERE CAST(regexp_replace(unacceptedlength, '\\D', '', 'g') AS INTEGER) > 0 ",
+                    "refId": "A"
                 }
             ],
-            "title": "Accepted Streets4",
+            "title": "UnAccepted Streets5",
             "type": "stat"
         },
         {
@@ -586,7 +789,7 @@
                 "x": 12,
                 "y": 5
             },
-            "id": 8,
+            "id": 7,
             "options": {
                 "colorMode": "value",
                 "graphMode": "area",
@@ -609,208 +812,11 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT ROUND(SUM(CAST(regexp_replace(unacceptedlength, '\\D', '', 'g') AS INTEGER)) / 5280.0, 1) AS unaccepted_length_sum_miles FROM street WHERE CAST(regexp_replace(unacceptedlength, '\\D', '', 'g') AS INTEGER) > 0 "
-                }
-            ],
-            "title": "UnAccepted Streets5",
-            "type": "stat"
-        },
-        {
-            "datasource": {
-                "type": "postgres",
-                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
-            },
-            "description": "",
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unit": "lengthft"
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 5,
-                "w": 3,
-                "x": 15,
-                "y": 0
-            },
-            "id": 6,
-            "options": {
-                "colorMode": "value",
-                "graphMode": "area",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "reduceOptions": {
-                    "calcs": [
-                        "lastNotNull"
-                    ],
-                    "fields": "",
-                    "values": false
-                },
-                "textMode": "auto"
-            },
-            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "postgres",
-                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
-                    },
-                    "editorMode": "builder",
-                    "format": "table",
-                    "rawSql": "SELECT SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) AS accepted_length_sum FROM street WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0 ",
+                    "rawSql": "SELECT ROUND(SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) / 5280.0, 1) AS accepted_length_sum_miles FROM street WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0 ",
                     "refId": "A"
                 }
             ],
-            "title": "Accepted Streets6",
-            "type": "stat"
-        },
-        {
-            "datasource": {
-                "type": "postgres",
-                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
-            },
-            "description": "",
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unit": "lengthft"
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 5,
-                "w": 3,
-                "x": 18,
-                "y": 0
-            },
-            "id": 7,
-            "options": {
-                "colorMode": "value",
-                "graphMode": "area",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "reduceOptions": {
-                    "calcs": [
-                        "lastNotNull"
-                    ],
-                    "fields": "",
-                    "values": false
-                },
-                "textMode": "auto"
-            },
-            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "postgres",
-                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
-                    },
-                    "editorMode": "builder",
-                    "format": "table",
-                    "rawSql": "SELECT SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) AS accepted_length_sum FROM street WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0 ",
-                    "refId": "A"
-                }
-            ],
-            "title": "Accepted Streets7",
-            "type": "stat"
-        },
-        {
-            "datasource": {
-                "type": "postgres",
-                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
-            },
-            "description": "",
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unit": "lengthft"
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 5,
-                "w": 3,
-                "x": 21,
-                "y": 0
-            },
-            "id": 8,
-            "options": {
-                "colorMode": "value",
-                "graphMode": "area",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "reduceOptions": {
-                    "calcs": [
-                        "lastNotNull"
-                    ],
-                    "fields": "",
-                    "values": false
-                },
-                "textMode": "auto"
-            },
-            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "postgres",
-                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
-                    },
-                    "editorMode": "builder",
-                    "format": "table",
-                    "rawSql": "SELECT SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) AS accepted_length_sum FROM street WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0 ",
-                    "refId": "A"
-                }
-            ],
-            "title": "Accepted Streets8",
+            "title": "Accepted Streets4",
             "type": "stat"
         },
         {
@@ -845,7 +851,7 @@
             "gridPos": {
                 "h": 5,
                 "w": 3,
-                "x": 9,
+                "x": 15,
                 "y": 5
             },
             "id": 9,
@@ -871,10 +877,11 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT ROUND(SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) / 5280.0, 1) AS accepted_length_sum_miles FROM street WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0 "
+                    "rawSql": "SELECT ROUND(SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) / 5280.0, 1) AS accepted_length_sum_miles FROM street WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0 ",
+                    "refId": "A"
                 }
             ],
-            "title": "Accepted Streets9",
+            "title": "Width > 40 Streets9",
             "type": "stat"
         },
         {
@@ -909,7 +916,7 @@
             "gridPos": {
                 "h": 5,
                 "w": 3,
-                "x": 9,
+                "x": 18,
                 "y": 5
             },
             "id": 10,
@@ -935,10 +942,11 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT ROUND(SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) / 5280.0, 1) AS accepted_length_sum_miles FROM street WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0 "
+                    "rawSql": "SELECT ROUND(SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) / 5280.0, 1) AS accepted_length_sum_miles FROM street WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0 ",
+                    "refId": "A"
                 }
             ],
-            "title": "Accepted Streets10",
+            "title": "Width > 50 Streets10",
             "type": "stat"
         },
         {
@@ -973,7 +981,7 @@
             "gridPos": {
                 "h": 5,
                 "w": 3,
-                "x": 9,
+                "x": 21,
                 "y": 5
             },
             "id": 11,
@@ -999,10 +1007,11 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT ROUND(SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) / 5280.0, 1) AS accepted_length_sum_miles FROM street WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0 "
+                    "rawSql": "SELECT ROUND(SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) / 5280.0, 1) AS accepted_length_sum_miles FROM street WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0 ",
+                    "refId": "A"
                 }
             ],
-            "title": "Accepted Streets11",
+            "title": "Width > 60 Streets11",
             "type": "stat"
         }
     ],
@@ -1019,8 +1028,8 @@
     },
     "timepicker": {},
     "timezone": "",
-    "title": "Streets6",
-    "uid": "fa976c15-b850-499b-986b-2541e0d6ddec66",
-    "version": 10,
+    "title": "Streets7",
+    "uid": "fa976c15-b850-499b-986b-2541e0d6ddec777",
+    "version": 9,
     "weekStart": ""
 }
