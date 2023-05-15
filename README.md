@@ -746,7 +746,7 @@ CREATE TABLE "street" (
 | Accepted Length by Year Accepted |               | Treemap             | Do      |
 | Length by Width                  |               | Treemap             | Do      |
 | Total Length w/ added per year   |               | two lines           | Do      |
-| Data 1h                          |               | Data 2h             | Data 3h |
+| Data 1h                          |               |                     | Data 3h |
 
 Length is populated with the accepted length - if Length is null then the street is unaccepted
 Dock st is length 197 feet accepted plus 226 feet unaccepted
