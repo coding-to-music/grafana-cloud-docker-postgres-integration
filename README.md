@@ -851,6 +851,20 @@ accepted_length_sum_miles
 16.00 miles
 ```
 
+## Area of unaccepted streets in square miles
+
+```java
+## sum of unacceptedlength for non-null lengths
+SELECT SUM(CAST(REGEXP_REPLACE(unacceptedlength, '\D', '', 'g') AS FLOAT) * CAST(REGEXP_REPLACE(width, '\D', '', 'g') AS FLOAT) / 27878400) AS unaccepted_area_sum_sq_mi
+FROM street
+WHERE CAST(REGEXP_REPLACE(unacceptedlength, '\D', '', 'g') AS FLOAT) > 0
+AND CAST(REGEXP_REPLACE(width, '\D', '', 'g') AS FLOAT) > 0;
+
+# streets18
+SELECT SUM(CAST(REGEXP_REPLACE(unacceptedlength, '\\D', '', 'g') AS FLOAT) * CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) / 27878400) AS accepted_area_sum_sq_mi FROM street WHERE CAST(REGEXP_REPLACE(unacceptedlength, '\\D', '', 'g') AS FLOAT) > 0 AND CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) > 0;
+
+```
+
 ## Length of unaccepted streets with width greater than 50 feet
 
 ```java
