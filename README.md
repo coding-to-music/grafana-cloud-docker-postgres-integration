@@ -803,6 +803,19 @@ accepted_length_sum_miles
 114.16 miles
 ```
 
+## Total area regardless of accepted or unaccepted
+```java
+SELECT SUM((CAST(REGEXP_REPLACE(length, '\D', '', 'g') AS FLOAT) + CAST(REGEXP_REPLACE(unacceptedlength, '\D', '', 'g') AS FLOAT)) * CAST(REGEXP_REPLACE(width, '\D', '', 'g') AS FLOAT) / 27878400) AS total_area_sum_sq_mi
+FROM street
+WHERE CAST(REGEXP_REPLACE(length, '\D', '', 'g') AS FLOAT) > 0
+AND CAST(REGEXP_REPLACE(unacceptedlength, '\D', '', 'g') AS FLOAT) > 0
+AND CAST(REGEXP_REPLACE(width, '\D', '', 'g') AS FLOAT) > 0;
+
+# streets16
+SELECT SUM((CAST(REGEXP_REPLACE(length, '\\D', '', 'g') AS FLOAT) + CAST(REGEXP_REPLACE(unacceptedlength, '\\D', '', 'g') AS FLOAT)) * CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) / 27878400) AS total_area_sum_sq_mi FROM street WHERE CAST(REGEXP_REPLACE(length, '\\D', '', 'g') AS FLOAT) > 0 AND CAST(REGEXP_REPLACE(unacceptedlength, '\\D', '', 'g') AS FLOAT) > 0 AND CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) > 0;
+
+```
+
 ## Area of accepted streets in square miles
 
 ```java
@@ -861,7 +874,7 @@ WHERE CAST(REGEXP_REPLACE(unacceptedlength, '\D', '', 'g') AS FLOAT) > 0
 AND CAST(REGEXP_REPLACE(width, '\D', '', 'g') AS FLOAT) > 0;
 
 # streets18
-SELECT SUM(CAST(REGEXP_REPLACE(unacceptedlength, '\\D', '', 'g') AS FLOAT) * CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) / 27878400) AS accepted_area_sum_sq_mi FROM street WHERE CAST(REGEXP_REPLACE(unacceptedlength, '\\D', '', 'g') AS FLOAT) > 0 AND CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) > 0;
+SELECT SUM(CAST(REGEXP_REPLACE(unacceptedlength, '\\D', '', 'g') AS FLOAT) * CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) / 27878400) AS unaccepted_area_sum_sq_mi FROM street WHERE CAST(REGEXP_REPLACE(unacceptedlength, '\\D', '', 'g') AS FLOAT) > 0 AND CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) > 0;
 
 ```
 
