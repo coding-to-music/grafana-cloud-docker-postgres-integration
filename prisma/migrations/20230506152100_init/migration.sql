@@ -17,7 +17,7 @@ CREATE TABLE "street" (
     "length" TEXT,
     "date" TEXT,
     "noncity" TEXT,
-    "unnacceptedlength" TEXT,
+    "unacceptedlength" TEXT,
     "area" INTEGER DEFAULT 0,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

@@ -8,7 +8,7 @@ CREATE TABLE "Street" (
     "length" INTEGER,
     "date" TEXT,
     "noncity" TEXT,
-    "unnacceptedlength" TEXT,
+    "unacceptedlength" TEXT,
 
     CONSTRAINT "Street_pkey" PRIMARY KEY ("id")
 );

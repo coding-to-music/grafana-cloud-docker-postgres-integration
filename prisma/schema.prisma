@@ -16,7 +16,7 @@ model Street {
   length            String?
   date              String?
   noncity           String?
-  unnacceptedlength String?
+  unacceptedlength String?
   area              Int?     @default(0)
   createdAt         DateTime @default(now()) @map("created_at")
   updatedAt         DateTime @default(now()) @map("updated_at")
