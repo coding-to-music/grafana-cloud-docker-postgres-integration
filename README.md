@@ -803,6 +803,16 @@ accepted_length_sum_miles
 114.16 miles
 ```
 
+## Area of accepted streets
+
+```java
+## sum of length for non-null lengths
+SELECT SUM(CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER)) AS accepted_length_sum
+FROM street
+WHERE CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0;
+
+```
+
 ## Length of unaccepted streets
 
 ```java
