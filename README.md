@@ -803,13 +803,17 @@ accepted_length_sum_miles
 114.16 miles
 ```
 
-## Area of accepted streets
+## Area of accepted streets in square miles
 
 ```java
 ## sum of length for non-null lengths
-SELECT SUM(CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER)) AS accepted_length_sum
+SELECT SUM(CAST(REGEXP_REPLACE(length, '\D', '', 'g') AS FLOAT) * CAST(REGEXP_REPLACE(width, '\D', '', 'g') AS FLOAT) / 27878400) AS accepted_area_sum_sq_mi
 FROM street
-WHERE CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0;
+WHERE CAST(REGEXP_REPLACE(length, '\D', '', 'g') AS FLOAT) > 0
+AND CAST(REGEXP_REPLACE(width, '\D', '', 'g') AS FLOAT) > 0;
+
+# streets17
+SELECT SUM(CAST(REGEXP_REPLACE(length, '\\D', '', 'g') AS FLOAT) * CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) / 27878400) AS accepted_area_sum_sq_mi FROM street WHERE CAST(REGEXP_REPLACE(length, '\\D', '', 'g') AS FLOAT) > 0 AND CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) > 0;
 
 ```
 
