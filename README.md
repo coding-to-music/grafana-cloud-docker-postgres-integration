@@ -804,6 +804,7 @@ accepted_length_sum_miles
 ```
 
 ## Total area regardless of accepted or unaccepted
+
 ```java
 SELECT SUM((CAST(REGEXP_REPLACE(length, '\D', '', 'g') AS FLOAT) + CAST(REGEXP_REPLACE(unacceptedlength, '\D', '', 'g') AS FLOAT)) * CAST(REGEXP_REPLACE(width, '\D', '', 'g') AS FLOAT) / 27878400) AS total_area_sum_sq_mi
 FROM street
@@ -812,7 +813,7 @@ AND CAST(REGEXP_REPLACE(unacceptedlength, '\D', '', 'g') AS FLOAT) > 0
 AND CAST(REGEXP_REPLACE(width, '\D', '', 'g') AS FLOAT) > 0;
 
 # streets16
-SELECT SUM((CAST(REGEXP_REPLACE(length, '\\D', '', 'g') AS FLOAT) + CAST(REGEXP_REPLACE(unacceptedlength, '\\D', '', 'g') AS FLOAT)) * CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) / 27878400) AS total_area_sum_sq_mi FROM street WHERE CAST(REGEXP_REPLACE(length, '\\D', '', 'g') AS FLOAT) > 0 AND CAST(REGEXP_REPLACE(unacceptedlength, '\\D', '', 'g') AS FLOAT) > 0 AND CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) > 0;
+SELECT SUM((CAST(REGEXP_REPLACE(length, '\\D', '', 'g') AS FLOAT) + CAST(REGEXP_REPLACE(unacceptedlength, '\\D', '', 'g') AS FLOAT)) * CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) / 27878400) AS total_area_sum_sq_mi FROM street WHERE CAST(REGEXP_REPLACE(length, '\\D', '', 'g') AS FLOAT) > 0 AND ( CAST(REGEXP_REPLACE(unacceptedlength, '\\D', '', 'g') AS FLOAT) > 0 OR CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) > 0 )
 
 ```
 
