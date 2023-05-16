@@ -808,12 +808,20 @@ accepted_length_sum_miles
 ```java
 SELECT SUM((CAST(REGEXP_REPLACE(length, '\D', '', 'g') AS FLOAT) + CAST(REGEXP_REPLACE(unacceptedlength, '\D', '', 'g') AS FLOAT)) * CAST(REGEXP_REPLACE(width, '\D', '', 'g') AS FLOAT) / 27878400) AS total_area_sum_sq_mi
 FROM street
-WHERE CAST(REGEXP_REPLACE(length, '\D', '', 'g') AS FLOAT) > 0
-AND CAST(REGEXP_REPLACE(unacceptedlength, '\D', '', 'g') AS FLOAT) > 0
-AND CAST(REGEXP_REPLACE(width, '\D', '', 'g') AS FLOAT) > 0;
+WHERE CAST(REGEXP_REPLACE(width, '\D', '', 'g') AS FLOAT) > 0
+AND (CAST(REGEXP_REPLACE(length, '\D', '', 'g') AS FLOAT) > 0
+OR ( CAST(REGEXP_REPLACE(unacceptedlength, '\D', '', 'g') AS FLOAT) > 0)) ;
 
 # streets16
-SELECT SUM((CAST(REGEXP_REPLACE(length, '\\D', '', 'g') AS FLOAT) + CAST(REGEXP_REPLACE(unacceptedlength, '\\D', '', 'g') AS FLOAT)) * CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) / 27878400) AS total_area_sum_sq_mi FROM street WHERE CAST(REGEXP_REPLACE(length, '\\D', '', 'g') AS FLOAT) > 0 AND ( CAST(REGEXP_REPLACE(unacceptedlength, '\\D', '', 'g') AS FLOAT) > 0 OR CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) > 0 )
+SELECT SUM((CAST(REGEXP_REPLACE(length, '\\D', '', 'g') AS FLOAT) + CAST(REGEXP_REPLACE(unacceptedlength, '\\D', '', 'g') AS FLOAT)) * CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) / 27878400) AS total_area_sum_sq_mi FROM street WHERE CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) > 0 AND (CAST(REGEXP_REPLACE(length, '\\D', '', 'g') AS FLOAT) > 0 OR ( CAST(REGEXP_REPLACE(unacceptedlength, '\\D', '', 'g') AS FLOAT) > 0)) ;
+
+
+SELECT ((CAST(REGEXP_REPLACE(public.street.length, '\D', '', 'g') AS FLOAT) + CAST(REGEXP_REPLACE(public.street.unacceptedlength, '\D', '', 'g') AS FLOAT)) * CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) / 27878400.0) AS total_area_sum_sq_mi,
+        (CAST(REGEXP_REPLACE(public.street.length, '\D', '', 'g') AS FLOAT)) as length_col,
+        (CAST(REGEXP_REPLACE(public.street.unacceptedlength, '\D', '', 'g') AS FLOAT)) as unacceptedlength_col,
+        (CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT)) as width_col
+FROM street
+limit 100;
 
 ```
 
@@ -874,7 +882,7 @@ FROM street
 WHERE CAST(REGEXP_REPLACE(unacceptedlength, '\D', '', 'g') AS FLOAT) > 0
 AND CAST(REGEXP_REPLACE(width, '\D', '', 'g') AS FLOAT) > 0;
 
-# streets18
+# streets18 - incorrect result
 SELECT SUM(CAST(REGEXP_REPLACE(unacceptedlength, '\\D', '', 'g') AS FLOAT) * CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) / 27878400) AS unaccepted_area_sum_sq_mi FROM street WHERE CAST(REGEXP_REPLACE(unacceptedlength, '\\D', '', 'g') AS FLOAT) > 0 AND CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) > 0;
 
 ```
