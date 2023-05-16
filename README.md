@@ -731,25 +731,29 @@ CREATE TABLE "street" (
 
 ## Streets visualizations
 
-| Content                                | Example Value | Visualization Type | Comment | Chart                  |
-| -------------------------------------- | ------------- | ------------------ | ------- | ---------------------- |
-| --ROW 1--                              |               |                    |         |                        |
-| # of streets                           | 1128          | SingleStat         | done    | # Streets              |
-| # of accepted streets                  | 820           | SingleStat         | done    | # Accepted Streets     |
-| # of unaccepted streets                | 308           | SingleStat         | done    | # UnAccepted Streets   |
-| --ROW 2--                              |               |                    |         |                        |
-| Total Length of Accepted & non (feet)  | ???           | SingleStat         | BAD     | Accepted Streets12     |
-| Length of accepted streets (feet)      | 602k          | SingleStat         | done    | Accepted Streets1      |
-| Length of unaccepted streets (feet)    | 84k           | SingleStat         | done    | UnAccepted Streets2    |
-| --ROW 3--                              |               |                    |         |                        |
-| Total Length of Accepted & non (miles) | ???           | SingleStat         | BAD     | Total Length Streets13 |
-| Length of accepted streets (miles)     | 114.16 miles  | SingleStat         | done    | Accepted Streets4      |
-| Length of unaccepted streets (miles)   | 16 miles      | SingleStat         | done    | UnAccepted Streets5    |
-| --ROW 4--                              |               |                    |         |                        |
-| Total Area Streets (sq miles)          | ??? sq miles  | SingleStat         | BAD     | Total Area Streets16   |
-| area of accepted streets (sq miles)    | 29.7 sq miles | SingleStat         | Maybe   | Accepted Area17        |
-| area of unaccepted streets (sq miles)  | ??? sq miles  | SingleStat         | BAD     | UnAccepted Area18      |
-| --ROW 5--                              |               |                    |         |                        |
+| Content                                 | Example Value | Visualization Type | Comment | Chart                  |
+| --------------------------------------- | ------------- | ------------------ | ------- | ---------------------- |
+| --ROW 1--                               |               |                    |         |                        |
+| # of streets                            | 1128          | SingleStat         | done    | # Streets              |
+| # of accepted streets                   | 820           | SingleStat         | done    | # Accepted Streets     |
+| # of unaccepted streets                 | 308           | SingleStat         | done    | # UnAccepted Streets   |
+| --ROW 2--                               |               |                    |         |                        |
+| Total Length of Accepted & non (feet)   | ???           | SingleStat         | BAD     | Accepted Streets12     |
+| Length of accepted streets (feet)       | 602k          | SingleStat         | done    | Accepted Streets1      |
+| Length of unaccepted streets (feet)     | 84k           | SingleStat         | done    | UnAccepted Streets2    |
+| --ROW 3--                               |               |                    |         |                        |
+| Total Length of Accepted & non (miles)  | ???           | SingleStat         | BAD     | Total Length Streets13 |
+| Length of accepted streets (miles)      | 114.16 miles  | SingleStat         | done    | Accepted Streets4      |
+| Length of unaccepted streets (miles)    | 16 miles      | SingleStat         | done    | UnAccepted Streets5    |
+| --ROW 4--                               |               |                    |         |                        |
+| Total Area Streets (sq miles)           | ??? sq miles  | SingleStat         | BAD     | Total Area Streets16   |
+| area of accepted streets (sq miles)     | 29.7 sq miles | SingleStat         | Maybe   | Accepted Area17        |
+| area of unaccepted streets (sq miles)   | ??? sq miles  | SingleStat         | BAD     | UnAccepted Area18      |
+| --ROW 5--                               |               |                    |         |                        |
+| Total Sum Accepted & non (miles)        | ???           | SingleStat         | BAD     | Total Sum Width19      |
+| Sum of Width accepted streets (miles)   | ???           | SingleStat         | BAD     | Sum Accepted Width20   |
+| Sum of Width unaccepted streets (miles) | ???           | SingleStat         | BAD     | Sum UnAccepted Width21 |
+| --ROW 6--                               |               |                    |         |                        |
 
 | Content                          | Example Value | Visualization Type  | Comment | Chart |
 | -------------------------------- | ------------- | ------------------- | ------- | ----- |
