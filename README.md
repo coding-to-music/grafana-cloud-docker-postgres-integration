@@ -931,7 +931,6 @@ WHERE CAST(regexp_replace(public.street.length, '\D', '', 'g') AS INTEGER) > 0
 # Sum Accepted Width20 in feet
 SELECT SUM(CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER)) AS accepted_width_feet FROM street WHERE CAST(regexp_replace(public.street.length, '\\D', '', 'g') AS INTEGER) > 0  AND CAST(REGEXP_REPLACE(public.street.width, '\\D', '', 'g') AS FLOAT) > 0;
 
-
 ```
 
 ## Total area regardless of accepted or unaccepted
@@ -960,13 +959,32 @@ limit 100;
 
 ```java
 ## sum of length for non-null lengths
-SELECT SUM(CAST(REGEXP_REPLACE(length, '\D', '', 'g') AS FLOAT) * CAST(REGEXP_REPLACE(width, '\D', '', 'g') AS FLOAT) / 27878400) AS accepted_area_sum_sq_mi
+# Sum of width of accepted streets in feet
+SELECT SUM(CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER)) AS accepted_width_feet,
+       SUM(CAST(REGEXP_REPLACE(public.street.length, '\D', '', 'g') AS INTEGER)) AS accepted_length_feet
 FROM street
-WHERE CAST(REGEXP_REPLACE(length, '\D', '', 'g') AS FLOAT) > 0
-AND CAST(REGEXP_REPLACE(width, '\D', '', 'g') AS FLOAT) > 0;
+WHERE CAST(regexp_replace(public.street.length, '\D', '', 'g') AS INTEGER) > 0
+  AND CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) > 0;
+ accepted_width_feet | accepted_length_feet
+---------------------+----------------------
+               34184 |               600186
 
-# streets17
-SELECT SUM(CAST(REGEXP_REPLACE(length, '\\D', '', 'g') AS FLOAT) * CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) / 27878400) AS accepted_area_sum_sq_mi FROM street WHERE CAST(REGEXP_REPLACE(length, '\\D', '', 'g') AS FLOAT) > 0 AND CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) > 0;
+select ROUND((34184.0 * 600186.0) / 27878400.0, 2) as accepted_area_sq_miles;
+ accepted_area_sq_miles
+------------------------
+                 735.94
+
+SELECT ROUND(SUM(CAST(REGEXP_REPLACE(public.street.length, '\D', '', 'g') AS INTEGER) * CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) / 27878400.0), 2) AS accepted_area_sum_sq_mi
+FROM street
+WHERE CAST(regexp_replace(public.street.length, '\D', '', 'g') AS INTEGER) > 0
+  AND CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) > 0;
+ accepted_area_sum_sq_mi
+-------------------------
+                    1.02
+
+# streets17 Accepted Area17
+SELECT ROUND(SUM(CAST(REGEXP_REPLACE(public.street.length, '\\D', '', 'g') AS INTEGER) * CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) / 27878400.0), 2) AS accepted_area_sum_sq_mi FROM street WHERE CAST(regexp_replace(public.street.length, '\\D', '', 'g') AS INTEGER) > 0 AND CAST(REGEXP_REPLACE(public.street.width, '\\D', '', 'g') AS FLOAT) > 0;
+
 
 ```
 

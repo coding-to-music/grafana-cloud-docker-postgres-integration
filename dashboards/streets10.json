@@ -1389,7 +1389,7 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT SUM(CAST(REGEXP_REPLACE(length, '\\D', '', 'g') AS FLOAT) * CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) / 27878400) AS accepted_area_sum_sq_mi FROM street WHERE CAST(REGEXP_REPLACE(length, '\\D', '', 'g') AS FLOAT) > 0 AND CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) > 0 ",
+                    "rawSql": "SELECT ROUND(SUM(CAST(REGEXP_REPLACE(public.street.length, '\\D', '', 'g') AS INTEGER) * CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) / 27878400.0), 2) AS accepted_area_sum_sq_mi FROM street WHERE CAST(regexp_replace(public.street.length, '\\D', '', 'g') AS INTEGER) > 0 AND CAST(REGEXP_REPLACE(public.street.width, '\\D', '', 'g') AS FLOAT) > 0; ",
                     "refId": "A"
                 }
             ],
@@ -1551,7 +1551,7 @@
                             }
                         ]
                     },
-                    "unit": "lengthmi"
+                    "unit": "lengthft"
                 },
                 "overrides": []
             },
@@ -1616,7 +1616,7 @@
                             }
                         ]
                     },
-                    "unit": "lengthmi"
+                    "unit": "lengthft"
                 },
                 "overrides": []
             },
