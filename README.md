@@ -817,6 +817,16 @@ SELECT ROUND(SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) / 5280
 
 accepted_length_sum_miles
 114.16 miles
+
+# Sum of width of accepted streets in feet
+SELECT SUM(CAST(regexp_replace(public.street.length, '\D', '', 'g') AS INTEGER)) AS accepted_length,
+       SUM(CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT)) as width_col
+FROM  street
+WHERE CAST(regexp_replace(public.street.length, '\D', '', 'g') AS INTEGER) > 0
+AND   CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) > 0;
+
+
+
 ```
 
 ## Total area regardless of accepted or unaccepted
