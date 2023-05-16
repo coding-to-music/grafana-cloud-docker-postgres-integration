@@ -618,7 +618,7 @@
                     "editorMode": "code",
                     "format": "table",
                     "rawQuery": true,
-                    "rawSql": "SELECT SUM(CAST(regexp_replace(unacceptedlength, '\\D', '', 'g') AS INTEGER)) AS unaccepted_length_sum FROM street WHERE CAST(regexp_replace(unacceptedlength, '\\D', '', 'g') AS INTEGER) > 0 ",
+                    "rawSql": "SELECT 0; ",
                     "refId": "A",
                     "sql": {
                         "columns": [
@@ -1026,7 +1026,7 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT ROUND(SUM(CAST(regexp_replace(unacceptedlength, '\\D', '', 'g') AS INTEGER)) / 5280.0, 1) AS unaccepted_length_sum_miles FROM street WHERE CAST(regexp_replace(unacceptedlength, '\\D', '', 'g') AS INTEGER) > 0 ",
+                    "rawSql": "SELECT 0; ",
                     "refId": "A"
                 }
             ],
@@ -1324,7 +1324,7 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT SUM((CAST(REGEXP_REPLACE(length, '\\D', '', 'g') AS FLOAT) + CAST(REGEXP_REPLACE(unacceptedlength, '\\D', '', 'g') AS FLOAT)) * CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) / 27878400) AS total_area_sum_sq_mi FROM street WHERE CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) > 0 AND (CAST(REGEXP_REPLACE(length, '\\D', '', 'g') AS FLOAT) > 0 OR ( CAST(REGEXP_REPLACE(unacceptedlength, '\\D', '', 'g') AS FLOAT) > 0)) ",
+                    "rawSql": "SELECT 0; ",
                     "refId": "A"
                 }
             ],
@@ -1454,7 +1454,7 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT SUM(CAST(REGEXP_REPLACE(unacceptedlength, '\\D', '', 'g') AS FLOAT) * CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) / 27878400) AS unaccepted_area_sum_sq_mi FROM street WHERE CAST(REGEXP_REPLACE(unacceptedlength, '\\D', '', 'g') AS FLOAT) > 0 AND CAST(REGEXP_REPLACE(width, '\\D', '', 'g') AS FLOAT) > 0 ",
+                    "rawSql": "SELECT 0; ",
                     "refId": "A"
                 }
             ],
@@ -1519,7 +1519,7 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT ROUND(SUM(CAST(regexp_replace(unacceptedlength, '\\D', '', 'g') AS INTEGER)) / 5280.0, 1) AS unaccepted_length_sum_miles FROM street WHERE CAST(regexp_replace(unacceptedlength, '\\D', '', 'g') AS INTEGER) > 0 ",
+                    "rawSql": "SELECT 0; ",
                     "refId": "A"
                 }
             ],
