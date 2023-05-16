@@ -820,11 +820,38 @@ accepted_length_sum_miles
 
 # Sum of width of accepted streets in feet
 SELECT SUM(CAST(regexp_replace(public.street.length, '\D', '', 'g') AS INTEGER)) AS accepted_length,
-       SUM(CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT)) as width_col
+       SUM(CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT)) as width_col,
+       count(*) as matching_rowcount
 FROM  street
 WHERE CAST(regexp_replace(public.street.length, '\D', '', 'g') AS INTEGER) > 0
-AND   CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) > 0;
+AND   CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) > 0
+AND   CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) < 150;
+ accepted_length | width_col | matching_rowcount
+-----------------+-----------+-------------------
+          586068 |     33597 |               804
 
+# Sum of width of accepted streets in miles
+SELECT ROUND(SUM(CAST(regexp_replace(public.street.width, '\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS accepted_width_miles
+FROM  street
+WHERE CAST(regexp_replace(public.street.length, '\D', '', 'g') AS INTEGER) > 0
+AND   CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) > 0
+AND   CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) < 150;
+ accepted_width_miles
+----------------------
+                 6.36
+
+# Sum of width of accepted streets in feet
+SELECT SUM(CAST(regexp_replace(public.street.width, '\D', '', 'g') AS INTEGER)) AS accepted_width_feet
+FROM  street
+WHERE CAST(regexp_replace(public.street.length, '\D', '', 'g') AS INTEGER) > 0
+AND   CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) > 0
+AND   CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) < 150;
+ accepted_width_feet
+---------------------
+               33597
+
+# Sum Accepted Width20 in feet
+SELECT SUM(CAST(regexp_replace(public.street.width, '\\D', '', 'g') AS INTEGER)) AS accepted_width_feet FROM  street WHERE CAST(regexp_replace(public.street.length, '\\D', '', 'g') AS INTEGER) > 0 AND   CAST(REGEXP_REPLACE(public.street.width, '\\D', '', 'g') AS FLOAT) > 0 AND   CAST(REGEXP_REPLACE(public.street.width, '\\D', '', 'g') AS FLOAT) < 150;
 
 
 ```
