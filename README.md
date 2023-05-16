@@ -826,9 +826,92 @@ FROM  street
 WHERE CAST(regexp_replace(public.street.length, '\D', '', 'g') AS INTEGER) > 0
 AND   CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) > 0
 AND   CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) < 150;
- accepted_length | width_col | matching_rowcount
------------------+-----------+-------------------
-          586068 |     33597 |               804
+
+# identify bad widths because they are too large
+SELECT  public.street.name,
+        public.street.length,
+        public.street.width,
+        CAST(regexp_replace(public.street.length, '\D', '', 'g') AS INTEGER) AS accepted_length,
+        CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) as width_col,
+        public.street.unacceptedlength
+FROM  street
+WHERE CAST(regexp_replace(public.street.length, '\D', '', 'g') AS INTEGER) > 0
+AND   CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) > 0
+AND   CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) > 150
+ORDER BY CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) desc;
+         name         | length |  width   | accepted_length | width_col | unacceptedlength
+----------------------+--------+----------+-----------------+-----------+------------------
+ GRAY GARDENS E       | 900    | 40-24-28 |             900 |    402428 |
+ FOUNTAIN TERR        | 250    | 70-160   |             250 |     70160 |
+ MASSACHUSETTS AVE-06 | 2450   | 66-160   |            2450 |     66160 |
+ MOUNT AUBURN-04      | 3380   | 63-125   |            3380 |     63125 |
+ MASSACHUSETTS AVE-03 | 2590   | 103-63   |            2590 |     10363 |
+ GARDEN-03            | 1311   | 50-60    |            1311 |      5060 |
+ HOLWORTHY-02         | 370    | 40-50    |             370 |      4050 |
+ GRAY GARDENS W       | 400    | 40-25    |             400 |      4025 |
+ LANGDON              | 725    | 30-60    |             725 |      3060 |
+ MAY                  | 450    | 30-40    |             450 |      3040 |
+ FOLLEN               | 940    | 30-40    |             940 |      3040 |
+ FAINWOOD CR          | 352    | 25-30    |             352 |      2530 |
+
+SELECT  public.street.name,
+        public.street.length,
+        public.street.width,
+        CONCAT(
+          (LEFT(width, STRPOS(width, '-') - 1)::integer + RIGHT(width, STRPOS(width, '-') + 1)::integer) / 2,
+          '-',
+          RIGHT(width, STRPOS(width, '-') + 1)
+        ) AS width_col
+FROM  street
+WHERE CAST(regexp_replace(public.street.length, '\D', '', 'g') AS INTEGER) > 0
+AND   CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) > 0
+AND   CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) > 150
+ORDER BY CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) desc;
+
+# attempts to split the width values1
+SELECT  public.street.name,
+        public.street.length,
+        public.street.width,
+  CONCAT(
+    LEFT(width, STRPOS(width, '-') - 1)::integer,
+    '-',
+    RIGHT(width, STRPOS(width, '-') + 1)
+  ) AS width_col
+FROM  street
+WHERE CAST(regexp_replace(public.street.length, '\D', '', 'g') AS INTEGER) > 0
+AND   CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) > 0
+AND   CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) > 150
+ORDER BY CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) desc;
+
+# get the width column using the leftmost integer
+SELECT
+  public.street.name,
+  public.street.length,
+  public.street.width,
+  CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) AS width_col
+FROM
+  public.street
+WHERE
+  CAST(REGEXP_REPLACE(public.street.length, '\D', '', 'g') AS INTEGER) > 0
+  AND CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) > 0
+  AND CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) > 150
+ORDER BY
+  CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) DESC;
+
+# get the width column using the leftmost integer
+SELECT
+  public.street.name,
+  public.street.length,
+  public.street.width,
+  CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) AS width_col
+FROM
+  public.street
+WHERE
+  CAST(REGEXP_REPLACE(public.street.length, '\D', '', 'g') AS INTEGER) > 0
+  AND CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) > 0;
+
+
+
 
 # Sum of width of accepted streets in miles
 SELECT ROUND(SUM(CAST(regexp_replace(public.street.width, '\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS accepted_width_miles
