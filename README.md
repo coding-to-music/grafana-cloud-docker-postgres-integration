@@ -731,22 +731,25 @@ CREATE TABLE "street" (
 
 ## Streets visualizations
 
-| Content                          | Example Value | Visualization Type  | Comment |
-| -------------------------------- | ------------- | ------------------- | ------- |
-| # of streets                     | 1128          | SingleStat          | done    |
-| # of accepted streets            | 820           | SingleStat          | done    |
-| # of unaccepted streets          | 308           | SingleStat          | done    |
-| Length of accepted streets       | 114.16 miles  | SingleStat          | done    |
-| Length of unaccepted streets     | 16 miles      | SingleStat          | done    |
-| Total Length of Accepted & non   | 130 miles     | SingleStat          | do      |
-| area of accepted streets         |               | SingleStat          | do      |
-| area of unaccepted streets       |               | SingleStat          | do      |
-| Year Accepted                    |               | Histogram by decade | Do      |
-| Accepted Length by Year Accepted |               | Histogram by decade | Do      |
-| Accepted Length by Year Accepted |               | Treemap             | Do      |
-| Length by Width                  |               | Treemap             | Do      |
-| Total Length w/ added per year   |               | two lines           | Do      |
-| Data 1h                          |               |                     | Data 3h |
+| Content                        | Example Value | Visualization Type | Comment | Chart                |
+| ------------------------------ | ------------- | ------------------ | ------- | -------------------- |
+| # of streets                   | 1128          | SingleStat         | done    | # Streets            |
+| # of accepted streets          | 820           | SingleStat         | done    | # Accepted Streets   |
+| # of unaccepted streets        | 308           | SingleStat         | done    | # UnAccepted Streets |
+| Length of accepted streets     | 114.16 miles  | SingleStat         | done    | Accepted Streets1    |
+| Length of unaccepted streets   | 16 miles      | SingleStat         | done    | UnAccepted Streets2  |
+| Total Length of Accepted & non | 130 miles     | SingleStat         | BAD     | Accepted Streets12   |
+| area of accepted streets       |               | SingleStat         | done    | UnAccepted Streets5  |
+| area of unaccepted streets     |               | SingleStat         | BAD     | ToDo                 |
+
+| Content                          | Example Value | Visualization Type  | Comment | Chart |
+| -------------------------------- | ------------- | ------------------- | ------- | ----- |
+| Year Accepted                    |               | Histogram by decade | Do      | ToDo  |
+| Accepted Length by Year Accepted |               | Histogram by decade | Do      | ToDo  |
+| Accepted Length by Year Accepted |               | Treemap             | Do      | ToDo  |
+| Length by Width                  |               | Treemap             | Do      | ToDo  |
+| Total Length w/ added per year   |               | two lines           | Do      | ToDo  |
+| Data 1h                          |               |                     | Data 3h | ToDo  |
 
 Length is populated with the accepted length - if Length is null then the street is unaccepted
 Dock st is length 197 feet accepted plus 226 feet unaccepted
