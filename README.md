@@ -1086,10 +1086,10 @@ WHERE CAST(regexp_replace(public.street.length, '\D', '', 'g') AS INTEGER) > 0
 # Width > 40 Streets6
 SELECT SUM(CAST(REGEXP_REPLACE(public.street.length, '\\D', '', 'g') AS INTEGER)) AS accepted_length_feet FROM street WHERE CAST(regexp_replace(public.street.length, '\\D', '', 'g') AS INTEGER) > 0  AND CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) >= 40;
 
-# Width > 40 Streets7
+# Width > 50 Streets7
 SELECT SUM(CAST(REGEXP_REPLACE(public.street.length, '\\D', '', 'g') AS INTEGER)) AS accepted_length_feet FROM street WHERE CAST(regexp_replace(public.street.length, '\\D', '', 'g') AS INTEGER) > 0  AND CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) >= 50;
 
-# Width > 40 Streets8
+# Width > 60 Streets8
 SELECT SUM(CAST(REGEXP_REPLACE(public.street.length, '\\D', '', 'g') AS INTEGER)) AS accepted_length_feet FROM street WHERE CAST(regexp_replace(public.street.length, '\\D', '', 'g') AS INTEGER) > 0  AND CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) >= 60;
 
 ```
@@ -1114,10 +1114,22 @@ FROM street
 WHERE CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0
 AND CAST(regexp_replace(width, '\D', '', 'g') AS INTEGER) >= 50;
 
-SELECT ROUND(SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS accepted_length_sum_miles FROM street WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0 AND CAST(regexp_replace(width, '\\D', '', 'g') AS INTEGER) >= 50;
+SELECT ROUND(SUM(CAST(REGEXP_REPLACE(public.street.length, '\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS accepted_length_miles
+FROM street
+WHERE CAST(regexp_replace(public.street.length, '\D', '', 'g') AS INTEGER) > 0
+  AND CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) >= 50;
+ accepted_length_miles
+-----------------------
+                 47.18
 
-accepted_length_sum_miles
-47.96 miles
+# Width > 40 Streets9
+SELECT ROUND(SUM(CAST(REGEXP_REPLACE(public.street.length, '\\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS accepted_length_miles FROM street WHERE CAST(regexp_replace(public.street.length, '\\D', '', 'g') AS INTEGER) > 0 AND CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) >= 40;
+
+# Width > 50 Streets10
+SELECT ROUND(SUM(CAST(REGEXP_REPLACE(public.street.length, '\\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS accepted_length_miles FROM street WHERE CAST(regexp_replace(public.street.length, '\\D', '', 'g') AS INTEGER) > 0 AND CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) >= 50;
+
+# Width > 60 Streets11
+SELECT ROUND(SUM(CAST(REGEXP_REPLACE(public.street.length, '\\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS accepted_length_miles FROM street WHERE CAST(regexp_replace(public.street.length, '\\D', '', 'g') AS INTEGER) > 0 AND CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) >= 60;
 ```
 
 ## Length of accepted streets with width greater than 60 feet

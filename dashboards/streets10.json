@@ -419,7 +419,7 @@
                     },
                     "editorMode": "builder",
                     "format": "table",
-                    "rawSql": "SELECT SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) AS accepted_length_sum FROM street WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0 AND CAST(regexp_replace(width, '\\D', '', 'g') AS INTEGER) >= 40 ",
+                    "rawSql": "SELECT SUM(CAST(REGEXP_REPLACE(public.street.length, '\\D', '', 'g') AS INTEGER)) AS accepted_length_feet FROM street WHERE CAST(regexp_replace(public.street.length, '\\D', '', 'g') AS INTEGER) > 0  AND CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) >= 40 ",
                     "refId": "A"
                 }
             ],
@@ -485,7 +485,7 @@
                     },
                     "editorMode": "builder",
                     "format": "table",
-                    "rawSql": "SELECT SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) AS accepted_length_sum FROM street WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0 AND CAST(regexp_replace(width, '\\D', '', 'g') AS INTEGER) >= 50 ",
+                    "rawSql": "SELECT SUM(CAST(REGEXP_REPLACE(public.street.length, '\\D', '', 'g') AS INTEGER)) AS accepted_length_feet FROM street WHERE CAST(regexp_replace(public.street.length, '\\D', '', 'g') AS INTEGER) > 0  AND CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) >= 50 ",
                     "refId": "A"
                 }
             ],
@@ -551,7 +551,7 @@
                     },
                     "editorMode": "builder",
                     "format": "table",
-                    "rawSql": "SELECT SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) AS accepted_length_sum FROM street WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0 AND CAST(regexp_replace(width, '\\D', '', 'g') AS INTEGER) >= 60 ",
+                    "rawSql": "SELECT SUM(CAST(REGEXP_REPLACE(public.street.length, '\\D', '', 'g') AS INTEGER)) AS accepted_length_feet FROM street WHERE CAST(regexp_replace(public.street.length, '\\D', '', 'g') AS INTEGER) > 0  AND CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) >= 60 ",
                     "refId": "A"
                 }
             ],
@@ -831,7 +831,7 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT ROUND(SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS accepted_length_sum_miles FROM street WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0 AND CAST(regexp_replace(width, '\\D', '', 'g') AS INTEGER) >= 40 ",
+                    "rawSql": "SELECT ROUND(SUM(CAST(REGEXP_REPLACE(public.street.length, '\\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS accepted_length_miles FROM street WHERE CAST(regexp_replace(public.street.length, '\\D', '', 'g') AS INTEGER) > 0 AND CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) >= 40 ",
                     "refId": "A"
                 }
             ],
@@ -896,7 +896,7 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT ROUND(SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS accepted_length_sum_miles FROM street WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0 AND CAST(regexp_replace(width, '\\D', '', 'g') AS INTEGER) >= 50 ",
+                    "rawSql": "SELECT ROUND(SUM(CAST(REGEXP_REPLACE(public.street.length, '\\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS accepted_length_miles FROM street WHERE CAST(regexp_replace(public.street.length, '\\D', '', 'g') AS INTEGER) > 0 AND CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) >= 50 ",
                     "refId": "A"
                 }
             ],
@@ -961,7 +961,7 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT ROUND(SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS accepted_length_sum_miles FROM street WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0 AND CAST(regexp_replace(width, '\\D', '', 'g') AS INTEGER) >= 60 ",
+                    "rawSql": "SELECT ROUND(SUM(CAST(REGEXP_REPLACE(public.street.length, '\\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS accepted_length_miles FROM street WHERE CAST(regexp_replace(public.street.length, '\\D', '', 'g') AS INTEGER) > 0 AND CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) >= 60 ",
                     "refId": "A"
                 }
             ],
