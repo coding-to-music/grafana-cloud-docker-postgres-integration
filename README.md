@@ -790,13 +790,28 @@ npx prisma generate
 
 Create a new migration:
 
-```java
+````java
 # This had difficulty creating the shadow database
 npx prisma migrate dev
 
 # this worked, just reset the database and lose any existing data
+
+```java
+# Move prisma directory to prisma.backup
+
+npx prisma db pull
+
+npx prisma generate
+
+npx prisma migrate dev
+
+npx prisma migrate
+
+npx prisma migrate deploy
+
 npx prisma migrate reset
-```
+
+````
 
 ```java
 npx prisma studio

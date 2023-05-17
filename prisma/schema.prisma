@@ -7,28 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Street {
-  id                    Int      @id @default(autoincrement())
-  name                  String?
-  from                  String?
-  to                    String?
-  width                 String?
-  length                String?
-  date                  String?
-  noncity               String?
-  unacceptedlength      String?
-  width_int             Int?     @default(0)
-  length_int            Int?     @default(0)
-  unaccepted_length_int Int?     @default(0)
-  accepted_area_int     Int?     @default(0)
-  unaccepted_area_int   Int?     @default(0)
-  year_added_int        Int?     @default(0)
-  createdAt             DateTime @default(now()) @map("created_at")
-  updatedAt             DateTime @default(now()) @map("updated_at")
-
-  @@map("street")
-}
-
 model Post {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
@@ -55,7 +33,7 @@ model User {
   Profile Profile?
 }
 
-model EvLocations {
+model ev_locations {
   id                      Int      @id @default(autoincrement())
   access_days_time        String?  @db.VarChar(255)
   city                    String?  @db.VarChar(100)
@@ -70,6 +48,26 @@ model EvLocations {
   status_code             String?  @db.VarChar(20)
   street_address          String?  @db.VarChar(255)
   zip                     String?  @db.VarChar(20)
+}
 
-  @@map("ev_locations")
+model Street {
+  id                    Int      @id @default(autoincrement())
+  name                  String?
+  from                  String?
+  to                    String?
+  width                 String?
+  length                String?
+  date                  String?
+  noncity               String?
+  unacceptedlength      String?
+  width_int             Int?     @default(0)
+  length_int            Int?     @default(0)
+  unaccepted_length_int Int?     @default(0)
+  accepted_area_int     Int?     @default(0)
+  unaccepted_area_int   Int?     @default(0)
+  year_added_int        Int?     @default(0)
+  createdAt             DateTime @default(now()) @map("created_at")
+  updatedAt             DateTime @default(now()) @map("updated_at")
+
+  @@map("street")
 }
