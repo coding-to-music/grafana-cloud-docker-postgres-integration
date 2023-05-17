@@ -8,18 +8,23 @@ datasource db {
 }
 
 model Street {
-  id                Int      @id @default(autoincrement())
-  name              String?
-  from              String?
-  to                String?
-  width             String?
-  length            String?
-  date              String?
-  noncity           String?
-  unacceptedlength String?
-  area              Int?     @default(0)
-  createdAt         DateTime @default(now()) @map("created_at")
-  updatedAt         DateTime @default(now()) @map("updated_at")
+  id                    Int      @id @default(autoincrement())
+  name                  String?
+  from                  String?
+  to                    String?
+  width                 String?
+  length                String?
+  date                  String?
+  noncity               String?
+  unacceptedlength      String?
+  width_int             Int?     @default(0)
+  length_int            Int?     @default(0)
+  unaccepted_length_int Int?     @default(0)
+  accepted_area_int     Int?     @default(0)
+  unaccepted_area_int   Int?     @default(0)
+  year_added_int        Int?     @default(0)
+  createdAt             DateTime @default(now()) @map("created_at")
+  updatedAt             DateTime @default(now()) @map("updated_at")
 
   @@map("street")
 }

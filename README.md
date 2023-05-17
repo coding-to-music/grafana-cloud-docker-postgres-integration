@@ -710,7 +710,7 @@ When you are finished, you can exit the psql session by typing:
 
 ## Street schema
 
-```
+```java
 CREATE TABLE "street" (
     "id" SERIAL NOT NULL,
     "name" TEXT,
@@ -743,6 +743,64 @@ Add columns:
 Remove columns
 
 - area
+
+## Add the new columns to your schema.prisma file.
+
+```java
+  width_int             Int?     @default(0)
+  length_int            Int?     @default(0)
+  unaccepted_length_int Int?     @default(0)
+  accepted_area_int     Int?     @default(0)
+  unaccepted_area_int   Int?     @default(0)
+  year_added_int        Int?     @default(0)
+```
+
+New model
+
+```java
+model Street {
+  id                    Int      @id @default(autoincrement())
+  name                  String?
+  from                  String?
+  to                    String?
+  width                 String?
+  length                String?
+  date                  String?
+  noncity               String?
+  unacceptedlength      String?
+  width_int             Int?     @default(0)
+  length_int            Int?     @default(0)
+  unaccepted_length_int Int?     @default(0)
+  accepted_area_int     Int?     @default(0)
+  unaccepted_area_int   Int?     @default(0)
+  year_added_int        Int?     @default(0)
+  createdAt             DateTime @default(now()) @map("created_at")
+  updatedAt             DateTime @default(now()) @map("updated_at")
+
+  @@map("street")
+}
+
+```
+
+## Generate the Prisma Client:
+
+```java
+npx prisma generate
+```
+
+Create a new migration:
+
+```java
+# This had difficulty creating the shadow database
+npx prisma migrate dev
+
+# this worked, just reset the database and lose any existing data
+npx prisma migrate reset
+```
+
+```java
+npx prisma studio
+```
 
 ## Explore values and count of these columns
 
