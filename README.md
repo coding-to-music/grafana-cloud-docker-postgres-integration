@@ -799,13 +799,15 @@ npx prisma migrate dev
 ```java
 # Move prisma directory to prisma.backup
 
+npx prisma init
+
 npx prisma db pull
 
 npx prisma generate
 
-npx prisma migrate dev
+# Modify the prisma.schema model with the new columns
 
-npx prisma migrate
+npx prisma migrate dev
 
 npx prisma migrate deploy
 
