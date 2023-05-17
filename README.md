@@ -923,6 +923,7 @@ WHERE CAST(regexp_replace(public.street.length, '\D', '', 'g') AS INTEGER) > 0
 SELECT SUM(CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER)) AS accepted_width_feet
 FROM street
 WHERE CAST(regexp_replace(public.street.length, '\D', '', 'g') AS INTEGER) > 0
+  AND CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) > 0
   AND CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) > 0;
  accepted_width_feet
 ---------------------
@@ -930,6 +931,60 @@ WHERE CAST(regexp_replace(public.street.length, '\D', '', 'g') AS INTEGER) > 0
 
 # Sum Accepted Width20 in feet
 SELECT SUM(CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER)) AS accepted_width_feet FROM street WHERE CAST(regexp_replace(public.street.length, '\\D', '', 'g') AS INTEGER) > 0  AND CAST(REGEXP_REPLACE(public.street.width, '\\D', '', 'g') AS FLOAT) > 0;
+
+# Sum of width of Unaccepted streets in feet
+SELECT SUM(CAST(SPLIT_PART(public.street.width, '-', 1) AS float)) AS unaccepted_width_feet
+FROM street
+WHERE CAST(regexp_replace(public.street.unacceptedlength, '\D', '', 'g') AS INTEGER) > 0
+  AND CAST(SPLIT_PART(public.street.width, '-', 1) AS float) > 0
+  AND CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) > 0;
+ unaccepted_width_feet
+-----------------------
+               6335.66
+
+  AND split_part(substring(public.street.unacceptedlength, '^\d+'), '.', 1) > 0
+
+SELECT split_part(substring(your_column_name, '^\d+'), '.', 1) AS integer_part
+FROM your_table_name;
+
+SELECT  public.street.name,
+        CAST(SPLIT_PART(public.street.width, '-', 1) AS FLOAT) AS unaccepted_width_feet,
+        CAST(regexp_replace(public.street.unacceptedlength, '\D', '', 'g') AS INTEGER) as unacceptedlength_col,
+        public.street.width as width_actual,
+        public.street.unacceptedlength as unacceptedlength_actual,
+        split_part(substring(public.street.unacceptedlength, '^\d+'), '.', 1) AS integer_part
+FROM street
+WHERE CAST(regexp_replace(public.street.unacceptedlength, '\D', '', 'g') AS INTEGER) > 0
+  AND CAST(SPLIT_PART(public.street.width, '-', 1) AS float) > 0
+  AND CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) > 0
+  order by CAST(regexp_replace(public.street.unacceptedlength, '\D', '', 'g') AS INTEGER) desc;
+         name           | unaccepted_width_feet | unacceptedlength_col | width_actual | unacceptedlength_actual | integer_part
+-------------------------+-----------------------+----------------------+--------------+-------------------------+--------------
+ WILLARD ST CT           |                    20 |                12055 | 20           | 120.55                  | 120
+ ALEWIFE BROOK PKWAY     |                    40 |                 6920 | 40           | 6920                    | 6920
+ GREENOUGH BLVD          |                    75 |                 3900 | 75           | 3900                    | 3900
+ CAMBRIDGE PKWY          |                    75 |                 2400 | 75           | 2400                    | 2400
+ McGRATH O'BRIEN HWY-01  |                    75 |                 2000 | 75           | 2000                    | 2000
+ McGRATH O'BRIEN HWY-02  |                   100 |                 1700 | 100          | 1700                    | 1700
+ LAND BLVD (EDWIN H.) 02 |                    60 |                 1537 | 60           | 1537                    | 1537
+ ROGERS-02               |                    50 |                 1114 | 50           | 1114                    | 1114
+ DIVINITY AVE            |                    70 |                 1100 | 70           | 1100                    | 1100
+ AMHERST-02              |                    60 |                 1090 | 60           | 1090                    | 1090
+ POTTER                  |                    50 |                  866 | 50           | 866                     | 866
+ PURRINGTON              |                    50 |                  862 | 50           | 862                     | 862
+ MURRAY                  |                    50 |                  810 | 50           | 810                     | 810
+ STATE                   |                    40 |                  802 | 40           | 802                     | 802
+ MILL                    |                    35 |                  686 | 35           | 686                     | 686
+ LAND BLVD (EDWIN H.) 01 |                    60 |                  646 | 60           | 646                     | 646
+ RIVERVIEW AVE           |                    35 |                  625 | 35           | 625                     | 625
+ COWPERTHWAITE           |                    40 |                  619 | 40           | 619                     | 619
+ AUDREY                  |                    50 |                  580 | 50           | 580                     | 580
+ SAINT SAVEUR CT         |                    30 |                  570 | 30-40        | 570                     | 570
+ BERKELEY PL             |                    35 |                  560 | 35           | 560                     | 560
+
+
+# Sum UnAccepted Width21 in feet
+SELECT SUM(CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER)) AS accepted_width_feet FROM street WHERE CAST(regexp_replace(public.street.unacceptedlength, '\\D', '', 'g') AS INTEGER) > 0  AND CAST(REGEXP_REPLACE(public.street.width, '\\D', '', 'g') AS FLOAT) > 0;
 
 ```
 
@@ -995,17 +1050,20 @@ SELECT ROUND(SUM(CAST(REGEXP_REPLACE(public.street.length, '\\D', '', 'g') AS IN
 SELECT SUM(CAST(regexp_replace(unacceptedlength, '\D', '', 'g') AS INTEGER)) AS unaccepted_length_sum
 FROM street
 WHERE CAST(regexp_replace(unacceptedlength, '\D', '', 'g') AS INTEGER) > 0;
+ unaccepted_length_sum
+-----------------------
+                 84460
 
 # streets2
 SELECT SUM(CAST(regexp_replace(unacceptedlength, '\\D', '', 'g') AS INTEGER)) AS unaccepted_length_sum FROM street WHERE CAST(regexp_replace(unacceptedlength, '\\D', '', 'g') AS INTEGER) > 0;
-
-accepted_length_sum_feet
-84460 feet
 
 ## length converted to miles
 SELECT ROUND(SUM(CAST(regexp_replace(unacceptedlength, '\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS unaccepted_length_sum_miles
 FROM street
 WHERE CAST(regexp_replace(unacceptedlength, '\D', '', 'g') AS INTEGER) > 0;
+ unaccepted_length_sum_miles
+-----------------------------
+                       16.00
 
 # one decimal place
 SELECT ROUND(SUM(CAST(regexp_replace(unacceptedlength, '\D', '', 'g') AS INTEGER)) / 5280.0, 1) AS unaccepted_length_sum_miles
