@@ -942,6 +942,11 @@ WHERE CAST(regexp_replace(public.street.unacceptedlength, '\D', '', 'g') AS INTE
 -----------------------
                6335.66
 
+# Sum UnAccepted Width21
+SELECT SUM(CAST(SPLIT_PART(public.street.width, '-', 1) AS float)) AS unaccepted_width_feet FROM street WHERE CAST(regexp_replace(public.street.unacceptedlength, '\\D', '', 'g') AS INTEGER) > 0  AND CAST(SPLIT_PART(public.street.width, '-', 1) AS float) > 0  AND CAST(REGEXP_REPLACE(public.street.width, '\\D', '', 'g') AS FLOAT) > 0;
+
+
+
   AND split_part(substring(public.street.unacceptedlength, '^\d+'), '.', 1) > 0
 
 SELECT split_part(substring(your_column_name, '^\d+'), '.', 1) AS integer_part
@@ -981,6 +986,7 @@ WHERE CAST(regexp_replace(public.street.unacceptedlength, '\D', '', 'g') AS INTE
  AUDREY                  |                    50 |                  580 | 50           | 580                     | 580
  SAINT SAVEUR CT         |                    30 |                  570 | 30-40        | 570                     | 570
  BERKELEY PL             |                    35 |                  560 | 35           | 560                     | 560
+
 
 
 # Sum UnAccepted Width21 in feet

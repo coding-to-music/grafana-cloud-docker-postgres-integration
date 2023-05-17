@@ -1649,7 +1649,7 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT 0 ",
+                    "rawSql": "SELECT SUM(CAST(SPLIT_PART(public.street.width, '-', 1) AS float)) AS unaccepted_width_feet FROM street WHERE CAST(regexp_replace(public.street.unacceptedlength, '\\D', '', 'g') AS INTEGER) > 0  AND CAST(SPLIT_PART(public.street.width, '-', 1) AS float) > 0  AND CAST(REGEXP_REPLACE(public.street.width, '\\D', '', 'g') AS FLOAT) > 0 ",
                     "refId": "A"
                 }
             ],
