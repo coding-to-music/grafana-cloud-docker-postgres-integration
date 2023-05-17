@@ -797,6 +797,10 @@ npx prisma migrate dev
 # this worked, just reset the database and lose any existing data
 
 ```java
+pnpm i @vercel/postgres
+
+pnpm i -g vercel@latest
+
 # Move prisma directory to prisma.backup
 
 npx prisma init
