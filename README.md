@@ -1062,6 +1062,16 @@ unaccepted_length_sum_miles
 4.52 miles
 ```
 
+# Sum of width of accepted streets in feet
+
+```java
+SELECT SUM(CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER)) AS accepted_width_feet,
+       SUM(CAST(REGEXP_REPLACE(public.street.length, '\D', '', 'g') AS INTEGER)) AS accepted_length_feet
+FROM street
+WHERE CAST(regexp_replace(public.street.length, '\D', '', 'g') AS INTEGER) > 0
+  AND CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS FLOAT) >= 50;
+```
+
 ## Length of accepted streets with width greater than 50 feet
 
 ```java
