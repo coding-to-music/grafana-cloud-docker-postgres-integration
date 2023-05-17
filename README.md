@@ -731,12 +731,23 @@ CREATE TABLE "street" (
 
 ## Data conversion and cleaning
 
-add columns:
+Add columns:
 
 - width_int
 - length_int
 - unaccepted_length_int
-- year_added
+- accepted_area_int
+- unaccepted_area_int
+- year_added_int
+
+Remove columns
+
+- area
+
+## Explore values and count of these columns
+
+date
+noncity
 
 ## Streets visualizations
 
