@@ -729,6 +729,15 @@ CREATE TABLE "street" (
 );
 ```
 
+## Data conversion and cleaning
+
+add columns:
+
+- width_int
+- length_int
+- unaccepted_length_int
+- year_added
+
 ## Streets visualizations
 
 | Content                                 | Example Value | Visualization Type | Comment | Chart                  |
