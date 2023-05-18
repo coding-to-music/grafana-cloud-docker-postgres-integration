@@ -794,6 +794,8 @@ model Street {
 ```
 
 ```java
+# ----- length_int ----
+# use this update
 UPDATE street
 SET length_int = CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER)
 WHERE CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0;
@@ -801,18 +803,111 @@ WHERE CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0;
 SELECT length, length_int, count(*) AS num_count
 FROM street
 GROUP BY length, length_int
-ORDER BY count(*) desc;
+ORDER BY count(*) desc, length_int desc;
 
-# -----------
+select * from street where length_int = 12000;
+
+SELECT  public.street.length,
+        public.street.length_int
+FROM street
+WHERE public.street.length ~ '[^\d]+';
+ length | length_int
+--------+------------
+ 825+/- |        825
+ 650+/- |        650
+
+# ----- width_int ----
+# use this update
+UPDATE street
+SET   width_int = CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS INTEGER)
+WHERE CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS INTEGER) > 0;
 
 SELECT width, width_int, count(*) AS num_count
-FROM street
+FROM  street
 GROUP BY width, width_int
-ORDER BY count(*) desc, width_int;
+ORDER BY count(*) desc, width_int desc;
+
+# identify rows with decimals or dashes
+SELECT  public.street.width,
+        public.street.width_int
+FROM street
+WHERE public.street.width ~ '[^\d]';
+  width   | width_int
+----------+-----------
+ 29.33    |      2933
+ 29.33    |      2933
+ 25-30    |      2530
+ 30-40    |      3040
+ 70-160   |     70160
+ 50-60    |      5060
+ 40-24-28 |    402428
+ 40-25    |      4025
+ 40-50    |      4050
+ 95-70    |      9570
+ 30-35    |      3035
+ 30-60    |      3060
+ 30-40    |      3040
+ 103-63   |     10363
+ 66-160   |     66160
+ 30-40    |      3040
+ 63-125   |     63125
+(17 rows)
+
+# identify rows with decimals
+SELECT  public.street.width,
+        public.street.width_int
+FROM street
+WHERE public.street.width ~ '[^\d]'
+AND   public.street.width ~ '[.]';
+ width | width_int
+-------+-----------
+ 29.33 |      2933
+ 29.33 |      2933
+(2 rows)
+
+# use this update
+UPDATE street
+SET width_int = CAST(REGEXP_REPLACE(street.width, '(\d+)\..*', '\1') AS INTEGER)
+WHERE street.width ~ '\.';
+
+# verify
+SELECT  public.street.width,
+        public.street.width_int
+FROM street
+WHERE public.street.width ~ '[^\d]'
+AND   public.street.width ~ '[.]';
+ width | width_int
+-------+-----------
+ 29.33 |        29
+ 29.33 |        29
 
 UPDATE street
-SET width_int = CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0;
-WHERE CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0;
+SET width_int = (
+  CAST(SUBSTRING_INDEX(street.width, '-', 1) AS INTEGER) +
+  CAST(SUBSTRING_INDEX(street.width, '-', -1) AS INTEGER)
+) / 2
+WHERE street.width ~ '-';
+
+
+SELECT  public.street.width,
+        public.street.width_int
+        CAST(SUBSTRING_INDEX(street.width, '-', 1) AS INTEGER),
+        CAST(SUBSTRING_INDEX(street.width, '-', -1) AS INTEGER)
+FROM street
+WHERE public.street.width ~ '[^\d]'
+AND   public.street.width ~ '[.]';
+
+
+
+  CAST(SUBSTRING_INDEX(street.width, '-', 1) AS INTEGER) +
+  CAST(SUBSTRING_INDEX(street.width, '-', -1) AS INTEGER)
+) / 2
+
+
+# update rows with decimals to only contain the integer part
+UPDATE street
+SET width_int = CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS INTEGER)
+WHERE CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS INTEGER) > 0;
 
 
 ```
