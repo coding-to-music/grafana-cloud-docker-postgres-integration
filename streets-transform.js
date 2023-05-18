@@ -8,11 +8,16 @@ const pool = new Pool({
   ssl: true,
 });
 
+// Error executing update statements: error: invalid input syntax for type integer: "940+/-"
 // "UPDATE street SET unaccepted_length_int = CAST(regexp_replace(unacceptedlength, 'D', '', 'g') AS INTEGER) WHERE CAST(regexp_replace(unacceptedlength, 'D', '', 'g') AS INTEGER) > 0",
+
+// Error executing update statements: error: invalid input syntax for type integer: "120.55"
 // "UPDATE street SET unaccepted_length_int = CAST(REGEXP_REPLACE(street.unacceptedlength, '(d+)..*', '\1') AS INTEGER) WHERE public.street.unacceptedlength ~ '[^d]' AND   public.street.unacceptedlength ~ '[.]'",
 
+// Error executing update statements: error: invalid input syntax for type integer: "825+/-"
 // "UPDATE street SET length_int = CAST(regexp_replace(length, 'D', '', 'g') AS INTEGER) WHERE CAST(regexp_replace(length, 'D', '', 'g') AS INTEGER) > 0",
 
+// Error executing update statements: error: invalid input syntax for type integer: "29.33"
 // "UPDATE street SET width_int = CAST(REGEXP_REPLACE(public.street.width, 'D', '', 'g') AS INTEGER) WHERE CAST(REGEXP_REPLACE(public.street.width, 'D', '', 'g') AS INTEGER) > 0",
 // "UPDATE street SET width_int = CAST(REGEXP_REPLACE(street.width, '(d+)..*', '\1') AS INTEGER) WHERE street.width ~ '.'",
 
