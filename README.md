@@ -794,7 +794,9 @@ model Street {
 ```
 
 ```java
+# --------------------------------
 # ----- unaccepted_length_int ----
+# --------------------------------
 # Use this update statement
 UPDATE street
 SET unaccepted_length_int = CAST(regexp_replace(unacceptedlength, '\D', '', 'g') AS INTEGER)
@@ -842,7 +844,9 @@ WHERE public.street.unacceptedlength ~ '[^\d]+';
  120.55           |                   120
  345+/-           |                   345
 
+# --------------------------------
 # ----- length_int ----
+# --------------------------------
 # use this update
 UPDATE street
 SET length_int = CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER)
@@ -864,7 +868,9 @@ WHERE public.street.length ~ '[^\d]+';
  825+/- |        825
  650+/- |        650
 
+# -------------------------
 # ----- width_int ----
+# -------------------------
 # Use this update statement
 UPDATE street
 SET   width_int = CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS INTEGER)
@@ -965,7 +971,43 @@ AND   public.street.width ~ '[-]';
 ----------
 UPDATE 15
 
+# -------------------------
+# accepted_area_int
+# unaccepted_area_int
+# -------------------------
 
+# Use this update statement
+UPDATE street
+SET   accepted_area_int = length_int * width_int
+WHERE length_int > 0
+AND   width_int > 0;
+--------------
+UPDATE 816
+
+# Use this update statement
+UPDATE street
+SET   unaccepted_area_int = unaccepted_length_int * width_int
+WHERE unaccepted_length_int > 0
+AND   width_int > 0;
+--------------
+UPDATE 245
+
+# --------------------------------
+# year_added_int
+# --------------------------------
+
+# verify
+SELECT  public.street.date,
+        public.street.year_added_int,
+        count(*) as num_count
+FROM street
+GROUP BY public.street.date, public.street.year_added_int;
+
+
+ORDER BY public.street.year_added_int
+
+WHERE public.street.width ~ '[^\d]'
+AND   public.street.width ~ '[.]';
 
 
 ```
