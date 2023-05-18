@@ -1,7 +1,7 @@
 const fs = require("fs");
 const { Pool } = require("pg");
 const fastcsv = require("fast-csv");
-require('dotenv').config();
+require("dotenv").config();
 
 let stream = fs.createReadStream("ev_locations.csv");
 // let stream = fs.createReadStream("ev_locations_small.csv");
@@ -10,20 +10,27 @@ let csvData = [];
 let lineCount = 0;
 let csvStream = fastcsv
   .parse()
-  .on("data", function(data) {
+  .on("data", function (data) {
     lineCount++;
     csvData.push(data);
   })
-  .on("end", function() {
+  .on("end", function () {
     console.log(`Total number of lines in CSV file: ${lineCount}`);
 
     // create a new connection to the database
+    // create a new connection to the database
+    // const pool = new Pool({
+    //   user: process.env.POSTGRES_USER,
+    //   host: process.env.POSTGRES_HOST,
+    //   database: process.env.POSTGRES_DB,
+    //   password: process.env.POSTGRES_PW,
+    //   port: process.env.POSTGRES_PORT,
+    //   sslmode: "require",
+    // });
+
     const pool = new Pool({
-      user: process.env.POSTGRES_USER,
-      host: process.env.POSTGRES_HOST,
-      database: process.env.POSTGRES_DB,
-      password: process.env.POSTGRES_PW,
-      port: process.env.POSTGRES_PORT,
+      connectionString: process.env.POSTGRES_URL,
+      ssl: true, // Add this line to enable SSL
     });
 
     const schemaQuery = `
@@ -63,18 +70,18 @@ let csvStream = fastcsv
         console.log(err.stack);
         return;
       }
-      
+
       // Check if res.rows is defined and is an array
       if (Array.isArray(res.rows)) {
         // Iterate over each row in res.rows
-        res.rows.forEach(row => {
+        res.rows.forEach((row) => {
           console.log(row.column_name + " " + row.data_type);
         });
       } else {
         console.log("No rows found.");
       }
     });
-            
+
     // pool.query(dropRecreateQuery, (err, res) => {
     //   if (err) {
     //     console.log(err.stack);
@@ -94,8 +101,10 @@ let csvStream = fastcsv
         csvData.forEach((row, rowIndex) => {
           client.query(copyQuery, row, (err, res) => {
             if (err) {
-              console.log(`Error on row ${rowIndex+1}: ${err.message}`);
-              const targetColumnName = Object.keys(err.fields || {}).find(key => err.fields[key] !== undefined);
+              console.log(`Error on row ${rowIndex + 1}: ${err.message}`);
+              const targetColumnName = Object.keys(err.fields || {}).find(
+                (key) => err.fields[key] !== undefined
+              );
               console.log(`Offending row for ${targetColumnName}:`);
               console.log(row);
               errorCount++;
