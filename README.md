@@ -805,6 +805,8 @@ pnpm i -g vercel@latest
 
 npx prisma init
 
+# manually create a table in the vercel console so there will be something for prisma to pull
+
 npx prisma db pull
 
 npx prisma generate

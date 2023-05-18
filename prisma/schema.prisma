@@ -3,73 +3,25 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("POSTGRES_PRISMA_URL")
+  directUrl         = env("POSTGRES_URL_NON_POOLING")
+  shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model Street {
-  id                    Int      @id @default(autoincrement())
-  name                  String?
-  from                  String?
-  to                    String?
-  width                 String?
-  length                String?
-  date                  String?
-  noncity               String?
-  unacceptedlength      String?
-  width_int             Int?     @default(0)
-  length_int            Int?     @default(0)
-  unaccepted_length_int Int?     @default(0)
-  accepted_area_int     Int?     @default(0)
-  unaccepted_area_int   Int?     @default(0)
-  year_added_int        Int?     @default(0)
-  createdAt             DateTime @default(now()) @map("created_at")
-  updatedAt             DateTime @default(now()) @map("updated_at")
+  id               Int      @id @default(autoincrement())
+  name             String?
+  from             String?
+  to               String?
+  width            String?
+  length           String?
+  date             String?
+  noncity          String?
+  unacceptedlength String?
+  area             Int?     @default(0)
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @default(now()) @map("updated_at")
 
   @@map("street")
-}
-
-model Post {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime
-  title     String   @db.VarChar(255)
-  content   String?
-  published Boolean  @default(false)
-  authorId  Int
-  User      User     @relation(fields: [authorId], references: [id])
-}
-
-model Profile {
-  id     Int     @id @default(autoincrement())
-  bio    String?
-  userId Int     @unique
-  User   User    @relation(fields: [userId], references: [id])
-}
-
-model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String?
-  Post    Post[]
-  Profile Profile?
-}
-
-model EvLocations {
-  id                      Int      @id @default(autoincrement())
-  access_days_time        String?  @db.VarChar(255)
-  city                    String?  @db.VarChar(100)
-  facility_type           String?  @db.VarChar(100)
-  fuel_type_code          String?  @db.VarChar(100)
-  groups_with_access_code String?  @db.VarChar(255)
-  latitude                Decimal? @db.Decimal(20, 10)
-  longitude               Decimal? @db.Decimal(20, 10)
-  plus4                   String?  @db.VarChar(20)
-  state                   String?  @db.VarChar(100)
-  station_name            String?  @db.VarChar(255)
-  status_code             String?  @db.VarChar(20)
-  street_address          String?  @db.VarChar(255)
-  zip                     String?  @db.VarChar(20)
-
-  @@map("ev_locations")
 }
