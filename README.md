@@ -794,6 +794,54 @@ model Street {
 ```
 
 ```java
+# ----- unaccepted_length_int ----
+# Use this update statement
+UPDATE street
+SET unaccepted_length_int = CAST(regexp_replace(unacceptedlength, '\D', '', 'g') AS INTEGER)
+WHERE CAST(regexp_replace(unacceptedlength, '\D', '', 'g') AS INTEGER) > 0;
+
+SELECT unacceptedlength, unaccepted_length_int, count(*) AS num_count
+FROM street
+GROUP BY unacceptedlength, unaccepted_length_int
+ORDER BY count(*) desc, unaccepted_length_int desc;
+
+SELECT  public.street.unacceptedlength,
+        public.street.unaccepted_length_int
+FROM street
+WHERE public.street.unacceptedlength ~ '[^\d]+';
+ unacceptedlength | unaccepted_length_int
+------------------+-----------------------
+ 940+/-           |                   940
+ 345+/-           |                   345
+ 120.55           |                 12055
+
+# identify rows with decimals
+SELECT  public.street.unacceptedlength,
+        public.street.unaccepted_length_int
+FROM street
+WHERE public.street.unacceptedlength ~ '[^\d]'
+AND   public.street.unacceptedlength ~ '[.]';
+ unacceptedlength | unaccepted_length_int
+------------------+-----------------------
+ 120.55           |                 12055
+
+# Use this update statement
+UPDATE street
+SET   unaccepted_length_int = CAST(REGEXP_REPLACE(street.unacceptedlength, '(\d+)\..*', '\1') AS INTEGER)
+WHERE public.street.unacceptedlength ~ '[^\d]'
+AND   public.street.unacceptedlength ~ '[.]';
+
+# verify
+SELECT  public.street.unacceptedlength,
+        public.street.unaccepted_length_int
+FROM street
+WHERE public.street.unacceptedlength ~ '[^\d]+';
+ unacceptedlength | unaccepted_length_int
+------------------+-----------------------
+ 940+/-           |                   940
+ 120.55           |                   120
+ 345+/-           |                   345
+
 # ----- length_int ----
 # use this update
 UPDATE street
@@ -817,7 +865,7 @@ WHERE public.street.length ~ '[^\d]+';
  650+/- |        650
 
 # ----- width_int ----
-# use this update
+# Use this update statement
 UPDATE street
 SET   width_int = CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS INTEGER)
 WHERE CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS INTEGER) > 0;
@@ -865,7 +913,7 @@ AND   public.street.width ~ '[.]';
  29.33 |      2933
 (2 rows)
 
-# use this update
+# Use this update statement
 UPDATE street
 SET width_int = CAST(REGEXP_REPLACE(street.width, '(\d+)\..*', '\1') AS INTEGER)
 WHERE street.width ~ '\.';
@@ -881,33 +929,43 @@ AND   public.street.width ~ '[.]';
  29.33 |        29
  29.33 |        29
 
-UPDATE street
-SET width_int = (
-  CAST(SUBSTRING_INDEX(street.width, '-', 1) AS INTEGER) +
-  CAST(SUBSTRING_INDEX(street.width, '-', -1) AS INTEGER)
-) / 2
-WHERE street.width ~ '-';
-
-
 SELECT  public.street.width,
-        public.street.width_int
-        CAST(SUBSTRING_INDEX(street.width, '-', 1) AS INTEGER),
-        CAST(SUBSTRING_INDEX(street.width, '-', -1) AS INTEGER)
+        public.street.width_int,
+        CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER),
+        CAST(SPLIT_PART(public.street.width, '-', 2) AS INTEGER)
 FROM street
 WHERE public.street.width ~ '[^\d]'
-AND   public.street.width ~ '[.]';
+AND   public.street.width ~ '[-]';
+  width   | width_int | split_part | split_part
+----------+-----------+------------+------------
+ 25-30    |      2530 |         25 |         30
+ 30-40    |      3040 |         30 |         40
+ 70-160   |     70160 |         70 |        160
+ 50-60    |      5060 |         50 |         60
+ 40-24-28 |    402428 |         40 |         24
+ 40-25    |      4025 |         40 |         25
+ 40-50    |      4050 |         40 |         50
+ 95-70    |      9570 |         95 |         70
+ 30-35    |      3035 |         30 |         35
+ 30-60    |      3060 |         30 |         60
+ 30-40    |      3040 |         30 |         40
+ 103-63   |     10363 |        103 |         63
+ 66-160   |     66160 |         66 |        160
+ 30-40    |      3040 |         30 |         40
+ 63-125   |     63125 |         63 |        125
 
-
-
-  CAST(SUBSTRING_INDEX(street.width, '-', 1) AS INTEGER) +
-  CAST(SUBSTRING_INDEX(street.width, '-', -1) AS INTEGER)
-) / 2
-
-
-# update rows with decimals to only contain the integer part
+# Use this update statement
 UPDATE street
-SET width_int = CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS INTEGER)
-WHERE CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS INTEGER) > 0;
+SET width_int = (
+        CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) +
+        CAST(SPLIT_PART(public.street.width, '-', 2) AS INTEGER)
+) / 2
+WHERE public.street.width ~ '[^\d]'
+AND   public.street.width ~ '[-]';
+----------
+UPDATE 15
+
+
 
 
 ```
