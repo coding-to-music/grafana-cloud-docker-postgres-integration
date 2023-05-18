@@ -847,7 +847,7 @@ WHERE public.street.unacceptedlength ~ '[^\d]+';
 # --------------------------------
 # ----- length_int ----
 # --------------------------------
-# use this update
+# use this update statement
 UPDATE street
 SET length_int = CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER)
 WHERE CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0;
