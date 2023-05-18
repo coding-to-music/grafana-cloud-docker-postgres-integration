@@ -782,6 +782,41 @@ model Street {
 
 ```
 
+## Populate the new columns
+
+```java
+  width_int             Int?     @default(0)
+  length_int            Int?     @default(0)
+  unaccepted_length_int Int?     @default(0)
+  accepted_area_int     Int?     @default(0)
+  unaccepted_area_int   Int?     @default(0)
+  year_added_int        Int?     @default(0)
+```
+
+```java
+UPDATE street
+SET length_int = CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER)
+WHERE CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0;
+
+SELECT length, length_int, count(*) AS num_count
+FROM street
+GROUP BY length, length_int
+ORDER BY count(*) desc;
+
+# -----------
+
+SELECT width, width_int, count(*) AS num_count
+FROM street
+GROUP BY width, width_int
+ORDER BY count(*) desc, width_int;
+
+UPDATE street
+SET width_int = CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0;
+WHERE CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0;
+
+
+```
+
 ## Generate the Prisma Client:
 
 ```java
