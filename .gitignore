@@ -11,6 +11,8 @@ junk-2.csv
 *.old
 *.old*
 
+package-lock.json
+
 node_modules/
 
 # Runtime data
