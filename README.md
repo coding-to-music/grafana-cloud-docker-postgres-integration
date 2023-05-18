@@ -815,6 +815,28 @@ npx prisma generate
 
 npx prisma migrate dev
 
+mkdir -p prisma/migrations/0_init
+
+npx prisma migrate diff \
+--from-empty \
+--to-schema-datamodel prisma/schema.prisma \
+--script > prisma/migrations/0_init/migration.sql
+
+npx prisma migrate resolve --applied 0_init
+
+# apply new columns to the model
+
+mkdir -p prisma/migrations/0_init2
+
+npx prisma migrate diff \
+--from-empty \
+--to-schema-datamodel prisma/schema.prisma \
+--script > prisma/migrations/0_init2/migration.sql
+
+npx prisma migrate resolve --applied 0_init2
+
+
+
 npx prisma migrate deploy
 
 npx prisma migrate reset
