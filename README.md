@@ -996,19 +996,29 @@ UPDATE 245
 # year_added_int
 # --------------------------------
 
+# use this update statement
+UPDATE street
+SET year_added_int = CAST(regexp_replace(street.date, '\D', '', 'g') AS INTEGER)
+WHERE CAST(regexp_replace(street.date, '\D', '', 'g') AS INTEGER) > 0;
+--------------
+UPDATE 845
+
 # verify
 SELECT  public.street.date,
         public.street.year_added_int,
         count(*) as num_count
 FROM street
-GROUP BY public.street.date, public.street.year_added_int;
+GROUP BY public.street.date, public.street.year_added_int
+ORDER BY public.street.year_added_int;
 
-
-ORDER BY public.street.year_added_int
-
-WHERE public.street.width ~ '[^\d]'
-AND   public.street.width ~ '[.]';
-
+# Verify no non-integer characters
+SELECT  '--->' || public.street.date || '<---' AS date_string,
+        public.street.year_added_int
+FROM street
+WHERE public.street.date ~ '[^\d]';
+ date_string  | year_added_int
+--------------+----------------
+(0 rows)
 
 ```
 
