@@ -1025,6 +1025,8 @@ WHERE public.street.date ~ '[^\d]';
 
 ## More Update Statements
 
+Note these work via psql, but to use in node you need to change each \ to \\
+
 ```java
   // connectionString: process.env.POSTGRES_URL_NON_POOLING,
   // connectionString: process.env.POSTGRES_URL,
@@ -1189,6 +1191,112 @@ noncity
 Length is populated with the accepted length - if Length is null then the street is unaccepted
 Dock st is length 197 feet accepted plus 226 feet unaccepted
 The rows that are most relevant have non-null length - basically ignore all rows with null length
+
+## Grafana queries using the new columns
+
+````java
+```java
+model Street {
+  id                    Int      @id @default(autoincrement())
+  name                  String?
+  from                  String?
+  to                    String?
+  width                 String?
+  length                String?
+  date                  String?
+  noncity               String?
+  unacceptedlength      String?
+  width_int             Int?     @default(0)
+  length_int            Int?     @default(0)
+  unaccepted_length_int Int?     @default(0)
+  accepted_area_int     Int?     @default(0)
+  unaccepted_area_int   Int?     @default(0)
+  year_added_int        Int?     @default(0)
+````
+
+```java
+# Streets
+
+# ---------------------
+# Column 1
+# ---------------------
+
+# Streets
+
+# Total Length Streets12 (Feet)
+
+# Total Length Streets13 (Feet)
+
+# Total Area Streets16 (sq miles)
+
+# Total Sum Width19 (feet)
+
+
+# ---------------------
+# Column 2
+# ---------------------
+
+# Accepted Streets
+
+# Accepted Streets1 (Feet)
+
+# Accepted Streets4 (Miles)
+SELECT ROUND(SUM(public.street.length_int) AS INTEGER)) / 5280.0, 2) AS accepted_length_sum_miles FROM public.street WHERE public.street.length_int > 0;
+
+
+# Accepted Area17 (sq Miles)
+
+# Sum Accepted Width20 (Feet)
+
+
+# ---------------------
+# Column 3
+# ---------------------
+
+# UnAccepted Streets
+
+# UnAccepted Streets2 (Feet)
+
+# UnAccepted Streets5 (Miles)
+
+# UnAccepted Area17 (sq Miles)
+
+# Sum UnAccepted Width21 (Feet)
+
+# ---------------------
+# Width > 40
+# ---------------------
+
+# Width > 40 Streets6 (Feet)
+
+# Width > 40 Streets9 (sq Miles)
+
+# ---------------------
+# Width > 50
+# ---------------------
+
+# Width > 50 Streets7 (Feet)
+
+# Width > 50 Streets10 (sq Miles)
+
+# ---------------------
+# Width > 60
+# ---------------------
+
+# Width > 60 Streets8 (Feet)
+SELECT SUM(length_int) from public.street WHERE width_int >= 60;
+
+# Width > 60 Streets11 (sq Miles)
+SELECT SUM(length_int) / 5280.0) from public.street WHERE width_int >= 60;
+
+
+
+
+
+
+
+
+```
 
 ## Counts of streets, accepted and unaccepted
 
