@@ -143,7 +143,7 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT COUNT(id) FROM street WHERE length IS NOT NULL LIMIT 50 ",
+                    "rawSql": "SELECT COUNT(public.street.length_int) AS accepted_street_count FROM public.street WHERE public.street.length_int > 0 ",
                     "refId": "A"
                 }
             ],
@@ -208,50 +208,8 @@
                     },
                     "editorMode": "builder",
                     "format": "table",
-                    "rawSql": "SELECT COUNT(id) FROM street WHERE length IS NULL LIMIT 50 ",
-                    "refId": "A",
-                    "sql": {
-                        "columns": [
-                            {
-                                "name": "COUNT",
-                                "parameters": [
-                                    {
-                                        "name": "id",
-                                        "type": "functionParameter"
-                                    }
-                                ],
-                                "type": "function"
-                            }
-                        ],
-                        "groupBy": [
-                            {
-                                "property": {
-                                    "type": "string"
-                                },
-                                "type": "groupBy"
-                            }
-                        ],
-                        "limit": 50,
-                        "whereJsonTree": {
-                            "children1": [
-                                {
-                                    "id": "9ab99ba8-cdef-4012-b456-718802b3ead1",
-                                    "properties": {
-                                        "field": "length",
-                                        "operator": "is_null",
-                                        "value": [],
-                                        "valueSrc": [],
-                                        "valueType": []
-                                    },
-                                    "type": "rule"
-                                }
-                            ],
-                            "id": "9b88bb8a-89ab-4cde-b012-318802b12165",
-                            "type": "group"
-                        },
-                        "whereString": "length IS NULL"
-                    },
-                    "table": "street"
+                    "rawSql": "SELECT COUNT(public.street.unaccepted_length_int) AS unaccepted_street_count FROM public.street WHERE public.street.unaccepted_length_int > 0 ",
+                    "refId": "A"
                 }
             ],
             "title": "# UnAccepted Streets",
@@ -419,7 +377,7 @@
                     },
                     "editorMode": "builder",
                     "format": "table",
-                    "rawSql": "SELECT SUM(CAST(REGEXP_REPLACE(public.street.length, '\\D', '', 'g') AS INTEGER)) AS accepted_length_feet FROM street WHERE CAST(regexp_replace(public.street.length, '\\D', '', 'g') AS INTEGER) > 0  AND CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) >= 40 ",
+                    "rawSql": "SELECT SUM(public.street.length_int) AS accepted_length_sum_feet FROM public.street WHERE public.street.length_int > 0 AND public.street.width_int >= 40 ",
                     "refId": "A"
                 }
             ],
@@ -485,7 +443,7 @@
                     },
                     "editorMode": "builder",
                     "format": "table",
-                    "rawSql": "SELECT SUM(CAST(REGEXP_REPLACE(public.street.length, '\\D', '', 'g') AS INTEGER)) AS accepted_length_feet FROM street WHERE CAST(regexp_replace(public.street.length, '\\D', '', 'g') AS INTEGER) > 0  AND CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) >= 50 ",
+                    "rawSql": "SELECT SUM(public.street.length_int) AS accepted_length_sum_feet FROM public.street WHERE public.street.length_int > 0 AND public.street.width_int >= 50 ",
                     "refId": "A"
                 }
             ],
@@ -551,7 +509,7 @@
                     },
                     "editorMode": "builder",
                     "format": "table",
-                    "rawSql": "SELECT SUM(CAST(REGEXP_REPLACE(public.street.length, '\\D', '', 'g') AS INTEGER)) AS accepted_length_feet FROM street WHERE CAST(regexp_replace(public.street.length, '\\D', '', 'g') AS INTEGER) > 0  AND CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) >= 60 ",
+                    "rawSql": "SELECT SUM(public.street.length_int) AS accepted_length_sum_feet FROM public.street WHERE public.street.length_int > 0 AND public.street.width_int >= 60 ",
                     "refId": "A"
                 }
             ],
@@ -618,28 +576,11 @@
                     "editorMode": "code",
                     "format": "table",
                     "rawQuery": true,
-                    "rawSql": "SELECT 0; ",
-                    "refId": "A",
-                    "sql": {
-                        "columns": [
-                            {
-                                "parameters": [],
-                                "type": "function"
-                            }
-                        ],
-                        "groupBy": [
-                            {
-                                "property": {
-                                    "type": "string"
-                                },
-                                "type": "groupBy"
-                            }
-                        ],
-                        "limit": 50
-                    }
+                    "rawSql": "SELECT SUM(public.street.length_int + public.street.unaccepted_length_int) AS total_length_sum_feet FROM public.street ",
+                    "refId": "A"
                 }
             ],
-            "title": "Total Length Streets12 BAD",
+            "title": "Total Length Streets12",
             "type": "stat"
         },
         {
@@ -701,7 +642,7 @@
                     },
                     "editorMode": "builder",
                     "format": "table",
-                    "rawSql": "SELECT SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) AS accepted_length_sum FROM street WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0 ",
+                    "rawSql": "SELECT SUM(public.street.length_int) AS accepted_length_sum_feet FROM public.street WHERE public.street.length_int > 0 ",
                     "refId": "A"
                 }
             ],
@@ -766,7 +707,7 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT SUM(CAST(regexp_replace(unacceptedlength, '\\D', '', 'g') AS INTEGER)) AS unaccepted_length_sum FROM street WHERE CAST(regexp_replace(unacceptedlength, '\\D', '', 'g') AS INTEGER) > 0 ",
+                    "rawSql": "SELECT SUM(public.street.unaccepted_length_int) AS unaccepted_length_sum_feet FROM public.street WHERE public.street.unaccepted_length_int > 0 ",
                     "refId": "A"
                 }
             ],
@@ -831,7 +772,7 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT ROUND(SUM(CAST(REGEXP_REPLACE(public.street.length, '\\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS accepted_length_miles FROM street WHERE CAST(regexp_replace(public.street.length, '\\D', '', 'g') AS INTEGER) > 0 AND CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) >= 40 ",
+                    "rawSql": "SELECT ROUND(SUM(public.street.length_int) / 5280.0, 2) AS accepted_length_sum_miles FROM public.street WHERE public.street.length_int > 0 AND public.street.width_int >= 40 ",
                     "refId": "A"
                 }
             ],
@@ -896,7 +837,7 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT ROUND(SUM(CAST(REGEXP_REPLACE(public.street.length, '\\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS accepted_length_miles FROM street WHERE CAST(regexp_replace(public.street.length, '\\D', '', 'g') AS INTEGER) > 0 AND CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) >= 50 ",
+                    "rawSql": "SELECT ROUND(SUM(public.street.length_int) / 5280.0, 2) AS accepted_length_sum_miles FROM public.street WHERE public.street.length_int > 0 AND public.street.width_int >= 50 ",
                     "refId": "A"
                 }
             ],
@@ -961,7 +902,7 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT ROUND(SUM(CAST(REGEXP_REPLACE(public.street.length, '\\D', '', 'g') AS INTEGER)) / 5280.0, 2) AS accepted_length_miles FROM street WHERE CAST(regexp_replace(public.street.length, '\\D', '', 'g') AS INTEGER) > 0 AND CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) >= 60 ",
+                    "rawSql": "SELECT ROUND(SUM(public.street.length_int) / 5280.0, 2) AS accepted_length_sum_miles FROM public.street WHERE public.street.length_int > 0 AND public.street.width_int >= 60 ",
                     "refId": "A"
                 }
             ],
@@ -1026,11 +967,11 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT 0; ",
+                    "rawSql": "SELECT ROUND(SUM(public.street.length_int + public.street.unaccepted_length_int) / 5280.0, 2) AS total_length_sum_miles FROM public.street ",
                     "refId": "A"
                 }
             ],
-            "title": "Total Length Streets13 BAD",
+            "title": "Total Length Streets13",
             "type": "stat"
         },
         {
@@ -1091,7 +1032,7 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT ROUND(SUM(CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER)) / 5280.0, 1) AS accepted_length_sum_miles FROM street WHERE CAST(regexp_replace(length, '\\D', '', 'g') AS INTEGER) > 0 ",
+                    "rawSql": "SELECT ROUND(SUM(public.street.length_int) / 5280.0, 2) AS accepted_length_sum_miles FROM public.street WHERE public.street.length_int > 0 ",
                     "refId": "A"
                 }
             ],
@@ -1156,7 +1097,7 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT ROUND(SUM(CAST(regexp_replace(unacceptedlength, '\\D', '', 'g') AS INTEGER)) / 5280.0, 1) AS unaccepted_length_sum_miles FROM street WHERE CAST(regexp_replace(unacceptedlength, '\\D', '', 'g') AS INTEGER) > 0 ",
+                    "rawSql": "SELECT ROUND(SUM(public.street.unaccepted_length_int) / 5280.0, 2) AS unaccepted_length_sum_miles FROM public.street WHERE public.street.unaccepted_length_int > 0 ",
                     "refId": "A"
                 }
             ],
@@ -1324,11 +1265,11 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT 0; ",
+                    "rawSql": "SELECT ROUND((SUM((public.street.length_int + public.street.length_int) * public.street.width_int) / 27878400.0), 2) AS total_area_sq_miles FROM public.street ",
                     "refId": "A"
                 }
             ],
-            "title": "Total Area Streets16 BAD",
+            "title": "Total Area Streets16",
             "type": "stat"
         },
         {
@@ -1389,11 +1330,11 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT ROUND(SUM(CAST(REGEXP_REPLACE(public.street.length, '\\D', '', 'g') AS INTEGER) * CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) / 27878400.0), 2) AS accepted_area_sum_sq_mi FROM street WHERE CAST(regexp_replace(public.street.length, '\\D', '', 'g') AS INTEGER) > 0 AND CAST(REGEXP_REPLACE(public.street.width, '\\D', '', 'g') AS FLOAT) > 0; ",
+                    "rawSql": "SELECT ROUND((SUM(public.street.length_int * public.street.width_int) / 27878400.0), 2) AS accepted_area_sq_miles FROM public.street WHERE public.street.length_int > 0 AND public.street.width_int > 0 ",
                     "refId": "A"
                 }
             ],
-            "title": "Accepted Area17 Maybe",
+            "title": "Accepted Area17",
             "type": "stat"
         },
         {
@@ -1454,11 +1395,11 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT 0; ",
+                    "rawSql": "SELECT ROUND((SUM(public.street.unaccepted_length_int * public.street.width_int) / 27878400.0), 2) AS unaccepted_area_sq_miles FROM public.street WHERE public.street.unaccepted_length_int > 0 AND public.street.width_int > 0; ",
                     "refId": "A"
                 }
             ],
-            "title": "UnAccepted Area18 BAD",
+            "title": "UnAccepted Area18",
             "type": "stat"
         },
         {
@@ -1486,7 +1427,7 @@
                             }
                         ]
                     },
-                    "unit": "lengthmi"
+                    "unit": "lengthft"
                 },
                 "overrides": []
             },
@@ -1519,11 +1460,11 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT 0; ",
+                    "rawSql": "SELECT SUM(public.street.width_int) AS total_width_sum_feet FROM public.street ",
                     "refId": "A"
                 }
             ],
-            "title": "Total Sum Width19 BAD",
+            "title": "Total Sum Width19",
             "type": "stat"
         },
         {
@@ -1584,7 +1525,7 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT SUM(CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER)) AS accepted_width_feet FROM street WHERE CAST(regexp_replace(public.street.length, '\\D', '', 'g') AS INTEGER) > 0  AND CAST(REGEXP_REPLACE(public.street.width, '\\D', '', 'g') AS FLOAT) > 0 ",
+                    "rawSql": "SELECT SUM(public.street.width_int) AS accepted_length_sum_feet FROM public.street WHERE public.street.length_int > 0 AND public.street.width_int > 0 ",
                     "refId": "A"
                 }
             ],
@@ -1649,7 +1590,7 @@
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
                     "format": "table",
-                    "rawSql": "SELECT SUM(CAST(SPLIT_PART(public.street.width, '-', 1) AS float)) AS unaccepted_width_feet FROM street WHERE CAST(regexp_replace(public.street.unacceptedlength, '\\D', '', 'g') AS INTEGER) > 0  AND CAST(SPLIT_PART(public.street.width, '-', 1) AS float) > 0  AND CAST(REGEXP_REPLACE(public.street.width, '\\D', '', 'g') AS FLOAT) > 0 ",
+                    "rawSql": "SELECT SUM(public.street.width_int) AS unaccepted_length_sum_feet FROM public.street WHERE public.street.unaccepted_length_int > 0 AND public.street.width_int > 0 ",
                     "refId": "A"
                 }
             ],
@@ -1670,8 +1611,8 @@
     },
     "timepicker": {},
     "timezone": "",
-    "title": "Streets10",
-    "uid": "fa976c15-b850-499b-986b-2541e0d6ddec1010",
+    "title": "Streets11",
+    "uid": "fa976c15-b850-499b-986b-2541e0d6ddec1111",
     "version": 7,
     "weekStart": ""
 }
