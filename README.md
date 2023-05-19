@@ -1218,49 +1218,73 @@ model Street {
 # Streets
 
 # ---------------------
-# Column 1
+# Column 1 -- Total (accepted and UnAccepted)
 # ---------------------
 
 # Streets
+SELECT COUNT(*) AS total_street_count FROM public.street ;
+ total_street_count
+--------------------
+               1128
 
 # Total Length Streets12 (Feet)
+SELECT SUM(public.street.length_int + public.street.unaccepted_length_int) AS total_length_sum_feet FROM public.street ;
+ total_length_sum_feet
+-----------------------
+                675286
 
-# Total Length Streets13 (Feet)
+# Total Length Streets13 (miles)
+SELECT ROUND(SUM(public.street.length_int + public.street.unaccepted_length_int) / 5280.0, 2) AS total_length_sum_miles FROM public.street ;
+ total_length_sum_miles
+------------------------
+                 127.90
 
 # Total Area Streets16 (sq miles)
+SELECT ROUND((SUM((public.street.length_int + public.street.length_int) * public.street.width_int) / 27878400.0), 2) AS total_area_sq_miles FROM public.street ;
+ total_area_sq_miles
+---------------------
+                2.05
 
 # Total Sum Width19 (feet)
-
+SELECT SUM(public.street.width_int) AS total_width_sum_feet FROM public.street  ;
+ total_width_sum_feet
+----------------------
+                41135
 
 # ---------------------
-# Column 2
+# Column 2 -- Accepted Streets
 # ---------------------
 
 # Accepted Streets
+# Should this also exclude noncity = X ???
 SELECT COUNT(public.street.length_int) AS accepted_street_count FROM public.street WHERE public.street.length_int > 0;
  accepted_street_count
 -----------------------
                    820
 
 # Accepted Streets1 (Feet)
+# Should this also exclude noncity = X ???
 SELECT SUM(public.street.length_int) AS accepted_length_sum_feet FROM public.street WHERE public.street.length_int > 0;
  accepted_length_sum_feet
 --------------------------
                    602761
 
 # Accepted Streets4 (Miles)
+# Should this also exclude noncity = X ???
 SELECT ROUND(SUM(public.street.length_int) / 5280.0, 2) AS accepted_length_sum_miles FROM public.street WHERE public.street.length_int > 0;
  accepted_length_sum_miles
 ---------------------------
                     114.16
 
 # Accepted Area17 (sq Miles)
+# Should this also exclude noncity = X ???
 SELECT ROUND((SUM(public.street.length_int * public.street.width_int) / 27878400.0), 2) AS accepted_area_sq_miles FROM public.street WHERE public.street.length_int > 0 AND public.street.width_int > 0;
  accepted_area_sq_miles
 ------------------------
                    1.03
 
 # Sum Accepted Width20 (Feet)
+# Should this also exclude noncity = X ???
 SELECT SUM(public.street.width_int) AS accepted_length_sum_feet FROM public.street WHERE public.street.length_int > 0 AND public.street.width_int > 0;
  accepted_length_sum_feet
 --------------------------
@@ -1268,50 +1292,94 @@ SELECT SUM(public.street.width_int) AS accepted_length_sum_feet FROM public.stre
 
 
 # ---------------------
-# Column 3
+# Column 3 UnAccepted Streets
 # ---------------------
 
+select noncity, count(*) from street group by noncity;
+
 # UnAccepted Streets
+SELECT COUNT(public.street.unaccepted_length_int) AS unaccepted_street_count FROM public.street WHERE public.street.unaccepted_length_int > 0;
+ unaccepted_street_count
+-------------------------
+                     250
+
+SELECT COUNT(public.street.unaccepted_length_int) AS unaccepted_street_count FROM public.street WHERE (public.street.unaccepted_length_int > 0 OR noncity = 'X');
+# note we are including the noncity = X
+ unaccepted_street_count
+-------------------------
+                     321
 
 # UnAccepted Streets2 (Feet)
+SELECT SUM(public.street.unaccepted_length_int) AS unaccepted_length_sum_feet FROM public.street WHERE public.street.unaccepted_length_int > 0;
+ unaccepted_length_sum_feet
+----------------------------
+                      72525
 
 # UnAccepted Streets5 (Miles)
+SELECT ROUND(SUM(public.street.unaccepted_length_int) / 5280.0, 2) AS unaccepted_length_sum_miles FROM public.street WHERE public.street.unaccepted_length_int > 0;
+ unaccepted_length_sum_miles
+-----------------------------
+                       13.74
 
 # UnAccepted Area17 (sq Miles)
+SELECT ROUND((SUM(public.street.unaccepted_length_int * public.street.width_int) / 27878400.0), 2) AS unaccepted_area_sq_miles FROM public.street WHERE public.street.unaccepted_length_int > 0 AND public.street.width_int > 0;
+ unaccepted_area_sq_miles
+--------------------------
+                     0.10
 
 # Sum UnAccepted Width21 (Feet)
+SELECT SUM(public.street.width_int) AS unaccepted_length_sum_feet FROM public.street WHERE public.street.unaccepted_length_int > 0 AND public.street.width_int > 0;
+ unaccepted_length_sum_feet
+----------------------------
+                       6342
 
 # ---------------------
 # Width > 40
 # ---------------------
 
 # Width > 40 Streets6 (Feet)
+SELECT SUM(public.street.length_int) AS accepted_length_sum_feet FROM public.street WHERE public.street.length_int > 0 AND public.street.width_int >= 40;
+ accepted_length_sum_feet
+--------------------------
+                   525500
 
 # Width > 40 Streets9 (sq Miles)
+SELECT ROUND(SUM(public.street.length_int) / 5280.0, 2) AS accepted_length_sum_miles FROM public.street WHERE public.street.length_int > 0 AND public.street.width_int >= 40;
+ accepted_length_sum_miles
+---------------------------
+                     99.53
 
 # ---------------------
 # Width > 50
 # ---------------------
 
 # Width > 50 Streets7 (Feet)
+SELECT SUM(public.street.length_int) AS accepted_length_sum_feet FROM public.street WHERE public.street.length_int > 0 AND public.street.width_int >= 50;
+ accepted_length_sum_feet
+--------------------------
+                   249114
 
 # Width > 50 Streets10 (sq Miles)
+SELECT ROUND(SUM(public.street.length_int) / 5280.0, 2) AS accepted_length_sum_miles FROM public.street WHERE public.street.length_int > 0 AND public.street.width_int >= 50;
+ accepted_length_sum_miles
+---------------------------
+                     47.18
 
 # ---------------------
 # Width > 60
 # ---------------------
 
 # Width > 60 Streets8 (Feet)
-SELECT SUM(length_int) from public.street WHERE width_int >= 60;
+SELECT SUM(public.street.length_int) AS accepted_length_sum_feet FROM public.street WHERE public.street.length_int > 0 AND public.street.width_int >= 60;
+ accepted_length_sum_feet
+--------------------------
+                   115725
 
 # Width > 60 Streets11 (sq Miles)
-SELECT SUM(length_int) / 5280.0) from public.street WHERE width_int >= 60;
-
-
-
-
-
-
+SELECT ROUND(SUM(public.street.length_int) / 5280.0, 2) AS accepted_length_sum_miles FROM public.street WHERE public.street.length_int > 0 AND public.street.width_int >= 60;
+ accepted_length_sum_miles
+---------------------------
+                     21.92
 
 
 ```
