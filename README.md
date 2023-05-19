@@ -827,9 +827,9 @@ AND   public.street.unacceptedlength ~ '[.]';
 ------------------+-----------------------
  120.55           |                 12055
 
-# Use this update statement
+# Use this update statement  (not sure if the \1 should just be 1 in the replace)
 UPDATE street
-SET   unaccepted_length_int = CAST(REGEXP_REPLACE(street.unacceptedlength, '(\d+)\..*', '\1') AS INTEGER)
+SET   unaccepted_length_int = CAST(REGEXP_REPLACE(street.unacceptedlength, '(\d+)\..*', '1') AS INTEGER)
 WHERE public.street.unacceptedlength ~ '[^\d]'
 AND   public.street.unacceptedlength ~ '[.]';
 
