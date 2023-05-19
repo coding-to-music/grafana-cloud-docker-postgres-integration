@@ -807,6 +807,7 @@ FROM street
 GROUP BY unacceptedlength, unaccepted_length_int
 ORDER BY count(*) desc, unaccepted_length_int desc;
 
+# verify
 SELECT  public.street.unacceptedlength,
         public.street.unaccepted_length_int
 FROM street
