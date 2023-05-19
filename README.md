@@ -1321,7 +1321,7 @@ SELECT ROUND(SUM(public.street.unaccepted_length_int) / 5280.0, 2) AS unaccepted
 -----------------------------
                        13.74
 
-# UnAccepted Area17 (sq Miles)
+# UnAccepted Area18 (sq Miles)
 SELECT ROUND((SUM(public.street.unaccepted_length_int * public.street.width_int) / 27878400.0), 2) AS unaccepted_area_sq_miles FROM public.street WHERE public.street.unaccepted_length_int > 0 AND public.street.width_int > 0;
  unaccepted_area_sq_miles
 --------------------------
