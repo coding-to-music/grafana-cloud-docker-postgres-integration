@@ -1022,6 +1022,33 @@ WHERE public.street.date ~ '[^\d]';
 
 ```
 
+## More Update Statements
+
+```java
+  // connectionString: process.env.POSTGRES_URL_NON_POOLING,
+  // connectionString: process.env.POSTGRES_URL,
+
+// Error executing update statements: error: invalid input syntax for type integer: "940+/-"
+// "UPDATE street SET unaccepted_length_int = CAST(regexp_replace(unacceptedlength, '\D', '', 'g') AS INTEGER) WHERE CAST(regexp_replace(unacceptedlength, '\D', '', 'g') AS INTEGER) > 0",
+
+// Error executing update statements: error: invalid input syntax for type integer: "120.55"
+// "UPDATE street SET unaccepted_length_int = CAST(REGEXP_REPLACE(street.unacceptedlength, '(d+)..*', '\1') AS INTEGER) WHERE public.street.unacceptedlength ~ '[^d]' AND   public.street.unacceptedlength ~ '[.]'",
+
+// Error executing update statements: error: invalid input syntax for type integer: "825+/-"
+// "UPDATE street SET length_int = CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) WHERE CAST(regexp_replace(length, '\D', '', 'g') AS INTEGER) > 0",
+
+// Error executing update statements: error: invalid input syntax for type integer: "29.33"
+// "UPDATE street SET width_int = CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS INTEGER) WHERE CAST(REGEXP_REPLACE(public.street.width, '\D', '', 'g') AS INTEGER) > 0",
+// "UPDATE street SET width_int = CAST(REGEXP_REPLACE(street.width, '(d+)..*', '\1') AS INTEGER) WHERE street.width ~ '.'",
+
+// These work
+// "UPDATE street SET accepted_area_int = length_int * width_int WHERE length_int > 0 AND   width_int > 0",
+// "UPDATE street SET unaccepted_area_int = unaccepted_length_int * width_int WHERE unaccepted_length_int > 0 AND   width_int > 0",
+// "UPDATE street SET width_int = ( CAST(SPLIT_PART(public.street.width, '-', 1) AS INTEGER) + CAST(SPLIT_PART(public.street.width, '-', 2) AS INTEGER)) / 2 WHERE public.street.width ~ '[^d]' AND   public.street.width ~ '[-]'",
+// "UPDATE street SET year_added_int = CAST(regexp_replace(street.date, '\D', '', 'g') AS INTEGER) WHERE CAST(regexp_replace(street.date, '\D', '', 'g') AS INTEGER) > 0",
+
+```
+
 ## Update statements
 
 ```
