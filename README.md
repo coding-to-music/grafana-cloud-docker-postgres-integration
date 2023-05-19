@@ -1237,16 +1237,34 @@ model Street {
 # ---------------------
 
 # Accepted Streets
+SELECT COUNT(public.street.length_int) AS accepted_street_count FROM public.street WHERE public.street.length_int > 0;
+ accepted_street_count
+-----------------------
+                   820
 
 # Accepted Streets1 (Feet)
+SELECT SUM(public.street.length_int) AS accepted_length_sum_feet FROM public.street WHERE public.street.length_int > 0;
+ accepted_length_sum_feet
+--------------------------
+                   602761
 
 # Accepted Streets4 (Miles)
-SELECT ROUND(SUM(public.street.length_int) AS INTEGER)) / 5280.0, 2) AS accepted_length_sum_miles FROM public.street WHERE public.street.length_int > 0;
-
+SELECT ROUND(SUM(public.street.length_int) / 5280.0, 2) AS accepted_length_sum_miles FROM public.street WHERE public.street.length_int > 0;
+ accepted_length_sum_miles
+---------------------------
+                    114.16
 
 # Accepted Area17 (sq Miles)
+SELECT ROUND((SUM(public.street.length_int * public.street.width_int) / 27878400.0), 2) AS accepted_area_sq_miles FROM public.street WHERE public.street.length_int > 0 AND public.street.width_int > 0;
+ accepted_area_sq_miles
+------------------------
+                   1.03
 
 # Sum Accepted Width20 (Feet)
+SELECT SUM(public.street.width_int) AS accepted_length_sum_feet FROM public.street WHERE public.street.length_int > 0 AND public.street.width_int > 0;
+ accepted_length_sum_feet
+--------------------------
+                    34308
 
 
 # ---------------------
