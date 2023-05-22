@@ -1589,7 +1589,7 @@ ORDER BY
 
 ## eCharts visualization
 
-
+Install Grafana Plugins via Grafana.com
 
 ## Counts of streets, accepted and unaccepted
 
