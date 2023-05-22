@@ -1548,6 +1548,45 @@ ORDER BY
  >70          |        18 |               6.30
 ```
 
+```sql
+SELECT
+    width_bucket,
+    ROUND(SUM(length_int + unaccepted_length_int) / 5280.0, 2) AS total_length_miles
+FROM (
+    SELECT
+        CASE
+            WHEN width_int < 30 THEN '<30'
+            WHEN width_int >= 30 AND width_int <= 70 THEN FLOOR((width_int - 30) / 10) * 10 + 30 || '-' || FLOOR((width_int - 30) / 10) * 10 + 39
+            WHEN width_int > 70 THEN '>70'
+        END AS width_bucket,
+        length_int,
+        unaccepted_length_int
+    FROM
+        street
+    WHERE
+        width_int > 0
+        AND noncity <> 'X'
+) subquery
+GROUP BY
+    width_bucket
+ORDER BY
+    CASE
+        WHEN width_bucket = '<30' THEN 0
+        WHEN width_bucket = '>70' THEN 999
+        ELSE CAST(SUBSTR(width_bucket, 1, LENGTH(width_bucket) - 3) AS INTEGER)
+    END;
+
+ width_bucket | total_length_miles
+--------------+--------------------
+ <30          |               4.00
+ 30-39        |              12.87
+ 40-49        |              52.79
+ 50-59        |              24.73
+ 60-69        |              11.80
+ 70-79        |               2.64
+ >70          |               6.30
+```
+
 ## Counts of streets, accepted and unaccepted
 
 ```java
