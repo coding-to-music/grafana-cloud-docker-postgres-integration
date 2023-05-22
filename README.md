@@ -1393,17 +1393,61 @@ select * from street where width_int > 0 and width_int < 20 and noncity <> 'X' o
 
 ```sql
 SELECT
+    width_bucket,
+    count
+FROM (
+    SELECT
+        CASE
+            WHEN width_int < 30 THEN '<30'
+            WHEN width_int >= 30 AND width_int <= 70 THEN FLOOR((width_int - 30) / 10) * 10 + 30 || '-' || FLOOR((width_int - 30) / 10) * 10 + 39
+            WHEN width_int > 70 THEN '>70'
+        END AS width_bucket,
+        COUNT(*) AS count
+    FROM
+        street
+    WHERE
+        width_int > 0
+        AND noncity <> 'X'
+    GROUP BY
+        width_bucket
+) subquery
+ORDER BY
     CASE
-        WHEN width_int < 30 THEN '<30'
-        WHEN width_int >= 30 AND width_int <= 70 THEN FLOOR((width_int - 30) / 10) * 10 + 30 || '-' || FLOOR((width_int - 30) / 10) * 10 + 39
-        WHEN width_int > 70 THEN '>70'
-    END AS width_bucket,
-    COUNT(*) AS count
-FROM
-    street
-WHERE
-    width_int > 0
-    AND noncity <> 'X'
+        WHEN width_bucket = '<30' THEN 0
+        WHEN width_bucket = '>70' THEN 999
+        ELSE CAST(SUBSTR(width_bucket, 1, LENGTH(width_bucket) - 3) AS INTEGER)
+    END;
+
+ width_bucket | count
+--------------+-------
+ <30          |    95
+ 30-39        |   172
+ 40-49        |   438
+ 50-59        |   142
+ 60-69        |    30
+ 70-79        |     8
+ >70          |    18
+```
+
+```sql
+SELECT
+    width_bucket,
+    SUM(length_int + unaccepted_length_int) AS total_length
+FROM (
+    SELECT
+        CASE
+            WHEN width_int < 30 THEN '<30'
+            WHEN width_int >= 30 AND width_int <= 70 THEN FLOOR((width_int - 30) / 10) * 10 + 30 || '-' || FLOOR((width_int - 30) / 10) * 10 + 39
+            WHEN width_int > 70 THEN '>70'
+        END AS width_bucket,
+        length_int,
+        unaccepted_length_int
+    FROM
+        street
+    WHERE
+        width_int > 0
+        AND noncity <> 'X'
+) subquery
 GROUP BY
     width_bucket
 ORDER BY
@@ -1413,6 +1457,95 @@ ORDER BY
         ELSE CAST(SUBSTR(width_bucket, 1, LENGTH(width_bucket) - 3) AS INTEGER)
     END;
 
+ width_bucket | total_length
+--------------+--------------
+ <30          |        21095
+ 30-39        |        67953
+ 40-49        |       278749
+ 50-59        |       130597
+ 60-69        |        62325
+ 70-79        |        13924
+ >70          |        33255
+```
+
+```sql
+SELECT
+    width_bucket,
+    COUNT(*) AS row_count,
+    SUM(length_int + unaccepted_length_int) AS total_length
+FROM (
+    SELECT
+        CASE
+            WHEN width_int < 30 THEN '<30'
+            WHEN width_int >= 30 AND width_int <= 70 THEN FLOOR((width_int - 30) / 10) * 10 + 30 || '-' || FLOOR((width_int - 30) / 10) * 10 + 39
+            WHEN width_int > 70 THEN '>70'
+        END AS width_bucket,
+        length_int,
+        unaccepted_length_int
+    FROM
+        street
+    WHERE
+        width_int > 0
+        AND noncity <> 'X'
+) subquery
+GROUP BY
+    width_bucket
+ORDER BY
+    CASE
+        WHEN width_bucket = '<30' THEN 0
+        WHEN width_bucket = '>70' THEN 999
+        ELSE CAST(SUBSTR(width_bucket, 1, LENGTH(width_bucket) - 3) AS INTEGER)
+    END;
+
+ width_bucket | row_count | total_length
+--------------+-----------+--------------
+ <30          |        95 |        21095
+ 30-39        |       172 |        67953
+ 40-49        |       438 |       278749
+ 50-59        |       142 |       130597
+ 60-69        |        30 |        62325
+ 70-79        |         8 |        13924
+ >70          |        18 |        33255
+```
+
+```sql
+SELECT
+    width_bucket,
+    COUNT(*) AS row_count,
+    ROUND(SUM(length_int + unaccepted_length_int) / 5280.0, 2) AS total_length_miles
+FROM (
+    SELECT
+        CASE
+            WHEN width_int < 30 THEN '<30'
+            WHEN width_int >= 30 AND width_int <= 70 THEN FLOOR((width_int - 30) / 10) * 10 + 30 || '-' || FLOOR((width_int - 30) / 10) * 10 + 39
+            WHEN width_int > 70 THEN '>70'
+        END AS width_bucket,
+        length_int,
+        unaccepted_length_int
+    FROM
+        street
+    WHERE
+        width_int > 0
+        AND noncity <> 'X'
+) subquery
+GROUP BY
+    width_bucket
+ORDER BY
+    CASE
+        WHEN width_bucket = '<30' THEN 0
+        WHEN width_bucket = '>70' THEN 999
+        ELSE CAST(SUBSTR(width_bucket, 1, LENGTH(width_bucket) - 3) AS INTEGER)
+    END;
+
+ width_bucket | row_count | total_length_miles
+--------------+-----------+--------------------
+ <30          |        95 |               4.00
+ 30-39        |       172 |              12.87
+ 40-49        |       438 |              52.79
+ 50-59        |       142 |              24.73
+ 60-69        |        30 |              11.80
+ 70-79        |         8 |               2.64
+ >70          |        18 |               6.30
 ```
 
 ## Counts of streets, accepted and unaccepted
