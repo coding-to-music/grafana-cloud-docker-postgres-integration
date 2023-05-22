@@ -1386,9 +1386,33 @@ SELECT ROUND(SUM(public.street.length_int) / 5280.0, 2) AS accepted_length_sum_m
 ## Histograms
 
 ```sql
-SELECT width_int, COUNT(*) FROM street where width_int > 0 and width_int < 20 and noncity <> 'X' GROUP BY width_int order by width_int ;
+SELECT width_int, COUNT(*) FROM street where width_int > 0 and noncity <> 'X' GROUP BY width_int order by width_int ;
 
 select * from street where width_int > 0 and width_int < 20 and noncity <> 'X' order by width_int;
+```
+
+```sql
+SELECT
+    CASE
+        WHEN width_int < 30 THEN '<30'
+        WHEN width_int >= 30 AND width_int <= 70 THEN FLOOR((width_int - 30) / 10) * 10 + 30 || '-' || FLOOR((width_int - 30) / 10) * 10 + 39
+        WHEN width_int > 70 THEN '>70'
+    END AS width_bucket,
+    COUNT(*) AS count
+FROM
+    street
+WHERE
+    width_int > 0
+    AND noncity <> 'X'
+GROUP BY
+    width_bucket
+ORDER BY
+    CASE
+        WHEN width_bucket = '<30' THEN 0
+        WHEN width_bucket = '>70' THEN 999
+        ELSE CAST(SUBSTR(width_bucket, 1, LENGTH(width_bucket) - 3) AS INTEGER)
+    END;
+
 ```
 
 ## Counts of streets, accepted and unaccepted
