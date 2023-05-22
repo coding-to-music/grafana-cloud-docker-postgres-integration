@@ -1587,6 +1587,10 @@ ORDER BY
  >70          |               6.30
 ```
 
+## eCharts visualization
+
+
+
 ## Counts of streets, accepted and unaccepted
 
 ```java
