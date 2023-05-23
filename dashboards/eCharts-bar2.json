@@ -1,0 +1,211 @@
+{
+    "annotations": {
+        "list": [
+            {
+                "builtIn": 1,
+                "datasource": {
+                    "type": "grafana",
+                    "uid": "-- Grafana --"
+                },
+                "enable": true,
+                "hide": true,
+                "iconColor": "rgba(0, 211, 255, 1)",
+                "name": "Annotations & Alerts",
+                "target": {
+                    "limit": 100,
+                    "matchAny": false,
+                    "tags": [],
+                    "type": "dashboard"
+                },
+                "type": "dashboard"
+            }
+        ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 62,
+    "links": [
+        {
+            "asDropdown": false,
+            "icon": "external link",
+            "includeVars": false,
+            "keepTime": false,
+            "tags": [
+                "echarts"
+            ],
+            "targetBlank": false,
+            "title": "Apache ECharts",
+            "tooltip": "",
+            "type": "dashboards",
+            "url": ""
+        }
+    ],
+    "liveNow": false,
+    "panels": [
+        {
+            "datasource": {
+                "type": "marcusolsson-static-datasource",
+                "uid": "e583ddca-a37d-4c43-9ddd-d0fe4723e90a"
+            },
+            "gridPos": {
+                "h": 12,
+                "w": 12,
+                "x": 0,
+                "y": 0
+            },
+            "id": 4,
+            "options": {
+                "baidu": {
+                    "callback": "bmapReady",
+                    "key": ""
+                },
+                "editor": {
+                    "format": "auto",
+                    "height": 600
+                },
+                "gaode": {
+                    "key": "",
+                    "plugin": "AMap.Scale,AMap.ToolBar"
+                },
+                "getOption": "return {\n  grid: {\n    bottom: \"3%\",\n    containLabel: true,\n    left: \"3%\",\n    right: \"4%\",\n    top: \"4%\"\n  },\n  xAxis: {\n    type: 'category',\n    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']\n  },\n  yAxis: {\n    type: 'value'\n  },\n  series: [\n    {\n      data: [120, 200, 150, 80, 70, 110, 130],\n      type: 'bar',\n      showBackground: true,\n      backgroundStyle: {\n        color: 'rgba(180, 180, 180, 0.2)'\n      }\n    }\n  ]\n};",
+                "google": {
+                    "callback": "gmapReady",
+                    "key": ""
+                },
+                "map": "json",
+                "renderer": "canvas"
+            },
+            "title": "Bar with Background",
+            "type": "volkovlabs-echarts-panel"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "gridPos": {
+                "h": 12,
+                "w": 12,
+                "x": 12,
+                "y": 0
+            },
+            "id": 2,
+            "options": {
+                "baidu": {
+                    "callback": "bmapReady",
+                    "key": ""
+                },
+                "editor": {
+                    "format": "auto",
+                    "height": 600
+                },
+                "gaode": {
+                    "key": "",
+                    "plugin": "AMap.Scale,AMap.ToolBar"
+                },
+                "getOption": "return {\n  grid: {\n    bottom: \"3%\",\n    containLabel: true,\n    left: \"3%\",\n    right: \"4%\",\n    top: \"4%\"\n  },\n  xAxis: {\n    type: 'category',\n    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']\n  },\n  yAxis: {\n    type: 'value'\n  },\n  series: [\n    {\n      data: [120, 200, 150, 80, 70, 110, 130],\n      type: 'bar'\n    }\n  ]\n};",
+                "google": {
+                    "callback": "gmapReady",
+                    "key": ""
+                },
+                "map": "json",
+                "renderer": "canvas"
+            },
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "editorMode": "builder",
+                    "format": "table",
+                    "rawSql": "SELECT width FROM street LIMIT 50 ",
+                    "refId": "A",
+                    "sql": {
+                        "columns": [
+                            {
+                                "parameters": [
+                                    {
+                                        "name": "width",
+                                        "type": "functionParameter"
+                                    }
+                                ],
+                                "type": "function"
+                            }
+                        ],
+                        "groupBy": [
+                            {
+                                "property": {
+                                    "type": "string"
+                                },
+                                "type": "groupBy"
+                            }
+                        ],
+                        "limit": 50
+                    },
+                    "table": "street"
+                }
+            ],
+            "title": "postgres Bar",
+            "type": "volkovlabs-echarts-panel"
+        },
+        {
+            "datasource": {
+                "type": "marcusolsson-static-datasource",
+                "uid": "e583ddca-a37d-4c43-9ddd-d0fe4723e90a"
+            },
+            "gridPos": {
+                "h": 12,
+                "w": 12,
+                "x": 12,
+                "y": 12
+            },
+            "id": 5,
+            "options": {
+                "baidu": {
+                    "callback": "bmapReady",
+                    "key": ""
+                },
+                "editor": {
+                    "format": "auto",
+                    "height": 600
+                },
+                "gaode": {
+                    "key": "",
+                    "plugin": "AMap.Scale,AMap.ToolBar"
+                },
+                "getOption": "return {\n  grid: {\n    bottom: \"3%\",\n    containLabel: true,\n    left: \"3%\",\n    right: \"4%\",\n    top: \"4%\"\n  },\n  xAxis: {\n    type: 'category',\n    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']\n  },\n  yAxis: {\n    type: 'value'\n  },\n  series: [\n    {\n      data: [120, 200, 150, 80, 70, 110, 130],\n      type: 'bar'\n    }\n  ]\n};",
+                "google": {
+                    "callback": "gmapReady",
+                    "key": ""
+                },
+                "map": "json",
+                "renderer": "canvas"
+            },
+            "title": "Basic Bar",
+            "type": "volkovlabs-echarts-panel"
+        }
+    ],
+    "refresh": "",
+    "schemaVersion": 38,
+    "style": "dark",
+    "tags": [
+        "echarts"
+    ],
+    "templating": {
+        "list": []
+    },
+    "time": {
+        "from": "now-6h",
+        "to": "now"
+    },
+    "timepicker": {
+        "hidden": true
+    },
+    "timezone": "",
+    "title": "Bar2",
+    "uid": "E9NLNnFVz222222",
+    "version": 1,
+    "weekStart": ""
+}
