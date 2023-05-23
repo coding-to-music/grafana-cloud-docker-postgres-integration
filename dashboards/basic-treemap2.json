@@ -1,0 +1,39 @@
+return {
+    series: [
+        {
+        type: 'treemap',
+        data: [
+                {
+            name: '<30',
+            value: 4.0,
+            children: [
+                        {
+                name: '<30',
+                value: 4.0
+                        },
+                        {
+                name: '30-39',
+                value: 12.87
+                        }
+                    ]
+                },
+                {
+            name: '40-49',
+            value: 52.79,
+            children: [
+                        {
+                name: '50-59',
+                value: 24.73,
+                children: [
+                                {
+                    name: '60-69',
+                    value: 11.8
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+};
