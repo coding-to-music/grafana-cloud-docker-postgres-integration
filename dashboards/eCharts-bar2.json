@@ -45,16 +45,17 @@
     "panels": [
         {
             "datasource": {
-                "type": "marcusolsson-static-datasource",
-                "uid": "e583ddca-a37d-4c43-9ddd-d0fe4723e90a"
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
             },
+            "description": "",
             "gridPos": {
-                "h": 12,
+                "h": 8,
                 "w": 12,
                 "x": 0,
                 "y": 0
             },
-            "id": 4,
+            "id": 6,
             "options": {
                 "baidu": {
                     "callback": "bmapReady",
@@ -68,15 +69,46 @@
                     "key": "",
                     "plugin": "AMap.Scale,AMap.ToolBar"
                 },
-                "getOption": "return {\n  grid: {\n    bottom: \"3%\",\n    containLabel: true,\n    left: \"3%\",\n    right: \"4%\",\n    top: \"4%\"\n  },\n  xAxis: {\n    type: 'category',\n    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']\n  },\n  yAxis: {\n    type: 'value'\n  },\n  series: [\n    {\n      data: [120, 200, 150, 80, 70, 110, 130],\n      type: 'bar',\n      showBackground: true,\n      backgroundStyle: {\n        color: 'rgba(180, 180, 180, 0.2)'\n      }\n    }\n  ]\n};",
+                "getOption": "const series = data.series.map((s) => {\n  const sData = s.fields.find((f) => f.type === 'width_bucket').values.buffer;\n  const sTime = s.fields.find((f) => f.type === 'count').values.buffer;\n\n  return {\n    name: s.refId,\n    type: 'line',\n    showSymbol: false,\n    areaStyle: {\n      opacity: 0.1,\n    },\n    lineStyle: {\n      width: 1,\n    },\n    data: sData.map((d, i) => [sTime[i], d.toFixed(2)]),\n  };\n});\n\n/**\n * Enable Data Zoom by default\n */\nsetTimeout(() => echartsInstance.dispatchAction({\n  type: 'takeGlobalCursor',\n  key: 'dataZoomSelect',\n  dataZoomSelectActive: true,\n}), 500);\n\n/**\n * Update Time Range on Zoom\n */\nechartsInstance.on('datazoom', function (params) {\n  const startValue = params.batch[0]?.startValue;\n  const endValue = params.batch[0]?.endValue;\n  locationService.partial({ from: startValue, to: endValue });\n});\n\nreturn {\n  backgroundColor: 'transparent',\n  tooltip: {\n    trigger: 'axis',\n  },\n  legend: {\n    left: '0',\n    bottom: '0',\n    data: data.series.map((s) => s.refId),\n    textStyle: {\n      color: 'rgba(128, 128, 128, .9)',\n    },\n  },\n  toolbox: {\n    feature: {\n      dataZoom: {\n        yAxisIndex: 'none',\n        icon: {\n          zoom: 'path://',\n          back: 'path://',\n        },\n      },\n      saveAsImage: {},\n    }\n  },\n  xAxis: {\n    type: 'time',\n  },\n  yAxis: {\n    type: 'value',\n    min: 'dataMin',\n  },\n  grid: {\n    left: '2%',\n    right: '2%',\n    top: '2%',\n    bottom: 24,\n    containLabel: true,\n  },\n  series,\n};",
                 "google": {
                     "callback": "gmapReady",
                     "key": ""
                 },
-                "map": "json",
+                "map": "none",
                 "renderer": "canvas"
             },
-            "title": "Bar with Background",
+            "pluginVersion": "10.0.0-cloud.2.aef9c3bd",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "editorMode": "code",
+                    "format": "table",
+                    "rawQuery": true,
+                    "rawSql": "SELECT\n    width_bucket,\n    count\nFROM (\n    SELECT\n        CASE\n            WHEN width_int < 30 THEN '<30'\n            WHEN width_int >= 30 AND width_int <= 70 THEN FLOOR((width_int - 30) / 10) * 10 + 30 || '-' || FLOOR((width_int - 30) / 10) * 10 + 39\n            WHEN width_int > 70 THEN '>70'\n        END AS width_bucket,\n        COUNT(*) AS count\n    FROM\n        street\n    WHERE\n        width_int > 0\n        AND noncity <> 'X'\n    GROUP BY\n        width_bucket\n) subquery\nORDER BY\n    CASE\n        WHEN width_bucket = '<30' THEN 0\n        WHEN width_bucket = '>70' THEN 999\n        ELSE CAST(SUBSTR(width_bucket, 1, LENGTH(width_bucket) - 3) AS INTEGER)\n    END;\n",
+                    "refId": "A",
+                    "sql": {
+                        "columns": [
+                            {
+                                "parameters": [],
+                                "type": "function"
+                            }
+                        ],
+                        "groupBy": [
+                            {
+                                "property": {
+                                    "type": "string"
+                                },
+                                "type": "groupBy"
+                            }
+                        ],
+                        "limit": 50
+                    }
+                }
+            ],
+            "title": "myPostgres",
             "type": "volkovlabs-echarts-panel"
         },
         {
@@ -118,22 +150,13 @@
                         "type": "postgres",
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
-                    "editorMode": "builder",
+                    "editorMode": "code",
                     "format": "table",
-                    "rawSql": "SELECT width FROM street LIMIT 50 ",
+                    "rawQuery": true,
+                    "rawSql": "SELECT\n    width_bucket,\n    count\nFROM (\n    SELECT\n        CASE\n            WHEN width_int < 30 THEN '<30'\n            WHEN width_int >= 30 AND width_int <= 70 THEN FLOOR((width_int - 30) / 10) * 10 + 30 || '-' || FLOOR((width_int - 30) / 10) * 10 + 39\n            WHEN width_int > 70 THEN '>70'\n        END AS width_bucket,\n        COUNT(*) AS count\n    FROM\n        street\n    WHERE\n        width_int > 0\n        AND noncity <> 'X'\n    GROUP BY\n        width_bucket\n) subquery\nORDER BY\n    CASE\n        WHEN width_bucket = '<30' THEN 0\n        WHEN width_bucket = '>70' THEN 999\n        ELSE CAST(SUBSTR(width_bucket, 1, LENGTH(width_bucket) - 3) AS INTEGER)\n    END;\n",
                     "refId": "A",
                     "sql": {
-                        "columns": [
-                            {
-                                "parameters": [
-                                    {
-                                        "name": "width",
-                                        "type": "functionParameter"
-                                    }
-                                ],
-                                "type": "function"
-                            }
-                        ],
+                        "columns": [],
                         "groupBy": [
                             {
                                 "property": {
@@ -148,6 +171,42 @@
                 }
             ],
             "title": "postgres Bar",
+            "type": "volkovlabs-echarts-panel"
+        },
+        {
+            "datasource": {
+                "type": "marcusolsson-static-datasource",
+                "uid": "e583ddca-a37d-4c43-9ddd-d0fe4723e90a"
+            },
+            "gridPos": {
+                "h": 12,
+                "w": 12,
+                "x": 0,
+                "y": 8
+            },
+            "id": 4,
+            "options": {
+                "baidu": {
+                    "callback": "bmapReady",
+                    "key": ""
+                },
+                "editor": {
+                    "format": "auto",
+                    "height": 600
+                },
+                "gaode": {
+                    "key": "",
+                    "plugin": "AMap.Scale,AMap.ToolBar"
+                },
+                "getOption": "return {\n  grid: {\n    bottom: \"3%\",\n    containLabel: true,\n    left: \"3%\",\n    right: \"4%\",\n    top: \"4%\"\n  },\n  xAxis: {\n    type: 'category',\n    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']\n  },\n  yAxis: {\n    type: 'value'\n  },\n  series: [\n    {\n      data: [120, 200, 150, 80, 70, 110, 130],\n      type: 'bar',\n      showBackground: true,\n      backgroundStyle: {\n        color: 'rgba(180, 180, 180, 0.2)'\n      }\n    }\n  ]\n};",
+                "google": {
+                    "callback": "gmapReady",
+                    "key": ""
+                },
+                "map": "json",
+                "renderer": "canvas"
+            },
+            "title": "Bar with Background",
             "type": "volkovlabs-echarts-panel"
         },
         {
@@ -206,6 +265,6 @@
     "timezone": "",
     "title": "Bar2",
     "uid": "E9NLNnFVz222222",
-    "version": 1,
+    "version": 2,
     "weekStart": ""
 }
