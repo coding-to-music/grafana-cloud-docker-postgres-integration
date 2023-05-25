@@ -18,7 +18,7 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 56,
+    "id": 58,
     "links": [],
     "liveNow": false,
     "panels": [
@@ -71,7 +71,7 @@
                 },
                 "textMode": "auto"
             },
-            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
+            "pluginVersion": "10.0.0-cloud.2.aef9c3bd",
             "targets": [
                 {
                     "datasource": {
@@ -135,7 +135,7 @@
                 },
                 "textMode": "auto"
             },
-            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
+            "pluginVersion": "10.0.0-cloud.2.aef9c3bd",
             "targets": [
                 {
                     "datasource": {
@@ -199,7 +199,7 @@
                 },
                 "textMode": "auto"
             },
-            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
+            "pluginVersion": "10.0.0-cloud.2.aef9c3bd",
             "targets": [
                 {
                     "datasource": {
@@ -241,8 +241,7 @@
                         "mode": "absolute",
                         "steps": [
                             {
-                                "color": "green",
-                                "value": null
+                                "color": "green"
                             },
                             {
                                 "color": "red",
@@ -254,14 +253,15 @@
                 "overrides": []
             },
             "gridPos": {
-                "h": 10,
+                "h": 7,
                 "w": 6,
                 "x": 9,
                 "y": 0
             },
-            "id": 1,
+            "id": 7,
             "options": {
                 "bucketOffset": 0,
+                "bucketSize": 10,
                 "legend": {
                     "calcs": [],
                     "displayMode": "list",
@@ -269,22 +269,24 @@
                     "showLegend": true
                 }
             },
+            "pluginVersion": "10.0.0-cloud.2.aef9c3bd",
             "targets": [
                 {
                     "datasource": {
                         "type": "postgres",
                         "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
                     },
+                    "editorMode": "code",
                     "format": "table",
-                    "rawSql": "SELECT COUNT(width) FROM street GROUP BY width LIMIT 50 ",
+                    "rawQuery": true,
+                    "rawSql": "SELECT width_int FROM street WHERE noncity <> 'X' and width_int > 0",
                     "refId": "A",
                     "sql": {
                         "columns": [
                             {
-                                "name": "COUNT",
                                 "parameters": [
                                     {
-                                        "name": "width",
+                                        "name": "width_int",
                                         "type": "functionParameter"
                                     }
                                 ],
@@ -294,28 +296,41 @@
                         "groupBy": [
                             {
                                 "property": {
-                                    "name": "width",
                                     "type": "string"
                                 },
                                 "type": "groupBy"
                             }
                         ],
-                        "limit": 50
+                        "limit": 50,
+                        "whereJsonTree": {
+                            "children1": [
+                                {
+                                    "id": "b9bb8b88-89ab-4cde-b012-318850205f42",
+                                    "properties": {
+                                        "field": "noncity",
+                                        "operator": "not_equal",
+                                        "value": [
+                                            "X"
+                                        ],
+                                        "valueSrc": [
+                                            "value"
+                                        ],
+                                        "valueType": [
+                                            "text"
+                                        ]
+                                    },
+                                    "type": "rule"
+                                }
+                            ],
+                            "id": "8b989bb9-89ab-4cde-b012-31884fe58584",
+                            "type": "group"
+                        },
+                        "whereString": "noncity <> 'X'"
                     },
                     "table": "street"
-                },
-                {
-                    "datasource": {
-                        "type": "postgres",
-                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
-                    },
-                    "format": "table",
-                    "hide": false,
-                    "rawSql": "SELECT COUNT(width) FROM street LIMIT 50 ",
-                    "refId": "B"
                 }
             ],
-            "title": "Street Width14",
+            "title": "Street Widths",
             "type": "histogram"
         },
         {
@@ -368,7 +383,7 @@
                 },
                 "textMode": "auto"
             },
-            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
+            "pluginVersion": "10.0.0-cloud.2.aef9c3bd",
             "targets": [
                 {
                     "datasource": {
@@ -434,7 +449,7 @@
                 },
                 "textMode": "auto"
             },
-            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
+            "pluginVersion": "10.0.0-cloud.2.aef9c3bd",
             "targets": [
                 {
                     "datasource": {
@@ -500,7 +515,7 @@
                 },
                 "textMode": "auto"
             },
-            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
+            "pluginVersion": "10.0.0-cloud.2.aef9c3bd",
             "targets": [
                 {
                     "datasource": {
@@ -566,7 +581,7 @@
                 },
                 "textMode": "auto"
             },
-            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
+            "pluginVersion": "10.0.0-cloud.2.aef9c3bd",
             "targets": [
                 {
                     "datasource": {
@@ -633,7 +648,7 @@
                 },
                 "textMode": "auto"
             },
-            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
+            "pluginVersion": "10.0.0-cloud.2.aef9c3bd",
             "targets": [
                 {
                     "datasource": {
@@ -699,7 +714,7 @@
                 },
                 "textMode": "auto"
             },
-            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
+            "pluginVersion": "10.0.0-cloud.2.aef9c3bd",
             "targets": [
                 {
                     "datasource": {
@@ -764,7 +779,7 @@
                 },
                 "textMode": "value"
             },
-            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
+            "pluginVersion": "10.0.0-cloud.2.aef9c3bd",
             "targets": [
                 {
                     "datasource": {
@@ -829,7 +844,7 @@
                 },
                 "textMode": "value"
             },
-            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
+            "pluginVersion": "10.0.0-cloud.2.aef9c3bd",
             "targets": [
                 {
                     "datasource": {
@@ -894,7 +909,7 @@
                 },
                 "textMode": "value"
             },
-            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
+            "pluginVersion": "10.0.0-cloud.2.aef9c3bd",
             "targets": [
                 {
                     "datasource": {
@@ -908,6 +923,125 @@
             ],
             "title": "Width > 60 Streets11",
             "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "custom": {
+                        "fillOpacity": 80,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "lineWidth": 1
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 6,
+                "x": 9,
+                "y": 7
+            },
+            "id": 24,
+            "options": {
+                "bucketOffset": 0,
+                "bucketSize": 10,
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom",
+                    "showLegend": true
+                }
+            },
+            "pluginVersion": "10.0.0-cloud.2.aef9c3bd",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "editorMode": "code",
+                    "format": "table",
+                    "rawQuery": true,
+                    "rawSql": "SELECT width_int, sum(length_int) as sum_length FROM street WHERE noncity <> 'X' and width_int > 0 and length_int > 0 group by width_int",
+                    "refId": "A",
+                    "sql": {
+                        "columns": [
+                            {
+                                "parameters": [
+                                    {
+                                        "name": "width_int",
+                                        "type": "functionParameter"
+                                    }
+                                ],
+                                "type": "function"
+                            }
+                        ],
+                        "groupBy": [
+                            {
+                                "property": {
+                                    "type": "string"
+                                },
+                                "type": "groupBy"
+                            }
+                        ],
+                        "limit": 50,
+                        "whereJsonTree": {
+                            "children1": [
+                                {
+                                    "id": "b9bb8b88-89ab-4cde-b012-318850205f42",
+                                    "properties": {
+                                        "field": "noncity",
+                                        "operator": "not_equal",
+                                        "value": [
+                                            "X"
+                                        ],
+                                        "valueSrc": [
+                                            "value"
+                                        ],
+                                        "valueType": [
+                                            "text"
+                                        ]
+                                    },
+                                    "type": "rule"
+                                }
+                            ],
+                            "id": "8b989bb9-89ab-4cde-b012-31884fe58584",
+                            "type": "group"
+                        },
+                        "whereString": "noncity <> 'X'"
+                    },
+                    "table": "street"
+                }
+            ],
+            "title": "Length by Street Widths",
+            "type": "histogram"
         },
         {
             "datasource": {
@@ -959,7 +1093,7 @@
                 },
                 "textMode": "value"
             },
-            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
+            "pluginVersion": "10.0.0-cloud.2.aef9c3bd",
             "targets": [
                 {
                     "datasource": {
@@ -1024,7 +1158,7 @@
                 },
                 "textMode": "value"
             },
-            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
+            "pluginVersion": "10.0.0-cloud.2.aef9c3bd",
             "targets": [
                 {
                     "datasource": {
@@ -1089,7 +1223,7 @@
                 },
                 "textMode": "value"
             },
-            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
+            "pluginVersion": "10.0.0-cloud.2.aef9c3bd",
             "targets": [
                 {
                     "datasource": {
@@ -1103,109 +1237,6 @@
             ],
             "title": "UnAccepted Streets5",
             "type": "stat"
-        },
-        {
-            "datasource": {
-                "type": "postgres",
-                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
-            },
-            "description": "",
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "thresholds"
-                    },
-                    "custom": {
-                        "fillOpacity": 80,
-                        "gradientMode": "none",
-                        "hideFrom": {
-                            "legend": false,
-                            "tooltip": false,
-                            "viz": false
-                        },
-                        "lineWidth": 1
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    }
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 10,
-                "w": 6,
-                "x": 9,
-                "y": 10
-            },
-            "id": 17,
-            "options": {
-                "bucketOffset": 0,
-                "legend": {
-                    "calcs": [],
-                    "displayMode": "list",
-                    "placement": "bottom",
-                    "showLegend": true
-                }
-            },
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "postgres",
-                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
-                    },
-                    "format": "table",
-                    "rawSql": "SELECT COUNT(width) FROM street GROUP BY width LIMIT 50 ",
-                    "refId": "A",
-                    "sql": {
-                        "columns": [
-                            {
-                                "name": "COUNT",
-                                "parameters": [
-                                    {
-                                        "name": "width",
-                                        "type": "functionParameter"
-                                    }
-                                ],
-                                "type": "function"
-                            }
-                        ],
-                        "groupBy": [
-                            {
-                                "property": {
-                                    "name": "width",
-                                    "type": "string"
-                                },
-                                "type": "groupBy"
-                            }
-                        ],
-                        "limit": 50
-                    },
-                    "table": "street"
-                },
-                {
-                    "datasource": {
-                        "type": "postgres",
-                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
-                    },
-                    "format": "table",
-                    "hide": false,
-                    "rawSql": "SELECT COUNT(width) FROM street LIMIT 50 ",
-                    "refId": "B"
-                }
-            ],
-            "title": "Accepted by Year15",
-            "type": "histogram"
         },
         {
             "datasource": {
@@ -1257,7 +1288,7 @@
                 },
                 "textMode": "value"
             },
-            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
+            "pluginVersion": "10.0.0-cloud.2.aef9c3bd",
             "targets": [
                 {
                     "datasource": {
@@ -1322,7 +1353,7 @@
                 },
                 "textMode": "value"
             },
-            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
+            "pluginVersion": "10.0.0-cloud.2.aef9c3bd",
             "targets": [
                 {
                     "datasource": {
@@ -1387,7 +1418,7 @@
                 },
                 "textMode": "value"
             },
-            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
+            "pluginVersion": "10.0.0-cloud.2.aef9c3bd",
             "targets": [
                 {
                     "datasource": {
@@ -1452,7 +1483,7 @@
                 },
                 "textMode": "value"
             },
-            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
+            "pluginVersion": "10.0.0-cloud.2.aef9c3bd",
             "targets": [
                 {
                     "datasource": {
@@ -1517,7 +1548,7 @@
                 },
                 "textMode": "value"
             },
-            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
+            "pluginVersion": "10.0.0-cloud.2.aef9c3bd",
             "targets": [
                 {
                     "datasource": {
@@ -1582,7 +1613,7 @@
                 },
                 "textMode": "value"
             },
-            "pluginVersion": "9.5.2-cloud.2.0cb5a501",
+            "pluginVersion": "10.0.0-cloud.2.aef9c3bd",
             "targets": [
                 {
                     "datasource": {
@@ -1613,6 +1644,6 @@
     "timezone": "",
     "title": "Streets11",
     "uid": "fa976c15-b850-499b-986b-2541e0d6ddec1111",
-    "version": 7,
+    "version": 3,
     "weekStart": ""
 }
