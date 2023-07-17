@@ -1,0 +1,1633 @@
+{
+    "annotations": {
+        "list": [
+            {
+                "builtIn": 1,
+                "datasource": {
+                    "type": "grafana",
+                    "uid": "-- Grafana --"
+                },
+                "enable": true,
+                "hide": true,
+                "iconColor": "rgba(0, 211, 255, 1)",
+                "name": "Annotations & Alerts",
+                "type": "dashboard"
+            }
+        ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 58,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 0,
+                "y": 0
+            },
+            "id": 2,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "10.0.2-cloud.1.94a6f396",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "format": "table",
+                    "rawSql": "SELECT COUNT(id) FROM street LIMIT 50 ",
+                    "refId": "A"
+                }
+            ],
+            "title": "# Streets",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 3,
+                "y": 0
+            },
+            "id": 3,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "10.0.2-cloud.1.94a6f396",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "format": "table",
+                    "rawSql": "SELECT COUNT(public.street.length_int) AS accepted_street_count FROM public.street WHERE public.street.length_int > 0 ",
+                    "refId": "A"
+                }
+            ],
+            "title": "# Accepted Streets",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 6,
+                "y": 0
+            },
+            "id": 4,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "10.0.2-cloud.1.94a6f396",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "editorMode": "builder",
+                    "format": "table",
+                    "rawSql": "SELECT COUNT(public.street.unaccepted_length_int) AS unaccepted_street_count FROM public.street WHERE public.street.unaccepted_length_int > 0 ",
+                    "refId": "A"
+                }
+            ],
+            "title": "# UnAccepted Streets",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "custom": {
+                        "fillOpacity": 80,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "lineWidth": 1
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 10,
+                "w": 6,
+                "x": 9,
+                "y": 0
+            },
+            "id": 7,
+            "options": {
+                "bucketOffset": 0,
+                "bucketSize": 10,
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom",
+                    "showLegend": true
+                }
+            },
+            "pluginVersion": "10.0.0-cloud.2.aef9c3bd",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "editorMode": "code",
+                    "format": "table",
+                    "rawQuery": true,
+                    "rawSql": "SELECT width_int FROM street WHERE noncity <> 'X' and width_int > 0",
+                    "refId": "A",
+                    "sql": {
+                        "columns": [
+                            {
+                                "parameters": [
+                                    {
+                                        "name": "width_int",
+                                        "type": "functionParameter"
+                                    }
+                                ],
+                                "type": "function"
+                            }
+                        ],
+                        "groupBy": [
+                            {
+                                "property": {
+                                    "type": "string"
+                                },
+                                "type": "groupBy"
+                            }
+                        ],
+                        "limit": 50,
+                        "whereJsonTree": {
+                            "children1": [
+                                {
+                                    "id": "b9bb8b88-89ab-4cde-b012-318850205f42",
+                                    "properties": {
+                                        "field": "noncity",
+                                        "operator": "not_equal",
+                                        "value": [
+                                            "X"
+                                        ],
+                                        "valueSrc": [
+                                            "value"
+                                        ],
+                                        "valueType": [
+                                            "text"
+                                        ]
+                                    },
+                                    "type": "rule"
+                                }
+                            ],
+                            "id": "8b989bb9-89ab-4cde-b012-31884fe58584",
+                            "type": "group"
+                        },
+                        "whereString": "noncity <> 'X'"
+                    },
+                    "table": "street"
+                }
+            ],
+            "title": "Street Widths",
+            "type": "histogram"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "lengthft"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 15,
+                "y": 0
+            },
+            "id": 12,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "10.0.2-cloud.1.94a6f396",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "editorMode": "builder",
+                    "format": "table",
+                    "rawSql": "SELECT SUM(public.street.length_int) AS accepted_length_sum_feet FROM public.street WHERE public.street.length_int > 0 AND public.street.width_int >= 40 ",
+                    "refId": "A"
+                }
+            ],
+            "title": "Width > 40 Streets6",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "lengthft"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 18,
+                "y": 0
+            },
+            "id": 13,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "10.0.2-cloud.1.94a6f396",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "editorMode": "builder",
+                    "format": "table",
+                    "rawSql": "SELECT SUM(public.street.length_int) AS accepted_length_sum_feet FROM public.street WHERE public.street.length_int > 0 AND public.street.width_int >= 50 ",
+                    "refId": "A"
+                }
+            ],
+            "title": "Width > 50 Streets7",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "lengthft"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 21,
+                "y": 0
+            },
+            "id": 14,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "10.0.2-cloud.1.94a6f396",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "editorMode": "builder",
+                    "format": "table",
+                    "rawSql": "SELECT SUM(public.street.length_int) AS accepted_length_sum_feet FROM public.street WHERE public.street.length_int > 0 AND public.street.width_int >= 60 ",
+                    "refId": "A"
+                }
+            ],
+            "title": "Width > 60 Streets8",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "lengthft"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 0,
+                "y": 5
+            },
+            "id": 15,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "10.0.2-cloud.1.94a6f396",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "editorMode": "code",
+                    "format": "table",
+                    "rawQuery": true,
+                    "rawSql": "SELECT SUM(public.street.length_int + public.street.unaccepted_length_int) AS total_length_sum_feet FROM public.street ",
+                    "refId": "A"
+                }
+            ],
+            "title": "Total Length Streets12",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "lengthft"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 3,
+                "y": 5
+            },
+            "id": 5,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "10.0.2-cloud.1.94a6f396",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "editorMode": "builder",
+                    "format": "table",
+                    "rawSql": "SELECT SUM(public.street.length_int) AS accepted_length_sum_feet FROM public.street WHERE public.street.length_int > 0 ",
+                    "refId": "A"
+                }
+            ],
+            "title": "Accepted Streets1",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "lengthft"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 6,
+                "y": 5
+            },
+            "id": 6,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "auto"
+            },
+            "pluginVersion": "10.0.2-cloud.1.94a6f396",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "format": "table",
+                    "rawSql": "SELECT SUM(public.street.unaccepted_length_int) AS unaccepted_length_sum_feet FROM public.street WHERE public.street.unaccepted_length_int > 0 ",
+                    "refId": "A"
+                }
+            ],
+            "title": "UnAccepted Streets2",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "lengthmi"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 15,
+                "y": 5
+            },
+            "id": 9,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "value"
+            },
+            "pluginVersion": "10.0.2-cloud.1.94a6f396",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "format": "table",
+                    "rawSql": "SELECT ROUND(SUM(public.street.length_int) / 5280.0, 2) AS accepted_length_sum_miles FROM public.street WHERE public.street.length_int > 0 AND public.street.width_int >= 40 ",
+                    "refId": "A"
+                }
+            ],
+            "title": "Width > 40 Streets9",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "lengthmi"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 18,
+                "y": 5
+            },
+            "id": 10,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "value"
+            },
+            "pluginVersion": "10.0.2-cloud.1.94a6f396",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "format": "table",
+                    "rawSql": "SELECT ROUND(SUM(public.street.length_int) / 5280.0, 2) AS accepted_length_sum_miles FROM public.street WHERE public.street.length_int > 0 AND public.street.width_int >= 50 ",
+                    "refId": "A"
+                }
+            ],
+            "title": "Width > 50 Streets10",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "lengthmi"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 21,
+                "y": 5
+            },
+            "id": 11,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "value"
+            },
+            "pluginVersion": "10.0.2-cloud.1.94a6f396",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "format": "table",
+                    "rawSql": "SELECT ROUND(SUM(public.street.length_int) / 5280.0, 2) AS accepted_length_sum_miles FROM public.street WHERE public.street.length_int > 0 AND public.street.width_int >= 60 ",
+                    "refId": "A"
+                }
+            ],
+            "title": "Width > 60 Streets11",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "lengthmi"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 0,
+                "y": 10
+            },
+            "id": 16,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "value"
+            },
+            "pluginVersion": "10.0.2-cloud.1.94a6f396",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "format": "table",
+                    "rawSql": "SELECT ROUND(SUM(public.street.length_int + public.street.unaccepted_length_int) / 5280.0, 2) AS total_length_sum_miles FROM public.street ",
+                    "refId": "A"
+                }
+            ],
+            "title": "Total Length Streets13",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "lengthmi"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 3,
+                "y": 10
+            },
+            "id": 25,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "value"
+            },
+            "pluginVersion": "10.0.2-cloud.1.94a6f396",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "format": "table",
+                    "rawSql": "SELECT ROUND(SUM(public.street.length_int) / 5280.0, 2) AS accepted_length_sum_miles FROM public.street WHERE public.street.length_int > 0 ",
+                    "refId": "A"
+                }
+            ],
+            "title": "Accepted Streets4",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "lengthmi"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 6,
+                "y": 10
+            },
+            "id": 8,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "value"
+            },
+            "pluginVersion": "10.0.2-cloud.1.94a6f396",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "format": "table",
+                    "rawSql": "SELECT ROUND(SUM(public.street.unaccepted_length_int) / 5280.0, 2) AS unaccepted_length_sum_miles FROM public.street WHERE public.street.unaccepted_length_int > 0 ",
+                    "refId": "A"
+                }
+            ],
+            "title": "UnAccepted Streets5",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "continuous-RdYlGr"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 15,
+                "w": 15,
+                "x": 9,
+                "y": 10
+            },
+            "id": 24,
+            "options": {
+                "tiling": "treemapSquarify"
+            },
+            "pluginVersion": "10.0.2-cloud.1.94a6f396",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "editorMode": "code",
+                    "format": "table",
+                    "rawQuery": true,
+                    "rawSql": "SELECT text(width_int) as \"street width\", sum(length_int) as \"Total Length\" FROM street WHERE noncity <> 'X' and width_int > 0 and length_int > 0 group by width_int",
+                    "refId": "A",
+                    "sql": {
+                        "columns": [
+                            {
+                                "parameters": [
+                                    {
+                                        "name": "width_int",
+                                        "type": "functionParameter"
+                                    }
+                                ],
+                                "type": "function"
+                            }
+                        ],
+                        "groupBy": [
+                            {
+                                "property": {
+                                    "type": "string"
+                                },
+                                "type": "groupBy"
+                            }
+                        ],
+                        "limit": 50,
+                        "whereJsonTree": {
+                            "children1": [
+                                {
+                                    "id": "b9bb8b88-89ab-4cde-b012-318850205f42",
+                                    "properties": {
+                                        "field": "noncity",
+                                        "operator": "not_equal",
+                                        "value": [
+                                            "X"
+                                        ],
+                                        "valueSrc": [
+                                            "value"
+                                        ],
+                                        "valueType": [
+                                            "text"
+                                        ]
+                                    },
+                                    "type": "rule"
+                                }
+                            ],
+                            "id": "8b989bb9-89ab-4cde-b012-31884fe58584",
+                            "type": "group"
+                        },
+                        "whereString": "noncity <> 'X'"
+                    },
+                    "table": "street"
+                }
+            ],
+            "title": "Length by Street Widths (Accepted Streets)",
+            "type": "marcusolsson-treemap-panel"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "areaMI2"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 0,
+                "y": 15
+            },
+            "id": 18,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "value"
+            },
+            "pluginVersion": "10.0.2-cloud.1.94a6f396",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "format": "table",
+                    "rawSql": "SELECT ROUND((SUM((public.street.length_int + public.street.length_int) * public.street.width_int) / 27878400.0), 2) AS total_area_sq_miles FROM public.street ",
+                    "refId": "A"
+                }
+            ],
+            "title": "Total Area Streets16",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "areaMI2"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 3,
+                "y": 15
+            },
+            "id": 19,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "value"
+            },
+            "pluginVersion": "10.0.2-cloud.1.94a6f396",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "format": "table",
+                    "rawSql": "SELECT ROUND((SUM(public.street.length_int * public.street.width_int) / 27878400.0), 2) AS accepted_area_sq_miles FROM public.street WHERE public.street.length_int > 0 AND public.street.width_int > 0 ",
+                    "refId": "A"
+                }
+            ],
+            "title": "Accepted Area17",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "areaMI2"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 6,
+                "y": 15
+            },
+            "id": 20,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "value"
+            },
+            "pluginVersion": "10.0.2-cloud.1.94a6f396",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "format": "table",
+                    "rawSql": "SELECT ROUND((SUM(public.street.unaccepted_length_int * public.street.width_int) / 27878400.0), 2) AS unaccepted_area_sq_miles FROM public.street WHERE public.street.unaccepted_length_int > 0 AND public.street.width_int > 0; ",
+                    "refId": "A"
+                }
+            ],
+            "title": "UnAccepted Area18",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "lengthft"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 0,
+                "y": 20
+            },
+            "id": 23,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "value"
+            },
+            "pluginVersion": "10.0.2-cloud.1.94a6f396",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "format": "table",
+                    "rawSql": "SELECT SUM(public.street.width_int) AS total_width_sum_feet FROM public.street ",
+                    "refId": "A"
+                }
+            ],
+            "title": "Total Sum Width19",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "lengthft"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 3,
+                "y": 20
+            },
+            "id": 22,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "value"
+            },
+            "pluginVersion": "10.0.2-cloud.1.94a6f396",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "format": "table",
+                    "rawSql": "SELECT SUM(public.street.width_int) AS accepted_length_sum_feet FROM public.street WHERE public.street.length_int > 0 AND public.street.width_int > 0 ",
+                    "refId": "A"
+                }
+            ],
+            "title": "Sum Accepted Width20",
+            "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "postgres",
+                "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "lengthft"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 5,
+                "w": 3,
+                "x": 6,
+                "y": 20
+            },
+            "id": 21,
+            "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "textMode": "value"
+            },
+            "pluginVersion": "10.0.2-cloud.1.94a6f396",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "postgres",
+                        "uid": "eed248a7-99cc-45dd-bf90-f3120ccdae02"
+                    },
+                    "format": "table",
+                    "rawSql": "SELECT SUM(public.street.width_int) AS unaccepted_length_sum_feet FROM public.street WHERE public.street.unaccepted_length_int > 0 AND public.street.width_int > 0 ",
+                    "refId": "A"
+                }
+            ],
+            "title": "Sum UnAccepted Width21",
+            "type": "stat"
+        }
+    ],
+    "refresh": "",
+    "schemaVersion": 38,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+        "list": []
+    },
+    "time": {
+        "from": "now-6h",
+        "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "Streets11",
+    "uid": "fa976c15-b850-499b-986b-2541e0d6ddec1111",
+    "version": 6,
+    "weekStart": ""
+}
